@@ -3,13 +3,13 @@ import { useDebounce } from 'rooks';
 
 import './App.css';
 
-function RadioButtonGroup(props: { setFormStateDebounced: (frm: HTMLFormElement) => void }) {
+function RadioButtonGroup(props: { setFormStateFromEvent: (evt: React.ChangeEvent<HTMLInputElement>) => void }) {
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleRadioChange = useMemo(() => {
     return function (evt: React.ChangeEvent<HTMLInputElement>) {
       setSelectedOption(evt.currentTarget.value);
-      props.setFormStateDebounced(evt.currentTarget.form!);
+      props.setFormStateFromEvent(evt);
     };
   }, []);
 
@@ -37,14 +37,20 @@ function RadioButtonGroup(props: { setFormStateDebounced: (frm: HTMLFormElement)
 const MemoizedRadioButtonGroup = React.memo(RadioButtonGroup);
 
 function App() {
-  const getFormState = useMemo(() => {
+  const setFormState = useMemo(() => {
     return function (form: HTMLFormElement) {
       const formData = new FormData(form);
       console.log('fm', Object.fromEntries(formData));
     };
   }, []);
 
-  const setFormStateDebounced = useDebounce(getFormState, 500);
+  const setFormStateDebounced = useDebounce(setFormState, 500);
+
+  const setFormStateFromEvent = useMemo(() => {
+    return function (evt: React.ChangeEvent<HTMLInputElement>) {
+      setFormStateDebounced(evt.currentTarget.form);
+    };
+  }, []);
 
   const qPrevTrimmedVal = useRef('');
   const pPrevTrimmedVal = useRef('');
@@ -66,7 +72,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <form id='search-form' role='search' ref={formRef}>
-          <MemoizedRadioButtonGroup setFormStateDebounced={setFormStateDebounced} />
+          <MemoizedRadioButtonGroup setFormStateFromEvent={setFormStateFromEvent} />
           <input
             id='q'
             aria-label='Search contacts'
@@ -127,7 +133,7 @@ function App() {
           >
             show formData
           </button>
-          <input type='checkbox' name='myCheck' onChange={e => setFormStateDebounced(e.currentTarget.form)} />
+          <input type='checkbox' name='myCheck' onChange={setFormStateFromEvent} />
         </form>
         <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
           Learn React

@@ -3,13 +3,13 @@ import { useDebounce } from 'rooks';
 
 import './App.css';
 
-function RadioButtonGroup(props: { setFormStateFromEvent: (evt: React.ChangeEvent<HTMLInputElement>) => void }): JSX.Element {
+function RadioButtonGroup(props: { setFormDataDebounced: (fm: HTMLFormElement) => void }): JSX.Element {
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleRadioChange = useMemo(() => {
     return function (evt: React.ChangeEvent<HTMLInputElement>) {
       setSelectedOption(evt.currentTarget.value);
-      props.setFormStateFromEvent(evt);
+      props.setFormDataDebounced(evt.currentTarget.form!);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -38,21 +38,21 @@ function RadioButtonGroup(props: { setFormStateFromEvent: (evt: React.ChangeEven
 const MemoizedRadioButtonGroup = React.memo(RadioButtonGroup);
 
 function App(): JSX.Element {
-  const setFormState = useMemo(() => {
+  const setFormData = useMemo(() => {
     return function (form: HTMLFormElement) {
       const formData = new FormData(form);
       console.log('fm', Object.fromEntries(formData));
     };
   }, []);
 
-  const setFormStateDebounced = useDebounce(setFormState, 500);
-
-  const setFormStateFromEvent = useMemo(() => {
+  const setFormDataFromEvent = useMemo(() => {
     return function (evt: React.ChangeEvent<HTMLInputElement>) {
-      setFormStateDebounced(evt.currentTarget.form);
+      setFormDataDebounced(evt.currentTarget.form!);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const setFormDataDebounced = useDebounce(setFormData, 500);
 
   const qPrevTrimmedVal = useRef('');
   const pPrevTrimmedVal = useRef('');
@@ -63,7 +63,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     if (color !== undefined) {
-      setFormStateDebounced(formRef.current);
+      setFormDataDebounced(formRef.current);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [color]);
@@ -75,7 +75,7 @@ function App(): JSX.Element {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <form id='search-form' role='search' ref={formRef}>
-          <MemoizedRadioButtonGroup setFormStateFromEvent={setFormStateFromEvent} />
+          <MemoizedRadioButtonGroup setFormDataDebounced={setFormDataDebounced} />
           <input
             id='q'
             aria-label='Search contacts'
@@ -89,7 +89,7 @@ function App(): JSX.Element {
               console.log('val', val);
               if (valTrimmed !== qPrevTrimmedVal.current) {
                 qPrevTrimmedVal.current = valTrimmed;
-                setFormStateDebounced(e.currentTarget.form);
+                setFormDataDebounced(e.currentTarget.form);
               }
             }}
           />
@@ -106,7 +106,7 @@ function App(): JSX.Element {
               console.log('val', val);
               if (valTrimmed !== pPrevTrimmedVal.current) {
                 pPrevTrimmedVal.current = valTrimmed;
-                setFormStateDebounced(e.currentTarget.form);
+                setFormDataDebounced(e.currentTarget.form);
               }
             }}
           />
@@ -136,7 +136,7 @@ function App(): JSX.Element {
           >
             show formData
           </button>
-          <input type='checkbox' name='myCheck' onChange={setFormStateFromEvent} />
+          <input type='checkbox' name='myCheck' onChange={setFormDataFromEvent} />
         </form>
         <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
           Learn React

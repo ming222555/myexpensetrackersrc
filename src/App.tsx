@@ -3,7 +3,7 @@ import { useDebounce } from 'rooks';
 
 import './App.css';
 
-function RadioButtonGroup(props: { setFormStateFromEvent: (evt: React.ChangeEvent<HTMLInputElement>) => void }) {
+function RadioButtonGroup(props: { setFormStateFromEvent: (evt: React.ChangeEvent<HTMLInputElement>) => void }): JSX.Element {
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleRadioChange = useMemo(() => {
@@ -11,6 +11,7 @@ function RadioButtonGroup(props: { setFormStateFromEvent: (evt: React.ChangeEven
       setSelectedOption(evt.currentTarget.value);
       props.setFormStateFromEvent(evt);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -36,7 +37,7 @@ function RadioButtonGroup(props: { setFormStateFromEvent: (evt: React.ChangeEven
 
 const MemoizedRadioButtonGroup = React.memo(RadioButtonGroup);
 
-function App() {
+function App(): JSX.Element {
   const setFormState = useMemo(() => {
     return function (form: HTMLFormElement) {
       const formData = new FormData(form);
@@ -50,6 +51,7 @@ function App() {
     return function (evt: React.ChangeEvent<HTMLInputElement>) {
       setFormStateDebounced(evt.currentTarget.form);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const qPrevTrimmedVal = useRef('');
@@ -63,6 +65,7 @@ function App() {
     if (color !== undefined) {
       setFormStateDebounced(formRef.current);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [color]);
 
   return (
@@ -80,7 +83,7 @@ function App() {
             type='search'
             name='q'
             defaultValue=''
-            onChange={e => {
+            onChange={(e): void => {
               const val = e.currentTarget.value;
               const valTrimmed = val.trim();
               console.log('val', val);
@@ -97,7 +100,7 @@ function App() {
             type='search'
             name='p'
             defaultValue=''
-            onChange={e => {
+            onChange={(e): void => {
               const val = e.currentTarget.value;
               const valTrimmed = val.trim();
               console.log('val', val);
@@ -117,16 +120,16 @@ function App() {
             readOnly
             // style={{display: 'none'}}
           />
-          <button type='button' onClick={() => setColor('blue')}>
+          <button type='button' onClick={(): void => setColor('blue')}>
             blue
           </button>
-          <button type='button' onClick={() => setColor('green')}>
+          <button type='button' onClick={(): void => setColor('green')}>
             green
           </button>
           <br />
           <button
             type='button'
-            onClick={event => {
+            onClick={(event): void => {
               const formData = new FormData(event.currentTarget.form!);
               console.log('fm', Object.fromEntries(formData));
             }}

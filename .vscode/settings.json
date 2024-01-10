@@ -31,7 +31,7 @@
   "eslint.format.enable": true,
   "eslint.lintTask.enable": true,
   "eslint.packageManager": "yarn", // change to npm if you use npm
-  "eslint.quiet": true,
+  "eslint.quiet": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },

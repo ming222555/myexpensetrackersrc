@@ -47,7 +47,11 @@ module.exports = {
     "class-methods-use-this": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-var-requires": "off",
+    "react-hooks/exhaustive-deps": ["error"],
+    "@typescript-eslint/no-non-null-assertion": ["warn"],
+    "@typescript-eslint/no-duplicate-imports": ["error"],
+    "no-console": "warn",
   },
 };

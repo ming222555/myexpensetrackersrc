@@ -3,14 +3,14 @@ import { useDebounce } from 'rooks';
 
 import './App.css';
 
-function CategorySelect(): JSX.Element {
+function CategorySelect(props: { handleFormChangeDebounced: () => void }): JSX.Element {
   const allCategoriesRef = useRef([
     { name: 'clothing', label: 'Clothing', isSelected: false },
     { name: 'food', label: 'Food', isSelected: false },
     { name: 'transport', label: 'Transport', isSelected: false },
     { name: 'utilities', label: 'Utilities', isSelected: false },
   ]);
-  const [selectedCategoryNames, setSelectedCategoryNames] = useState(['clothing', 'transport']);
+  const [selectedCategoryNames, setSelectedCategoryNames] = useState<string[] | []>([]);
 
   function handleChangeRemoveSelection(evt: React.ChangeEvent<HTMLInputElement>): void {
     const categoryName = evt.currentTarget.value;
@@ -28,8 +28,26 @@ function CategorySelect(): JSX.Element {
     setSelectedCategoryNames(dupSelectedCategoryNames);
   }
 
+  const isMounted = useRef(false);
+  const cntRedraw = useRef(0);
+
+  useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    } else {
+      if (cntRedraw.current === 0) {
+        cntRedraw.current = 1;
+        return;
+      }
+      props.handleFormChangeDebounced();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategoryNames]);
+
   return (
     <div>
+      {Math.random()}
       <div style={{ display: 'flex' }}>
         {selectedCategoryNames.map(categoryName => {
           const selectedCategory = allCategoriesRef.current.find(category => {
@@ -70,6 +88,8 @@ function CategorySelect(): JSX.Element {
     </div>
   );
 }
+
+const MemoizedCategorySelect = React.memo(CategorySelect);
 
 function RadioButtonGroup(props: { handleFormChangeDebounced: () => void }): JSX.Element {
   const [selectedOption, setSelectedOption] = useState('');
@@ -115,10 +135,11 @@ function App(): JSX.Element {
       const formFields = Object.fromEntries(data) as any;
       const categories = data.getAll('categories');
       if (categories.length > 0) {
-        categories.sort(); // future use of react-query queryKey
+        categories.sort(); // future use for react-query queryKey
         formFields['categories'] = categories.join(',');
+      } else if (categories.length === 0) {
+        formFields['categories'] = '';
       }
-      console.log('fm', formFields);
       console.log('fmjson', JSON.stringify(formFields));
     };
   }, []);
@@ -206,7 +227,7 @@ function App(): JSX.Element {
             show formData
           </button>
           <input type='checkbox' name='myCheck' onChange={handleFormChangeDebounced} />
-          <CategorySelect />
+          <MemoizedCategorySelect handleFormChangeDebounced={handleFormChangeDebounced} />
         </form>
         <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
           Learn React

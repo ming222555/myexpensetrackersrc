@@ -3,6 +3,47 @@ import { useDebounce } from 'rooks';
 
 import './App.css';
 
+function MultiSelectCheckboxes(props: { fieldname: string; valuesDescriptions: string; title: string }): JSX.Element {
+  const { fieldname, title } = props;
+  const valuesDescriptions = useRef(props.valuesDescriptions.split('|'));
+  // flag 0 not selected, 1 selected
+  const [selectedFlags, setSelectedFlags] = useState<number[]>(() => Array(valuesDescriptions.current.length).fill(0));
+
+  function handleChange(evt: React.ChangeEvent<HTMLInputElement>): void {
+    const idx = parseInt(evt.target.getAttribute('data-idx')!);
+    const dupSelectedFlags = [...selectedFlags];
+    const origFlag = dupSelectedFlags[idx];
+    dupSelectedFlags[idx] = origFlag === 0 ? 1 : 0;
+    setSelectedFlags(dupSelectedFlags);
+  }
+
+  return (
+    <div style={{ display: 'flex' }}>
+      {Math.random()} {title}
+      {valuesDescriptions.current.map((valueDescriptionString, i) => {
+        const valueDescription = valueDescriptionString.split(';');
+        const val = valueDescription[0];
+        return (
+          <div key={val}>
+            <input
+              type='checkbox'
+              name={fieldname}
+              id={fieldname + val + i}
+              value={val}
+              data-idx={i}
+              onChange={handleChange}
+              checked={!!selectedFlags[i]}
+            />
+            <label htmlFor={fieldname + val + i}>{valueDescription[1]}</label>{' '}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+const MemoizedMultiSelectCheckboxes = React.memo(MultiSelectCheckboxes);
+
 function CategorySelect(props: { handleFormChangeDebounced: () => void }): JSX.Element {
   const allCategoriesRef = useRef([
     { name: 'clothing', label: 'Clothing', isSelected: false },
@@ -228,6 +269,7 @@ function App(): JSX.Element {
           </button>
           <input type='checkbox' name='myCheck' onChange={handleFormChangeDebounced} />
           <MemoizedCategorySelect handleFormChangeDebounced={handleFormChangeDebounced} />
+          <MemoizedMultiSelectCheckboxes fieldname='animals' valuesDescriptions='snail;Smail|dog;Doggy|cat;Caty' title='Creatures' />
         </form>
         <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
           Learn React

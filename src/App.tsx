@@ -3,13 +3,81 @@ import { useDebounce } from 'rooks';
 
 import './App.css';
 
-function RadioButtonGroup(props: { setFormDataDebounced: (fm: HTMLFormElement) => void }): JSX.Element {
+function CategorySelect(): JSX.Element {
+  const allCategoriesRef = useRef([
+    { name: 'clothing', label: 'Clothing', isSelected: false },
+    { name: 'food', label: 'Food', isSelected: false },
+    { name: 'transport', label: 'Transport', isSelected: false },
+    { name: 'utilities', label: 'Utilities', isSelected: false },
+  ]);
+  const [selectedCategoryNames, setSelectedCategoryNames] = useState(['clothing', 'transport']);
+
+  function handleChangeRemoveSelection(evt: React.ChangeEvent<HTMLInputElement>): void {
+    const categoryName = evt.currentTarget.value;
+    const pos = selectedCategoryNames.findIndex(nme => nme === categoryName);
+    const dupSelectedCategoryNames = [...selectedCategoryNames];
+    dupSelectedCategoryNames.splice(pos, 1);
+    setSelectedCategoryNames(dupSelectedCategoryNames);
+  }
+
+  function handleChangeAddSelection(evt: React.MouseEvent<HTMLSpanElement>): void {
+    const categoryName = evt.currentTarget.title;
+    const categoryToAdd = allCategoriesRef.current.find(category => category.name === categoryName);
+    const dupSelectedCategoryNames = [...selectedCategoryNames];
+    dupSelectedCategoryNames.push(categoryToAdd!.name);
+    setSelectedCategoryNames(dupSelectedCategoryNames);
+  }
+
+  return (
+    <div>
+      <div style={{ display: 'flex' }}>
+        {selectedCategoryNames.map(categoryName => {
+          const selectedCategory = allCategoriesRef.current.find(category => {
+            return category.name === categoryName;
+          });
+          return (
+            <div key={categoryName}>
+              <input
+                type='checkbox'
+                name='categories'
+                id={'category' + categoryName}
+                value={categoryName}
+                onChange={handleChangeRemoveSelection}
+                checked
+              />
+              <label htmlFor={'category' + categoryName}>{selectedCategory?.label}</label>{' '}
+            </div>
+          );
+        })}
+      </div>
+      <ul>
+        {allCategoriesRef.current
+          .filter(category => {
+            const pos = selectedCategoryNames.findIndex(categoryName => categoryName === category.name);
+            if (pos > -1) {
+              return false;
+            }
+            return true;
+          })
+          .map(catgy => (
+            <li key={catgy.name}>
+              <span title={catgy.name} onClick={handleChangeAddSelection}>
+                {catgy.label}
+              </span>
+            </li>
+          ))}
+      </ul>
+    </div>
+  );
+}
+
+function RadioButtonGroup(props: { handleFormChangeDebounced: () => void }): JSX.Element {
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleRadioChange = useMemo(() => {
     return function (evt: React.ChangeEvent<HTMLInputElement>) {
       setSelectedOption(evt.currentTarget.value);
-      props.setFormDataDebounced(evt.currentTarget.form!);
+      props.handleFormChangeDebounced();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -38,32 +106,33 @@ function RadioButtonGroup(props: { setFormDataDebounced: (fm: HTMLFormElement) =
 const MemoizedRadioButtonGroup = React.memo(RadioButtonGroup);
 
 function App(): JSX.Element {
-  const setFormData = useMemo(() => {
-    return function (form: HTMLFormElement) {
-      const formData = new FormData(form);
-      console.log('fm', Object.fromEntries(formData));
+  const formRef = useRef(null);
+
+  const handleFormChange = useMemo(() => {
+    return function () {
+      const data = new FormData(formRef.current!);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const formFields = Object.fromEntries(data) as any;
+      const categories = data.getAll('categories');
+      if (categories.length > 0) {
+        categories.sort(); // future use of react-query queryKey
+        formFields['categories'] = categories.join(',');
+      }
+      console.log('fm', formFields);
+      console.log('fmjson', JSON.stringify(formFields));
     };
   }, []);
 
-  const setFormDataFromEvent = useMemo(() => {
-    return function (evt: React.ChangeEvent<HTMLInputElement>) {
-      setFormDataDebounced(evt.currentTarget.form!);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const setFormDataDebounced = useDebounce(setFormData, 500);
+  const handleFormChangeDebounced = useDebounce(handleFormChange, 500);
 
   const qPrevTrimmedVal = useRef('');
   const pPrevTrimmedVal = useRef('');
-
-  const formRef = useRef(null);
 
   const [color, setColor] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     if (color !== undefined) {
-      setFormDataDebounced(formRef.current);
+      handleFormChangeDebounced(formRef.current);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [color]);
@@ -75,7 +144,7 @@ function App(): JSX.Element {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <form id='search-form' role='search' ref={formRef}>
-          <MemoizedRadioButtonGroup setFormDataDebounced={setFormDataDebounced} />
+          <MemoizedRadioButtonGroup handleFormChangeDebounced={handleFormChangeDebounced} />
           <input
             id='q'
             aria-label='Search contacts'
@@ -89,7 +158,7 @@ function App(): JSX.Element {
               console.log('val', val);
               if (valTrimmed !== qPrevTrimmedVal.current) {
                 qPrevTrimmedVal.current = valTrimmed;
-                setFormDataDebounced(e.currentTarget.form);
+                handleFormChangeDebounced(e.currentTarget.form);
               }
             }}
           />
@@ -106,7 +175,7 @@ function App(): JSX.Element {
               console.log('val', val);
               if (valTrimmed !== pPrevTrimmedVal.current) {
                 pPrevTrimmedVal.current = valTrimmed;
-                setFormDataDebounced(e.currentTarget.form);
+                handleFormChangeDebounced(e.currentTarget.form);
               }
             }}
           />
@@ -136,7 +205,8 @@ function App(): JSX.Element {
           >
             show formData
           </button>
-          <input type='checkbox' name='myCheck' onChange={setFormDataFromEvent} />
+          <input type='checkbox' name='myCheck' onChange={handleFormChangeDebounced} />
+          <CategorySelect />
         </form>
         <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
           Learn React

@@ -53,5 +53,7 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": ["warn"],
     "@typescript-eslint/no-duplicate-imports": ["error"],
     "no-console": "warn",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn",
   },
 };

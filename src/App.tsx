@@ -3,7 +3,12 @@ import { useDebounce } from 'rooks';
 
 import './App.css';
 
-function MultiSelectCheckboxes(props: { fieldname: string; valuesDescriptions: string; title: string }): JSX.Element {
+function MultiSelectCheckboxes(props: {
+  fieldname: string;
+  valuesDescriptions: string;
+  title: string;
+  handleFormChangeDebounced: () => void;
+}): JSX.Element {
   const { fieldname, title } = props;
   const valuesDescriptions = useRef(props.valuesDescriptions.split('|'));
   // flag 0 not selected, 1 selected
@@ -16,6 +21,23 @@ function MultiSelectCheckboxes(props: { fieldname: string; valuesDescriptions: s
     dupSelectedFlags[idx] = origFlag === 0 ? 1 : 0;
     setSelectedFlags(dupSelectedFlags);
   }
+
+  const isMounted = useRef(false);
+  const cntRedraw = useRef(0);
+
+  useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    } else {
+      if (cntRedraw.current === 0) {
+        cntRedraw.current = 1;
+        return;
+      }
+      props.handleFormChangeDebounced();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFlags]);
 
   return (
     <div style={{ display: 'flex' }}>
@@ -269,7 +291,12 @@ function App(): JSX.Element {
           </button>
           <input type='checkbox' name='myCheck' onChange={handleFormChangeDebounced} />
           <MemoizedCategorySelect handleFormChangeDebounced={handleFormChangeDebounced} />
-          <MemoizedMultiSelectCheckboxes fieldname='animals' valuesDescriptions='snail;Smail|dog;Doggy|cat;Caty' title='Creatures' />
+          <MemoizedMultiSelectCheckboxes
+            fieldname='animals'
+            valuesDescriptions='snail;Smail|dog;Doggy|cat;Caty'
+            title='Creatures'
+            handleFormChangeDebounced={handleFormChangeDebounced}
+          />
         </form>
         <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
           Learn React

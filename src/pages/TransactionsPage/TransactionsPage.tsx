@@ -2,17 +2,24 @@ import React, { useMemo } from 'react';
 
 import Filters from './components/Filters';
 import type { Filters as IFilters } from './components/Filters';
+import Search from './components/Search';
 
 function TransactionsPage(): JSX.Element {
   const handleFiltersChange = useMemo(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return function (filters: IFilters) {
       //
     };
   }, []);
 
+  const handleSearchChange = useMemo(() => {
+    return function (search: string) {
+      //
+    };
+  }, []);
+
   return (
-    <div>
+    <div className='TransactionsPage'>
+      <Search handleSearchChange={handleSearchChange} />
       <Filters handleFiltersChange={handleFiltersChange} />
     </div>
   );

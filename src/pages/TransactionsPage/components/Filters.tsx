@@ -1,4 +1,5 @@
 import React, { useMemo, useRef } from 'react';
+
 import { useDebounce } from 'rooks';
 
 import MultiSelectCheckboxes from './MultiSelectCheckboxes';
@@ -11,7 +12,7 @@ export interface Filters {
 }
 
 function Filters(props: { handleFiltersChange: (filters: Filters) => void }): JSX.Element {
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const multiSelectFieldnames = useRef<Array<keyof Filters>>(['categories', 'cashflow', 'paymentmode']);
 
   const handleFormChange = useMemo(() => {

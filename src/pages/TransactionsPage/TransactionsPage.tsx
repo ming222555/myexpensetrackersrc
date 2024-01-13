@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import Filters from './components/Filters';
-import type { Filters as IFilters } from './components/Filters';
+import type { Filters as IFilters } from '../../store/ducks/transactions/slice';
 import Search from './components/Search';
 
 function TransactionsPage(): JSX.Element {

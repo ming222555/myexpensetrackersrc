@@ -4,23 +4,18 @@ import { useDebounce } from 'rooks';
 
 import MultiSelectCheckboxes from './MultiSelectCheckboxes';
 import CategoryMultiSelectDropdown from './CategoryMultiSelectDropdown';
+import type { Filters as IFilters } from '../../../store/ducks/transactions/slice';
 
-export interface Filters {
-  categories: string;
-  cashflow: string;
-  paymentmode: string;
-}
-
-function Filters(props: { handleFiltersChange: (filters: Filters) => void }): JSX.Element {
+function Filters(props: { handleFiltersChange: (filters: IFilters) => void }): JSX.Element {
   const formRef = useRef<HTMLFormElement>(null);
-  const multiSelectFieldnames = useRef<Array<keyof Filters>>(['categories', 'cashflow', 'paymentmode']);
+  const multiSelectFieldnames = useRef<Array<keyof IFilters>>(['categories', 'cashflow', 'paymentmode']);
 
   const handleFormChange = useMemo(() => {
     return function () {
       const data = new FormData(formRef.current!);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const _formFields = Object.fromEntries(data) as unknown;
-      const formFields = _formFields as Filters;
+      const formFields = _formFields as IFilters;
 
       for (let i = 0; i < multiSelectFieldnames.current.length; i++) {
         const fieldname = multiSelectFieldnames.current[i];

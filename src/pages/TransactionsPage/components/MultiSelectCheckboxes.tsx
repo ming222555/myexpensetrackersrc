@@ -4,7 +4,7 @@ function MultiSelectCheckboxes(props: {
   fieldname: string;
   valuesLabels: string;
   title: string;
-  handleFormChangeDebounced: () => void;
+  handleFormChange: () => void;
 }): JSX.Element {
   const { fieldname, title } = props;
   const valuesLabels = useRef(props.valuesLabels.split('|'));
@@ -31,13 +31,13 @@ function MultiSelectCheckboxes(props: {
         cntRedraw.current = 1;
         return;
       }
-      props.handleFormChangeDebounced();
+      props.handleFormChange();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFlags]);
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div className='MultiSelectCheckboxes'>
       {Math.random()} {title}
       {valuesLabels.current.map((valueDescriptionString, i) => {
         const valueDescription = valueDescriptionString.split(';');
@@ -53,7 +53,7 @@ function MultiSelectCheckboxes(props: {
               onChange={handleChange}
               checked={!!selectedFlags[i]}
             />
-            <label htmlFor={fieldname + val + i}>{valueDescription[1]}</label>{' '}
+            <label htmlFor={fieldname + val + i}>{valueDescription[1]}</label>
           </div>
         );
       })}

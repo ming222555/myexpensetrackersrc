@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; handleFormChangeDebounced: () => void }): JSX.Element {
+function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; handleFormChange: () => void }): JSX.Element {
   const { fieldname, title } = props;
   const allCategoriesRef = useRef([
     { name: 'clothing', label: 'Clothing', isSelected: false },
@@ -38,15 +38,15 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
         cntRedraw.current = 1;
         return;
       }
-      props.handleFormChangeDebounced();
+      props.handleFormChange();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategoryNames]);
 
   return (
-    <div>
+    <div className='CategoryMultiSelectDropdown'>
       {Math.random()} {title}
-      <div style={{ display: 'flex' }}>
+      <div className='CategoryMultiSelectDropdown__selected'>
         {selectedCategoryNames.map((categoryName, i) => {
           const selectedCategory = allCategoriesRef.current.find(category => {
             return category.name === categoryName;
@@ -66,7 +66,7 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
           );
         })}
       </div>
-      <ul>
+      <ul className='CategoryMultiSelectDropdown__unselected'>
         {allCategoriesRef.current
           .filter(category => {
             const pos = selectedCategoryNames.findIndex(categoryName => categoryName === category.name);

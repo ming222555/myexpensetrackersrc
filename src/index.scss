@@ -11,3 +11,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@import './pages/TransactionsPage/components/MultiSelectCheckboxes.scss';
+@import './pages/TransactionsPage/components/CategoryMultiSelectDropdown.scss';

@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+import type { RootState } from '../../store';
+
 export interface Filters {
   categories: string;
   cashflow: string;
@@ -41,6 +43,9 @@ const transactionsSlice = createSlice({
 });
 
 export const { search, filter } = transactionsSlice.actions;
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export const selectFilter = (state: RootState) => state.transactions.filter;
 
 const reducer = transactionsSlice.reducer;
 // export default transactionsSlice.reducer;

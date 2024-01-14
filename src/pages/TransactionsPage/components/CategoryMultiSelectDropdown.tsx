@@ -27,19 +27,14 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
   }
 
   const isMounted = useRef(false);
-  const cntRedraw = useRef(0);
 
   useEffect(() => {
     if (!isMounted.current) {
       isMounted.current = true;
       return;
-    } else {
-      if (cntRedraw.current === 0) {
-        cntRedraw.current = 1;
-        return;
-      }
-      props.handleFormChange();
     }
+    console.log('CategoryMultiSelectDropdown useeffect', Math.random());
+    props.handleFormChange();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategoryNames]);
 

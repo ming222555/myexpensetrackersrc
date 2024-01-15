@@ -9,7 +9,7 @@ export interface Filters {
   paymentmode: string;
 }
 
-interface FiltersWithSearch extends Filters {
+export interface FiltersWithSearch extends Filters {
   search: string;
 }
 

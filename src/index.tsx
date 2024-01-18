@@ -2,15 +2,16 @@ import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './index.scss';
-import App from './App';
 import store from './store/store';
-import Root from './routes/Root';
-import Popo, { loader } from './routes/Popo';
+import Root from './routes/Root/Root';
+import Transactions, { loader } from './routes/Transactions/Transactions';
+import queryClient from './reactquery';
+import ErrorPage from './ErrorPage';
 
 const ReactQueryDevtoolsProduction = lazy(() =>
   import('@tanstack/react-query-devtools/build/modern/production.js').then(d => ({
@@ -18,26 +19,14 @@ const ReactQueryDevtoolsProduction = lazy(() =>
   })),
 );
 
-const showDevtools = true;
-
-// react query and react router...
-
-import ErrorPage from './ErrorPage';
-// import Root, { loader as rootLoader, action as rootAction } from './routes/root'
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 10,
-    },
-  },
-});
+const SHOW_DEV_TOOLS = true;
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
-    // // errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     // loader: rootLoader(queryClient),
     // action: rootAction(queryClient),
     children: [
@@ -52,10 +41,9 @@ const router = createBrowserRouter([
       //   action: contactAction(queryClient),
       // },
       {
-        path: 'popo',
-        element: <Popo />,
+        path: 'transactions',
+        element: <Transactions />,
         loader: loader,
-        errorElement: <ErrorPage />,
       },
       // {
       //   path: 'contacts/:contactId/edit',
@@ -80,9 +68,8 @@ root.render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-        {/* <App /> */}
         <ReactQueryDevtools initialIsOpen={true} />
-        {showDevtools && (
+        {SHOW_DEV_TOOLS && (
           <Suspense fallback={null}>
             <ReactQueryDevtoolsProduction />
           </Suspense>

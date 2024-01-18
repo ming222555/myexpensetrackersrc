@@ -11,9 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-@import './App.scss';
-@import './pages/TransactionsPage/TransactionsPage.scss';
-@import './pages/TransactionsPage/components/Search.scss';
-@import './pages/TransactionsPage/components/Filters.scss';
-@import './pages/TransactionsPage/components/MultiSelectCheckboxes.scss';
-@import './pages/TransactionsPage/components/CategoryMultiSelectDropdown.scss';
+
+@import './ErrorPage.scss';
+@import './routes/Root/Root.scss';
+@import './routes/Transactions/Transactions.scss';
+@import './routes/Transactions/components/Search.scss';
+@import './routes/Transactions/components/Filters.scss';
+@import './routes/Transactions/components/MultiSelectCheckboxes.scss';
+@import './routes/Transactions/components/CategoryMultiSelectDropdown.scss';
+

@@ -2,28 +2,45 @@ import * as React from 'react';
 
 import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
 
+const ERR_404 = 'Page not found';
+const ERR_401 = 'Authentication error';
+const ERR_403 = 'Authorisation error';
+const ERR_500 = 'Internal server error';
+const ERR_503 = 'Looks like our API is down';
+const ERR_OTHER_STATUS = 'Unknown server error88888888';
+
 export default function ErrorPage(): JSX.Element {
   const error = useRouteError();
 
-  if (isRouteErrorResponse(error)) {
+  let msg = '';
+
+  if (isRouteErrorResponse(error) && error.status) {
     console.log('error.data', error.data);
+    const status = error.status;
 
-    if (error.status === 404) {
-      return <div>This page not exist!klop</div>;
-    }
-
-    if (error.status === 401) {
-      return <div>You not authorized to see this</div>;
-    }
-
-    if (error.status === 503) {
-      return <div>Looks like our API is down</div>;
-    }
-
-    if (error.status === 418) {
-      return <div>🫖</div>;
+    if (status === 404) {
+      msg = ERR_404;
+    } else if (status === 401) {
+      msg = ERR_401;
+    } else if (status === 403) {
+      msg = ERR_403;
+    } else if (status === 500) {
+      msg = ERR_500;
+    } else if (status === 503) {
+      msg = ERR_503;
+    } else {
+      msg = 'Status ' + status + ', ' + ERR_OTHER_STATUS;
     }
   }
 
-  return <div>Something went wrong</div>;
+  if (error instanceof Error) {
+    console.log('error.message', error.message);
+    msg = error.message;
+  }
+
+  return (
+    <p>
+      <strong>Error</strong> <span>{msg}</span>
+    </p>
+  );
 }

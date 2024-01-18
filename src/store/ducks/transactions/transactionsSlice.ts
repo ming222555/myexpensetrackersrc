@@ -17,7 +17,7 @@ interface TransactionsState {
   filter: FiltersWithSearch;
 }
 
-const initialState = {
+export const initialState = {
   filter: {
     search: '',
     categories: '',

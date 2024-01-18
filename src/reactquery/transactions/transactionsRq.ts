@@ -1,32 +1,35 @@
 import { queryOptions, keepPreviousData } from '@tanstack/react-query';
 
 import type { FiltersWithSearch } from '../../store/ducks/transactions/transactionsSlice';
+import { retrieveTransactions } from '../../db/indexdb';
 
-const transactionsApiUrl = 'http://localhost:8081/api/transactions/';
+export interface TransactionDto {
+  cashflow: string;
+  category: string;
+  paymentmode: string;
+  amount: number;
+  expenseDate: number; // yyyymmdd for simplicity
+  note: string;
+  createdAt: number; // epoch
+}
 
-interface TransactionsPaginatedDataDto {
-  transactions: string[];
+export interface TransactionsPaginatedDataDto {
+  transactions: TransactionDto[];
   pagenum: number;
   totalPages: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export async function fetchTransactions(pagenum: string, filter: FiltersWithSearch, signal: AbortSignal) {
-  const qs = new URLSearchParams({ ...filter, pagenum }).toString();
-  const response = await fetch(transactionsApiUrl + '?' + qs, { signal });
-  if (!response.ok) {
-    // throw new Error('Transactions api response was not ok');
-    // throw new Response('Transactions api response was not okyyyyyyy', { status: response.status });
-    throw response;
-  }
-  return response.json() as Promise<TransactionsPaginatedDataDto>;
+export async function fetchTransactions(pagenum: number, filter: FiltersWithSearch) {
+  const response = await retrieveTransactions(pagenum, { ...filter });
+  return response;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function transactionsQueryOptions(pagenum: number, filter: FiltersWithSearch) {
   return queryOptions({
     queryKey: ['transactions', pagenum, filter],
-    queryFn: async ({ signal }) => fetchTransactions(pagenum + '', filter, signal),
+    queryFn: async () => fetchTransactions(pagenum, filter),
     placeholderData: keepPreviousData,
   });
 }

@@ -18,12 +18,39 @@ const seed = async (): Promise<void> => {
     },
     {
       cashflow: 'expense',
+      category: 'utilities',
+      paymentmode: 'debitcard',
+      amount: 666555.99,
+      expenseDate: 20231128,
+      note: 'Notist',
+      id: 777777777,
+    },
+    {
+      cashflow: 'income',
+      category: 'utilities',
+      paymentmode: 'debitcard',
+      amount: 666111.99,
+      expenseDate: 20231128,
+      note: 'Notist',
+      id: 999460,
+    },
+    {
+      cashflow: 'expense',
       category: 'clothing',
       paymentmode: 'creditcard',
       amount: 654321.99,
       expenseDate: 20231129,
       note: 'Noteee',
       id: 895478666,
+    },
+    {
+      cashflow: 'income',
+      category: 'transport',
+      paymentmode: 'cash',
+      amount: 111666.99,
+      expenseDate: 20231128,
+      note: 'Notable',
+      id: 666666666,
     },
   ];
   const transactions = await localforage.getItem<TransactionDto[]>('transactions');
@@ -74,7 +101,7 @@ export async function retrieveTransactions(pagenum: number, filter: FiltersWithS
       if (transactions.length > 0) {
         // todo... identify transactions of pagenum... determine totalPages
         console.log('retrieveTransactions transactions after matchSorter', JSON.stringify(transactions));
-        transactions.sort(sortBy<TransactionDto>('expenseDate', 'id'));
+        transactions.sort(sortBy<TransactionDto>('-expenseDate', '-id'));
         totalPages = 666;
       }
     }

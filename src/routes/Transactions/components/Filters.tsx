@@ -37,7 +37,7 @@ function Filters(props: { handleFiltersChange: (filters: IFilters) => void }): J
 
   return (
     <div className='Filters'>
-      {Math.random()}
+      Filters {Math.random()}
       <form className='Filters__form' role='search' ref={formRef}>
         <CategoryMultiSelectDropdown fieldname='categories' title='Category' handleFormChange={handleFormChangeDebounced} />
         <MultiSelectCheckboxes

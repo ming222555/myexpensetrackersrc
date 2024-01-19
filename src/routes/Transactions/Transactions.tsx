@@ -4,8 +4,15 @@ import { useQuery } from '@tanstack/react-query';
 
 import Filters from './components/Filters';
 import type { Filters as IFilters } from '../../store/ducks/transactions/transactionsSlice';
-import { search, filter as filterActionCreator, selectFilter, initialState } from '../../store/ducks/transactions/transactionsSlice';
+import {
+  search,
+  filter as filterActionCreator,
+  selectTransactions,
+  clearSelection,
+  initialState,
+} from '../../store/ducks/transactions/transactionsSlice';
 import Search from './components/Search';
+import TransactionsList from './components/TransactionsList';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import queryClient from '../../reactquery';
 import { transactionsQueryOptions } from '../../reactquery/transactions/transactionsRq';
@@ -17,7 +24,7 @@ export const loader = async () => {
 };
 
 export default function Transactions(): JSX.Element {
-  const filter = useAppSelector(selectFilter);
+  const { filter, selection } = useAppSelector(selectTransactions);
   const dispatch = useAppDispatch();
 
   console.log('filter', JSON.stringify(filter));
@@ -35,6 +42,7 @@ export default function Transactions(): JSX.Element {
   const handleFiltersChange = useMemo(() => {
     return function (filters: IFilters) {
       dispatch(filterActionCreator(filters));
+      dispatch(clearSelection());
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -42,9 +50,17 @@ export default function Transactions(): JSX.Element {
   const handleSearchChange = useMemo(() => {
     return function (searchText: string) {
       dispatch(search(searchText));
+      dispatch(clearSelection());
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // const handleOpenEditModal = useMemo(() => {
+  //   return function (earchText: string) {
+  //     dispatch(search(searchText));
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     console.log('transactions useeffect filter', Math.random());
@@ -56,11 +72,19 @@ export default function Transactions(): JSX.Element {
 
   return (
     <div className='Transactions'>
-      <strong>{JSON.stringify(filter)}</strong>
-      <br />
-      <strong>{Math.random()}</strong>
-      <hr />
-      api response data {JSON.stringify(data)}
+      <div className='Transactions__filterString'>
+        <strong>{JSON.stringify(filter)}</strong>
+        <br />
+        <strong>{Math.random()}</strong>
+      </div>
+      <div className='Transactions__data'>api response dataa {JSON.stringify(data)}</div>
+      <button type='button' /* onClick={handleOpenEditModal} */ disabled={selection.length !== 1}>
+        Edit
+      </button>{' '}
+      <button type='button' disabled={selection.length === 0}>
+        Delete
+      </button>
+      <TransactionsList transactions={data!.transactions} />
       <Search handleSearchChange={handleSearchChange} />
       <Filters handleFiltersChange={handleFiltersChange} />
       <button

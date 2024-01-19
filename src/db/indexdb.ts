@@ -14,7 +14,7 @@ const seed = async (): Promise<void> => {
       amount: 123456.99,
       expenseDate: 20231130,
       note: 'Noted',
-      createdAt: 589460,
+      id: 589460,
     },
     {
       cashflow: 'expense',
@@ -23,7 +23,7 @@ const seed = async (): Promise<void> => {
       amount: 654321.99,
       expenseDate: 20231129,
       note: 'Noteee',
-      createdAt: 895478666,
+      id: 895478666,
     },
   ];
   const transactions = await localforage.getItem<TransactionDto[]>('transactions');
@@ -72,11 +72,11 @@ export async function retrieveTransactions(pagenum: number, filter: FiltersWithS
       transactions = matchSorter(transactions, searchText, { keys: ['category', 'paymentmode', 'note'] });
 
       if (transactions.length > 0) {
+        // todo... identify transactions of pagenum... determine totalPages
+        console.log('retrieveTransactions transactions after matchSorter', JSON.stringify(transactions));
+        transactions.sort(sortBy<TransactionDto>('expenseDate', 'id'));
         totalPages = 666;
       }
-
-      console.log('retrieveTransactions transactions after matchSorter', JSON.stringify(transactions));
-      transactions.sort(sortBy<TransactionDto>('expenseDate', 'createdAt'));
     }
   }
 

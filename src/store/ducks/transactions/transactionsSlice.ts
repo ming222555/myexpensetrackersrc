@@ -15,6 +15,7 @@ export interface FiltersWithSearch extends Filters {
 
 interface TransactionsState {
   filter: FiltersWithSearch;
+  selection: number[]; // transaction id's
 }
 
 export const initialState = {
@@ -24,6 +25,7 @@ export const initialState = {
     cashflow: '',
     paymentmode: '',
   },
+  selection: [],
 } as TransactionsState;
 
 const transactionsSlice = createSlice({
@@ -39,13 +41,33 @@ const transactionsSlice = createSlice({
       state.filter.cashflow = cashflow;
       state.filter.paymentmode = paymentmode;
     },
+    addToSelection(state, action: PayloadAction<number>) {
+      const id = action.payload;
+      state.selection.push(id);
+    },
+    removeFromSelection(state, action: PayloadAction<number>) {
+      const id = action.payload;
+      const pos = state.selection.findIndex(idFromSelection => idFromSelection === id);
+      if (pos > -1) {
+        state.selection.splice(pos, 1);
+      }
+    },
+    clearSelection(state) {
+      state.selection = [];
+    },
+    replaceSelection(state, action: PayloadAction<number[]>) {
+      state.selection = action.payload;
+    },
   },
 });
 
-export const { search, filter } = transactionsSlice.actions;
+export const { search, filter, addToSelection, removeFromSelection, clearSelection, replaceSelection } = transactionsSlice.actions;
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const selectFilter = (state: RootState) => state.transactions.filter;
+export const selectSelection = (state: RootState) => state.transactions.selection;
+export const selectTransactions = (state: RootState) => state.transactions;
+/* eslint-enable @typescript-eslint/explicit-function-return-type */
 
 const reducer = transactionsSlice.reducer;
 // export default transactionsSlice.reducer;

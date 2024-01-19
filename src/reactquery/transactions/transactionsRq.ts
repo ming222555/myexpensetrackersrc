@@ -10,7 +10,8 @@ export interface TransactionDto {
   amount: number;
   expenseDate: number; // yyyymmdd for simplicity
   note: string;
-  createdAt: number; // epoch
+  // createdAt: number; // epoch
+  id: number; // epoch
 }
 
 export interface TransactionsPaginatedDataDto {

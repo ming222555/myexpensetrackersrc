@@ -1,4 +1,6 @@
 import localforage from 'localforage';
+import { matchSorter } from 'match-sorter';
+import sortBy from 'sort-by';
 
 import type { FiltersWithSearch } from '../store/ducks/transactions/transactionsSlice';
 import { TransactionDto, TransactionsPaginatedDataDto } from '../reactquery/transactions/transactionsRq';
@@ -34,19 +36,54 @@ seed();
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function retrieveTransactions(pagenum: number, filter: FiltersWithSearch) {
+  let totalPages = 0;
+
   await fakeNetwork();
   let transactions = await localforage.getItem<TransactionDto[]>('transactions');
   if (!transactions) {
     transactions = [];
   } else {
-    // Todo filter, sort by createdAt transactions and also to determine totalPages
-    // transactions = ...;
+    console.log('retrieveTransactions pagenum ' + pagenum, JSON.stringify(filter));
+    let filteringTerms = filter.cashflow.split(',');
+    if (filteringTerms.length === 1 && filteringTerms[0] === '') {
+      //
+    } else {
+      transactions = transactions.filter(trx => filteringTerms.includes(trx.cashflow));
+    }
+
+    filteringTerms = filter.categories.split(',');
+    if (filteringTerms.length === 1 && filteringTerms[0] === '') {
+      //
+    } else {
+      transactions = transactions.filter(trx => filteringTerms.includes(trx.category));
+    }
+
+    filteringTerms = filter.paymentmode.split(',');
+    if (filteringTerms.length === 1 && filteringTerms[0] === '') {
+      //
+    } else {
+      transactions = transactions.filter(trx => filteringTerms.includes(trx.paymentmode));
+    }
+
+    if (transactions.length > 0) {
+      const searchText = filter.search.trim();
+      console.log('retrieveTransactions searchText.' + searchText + '.');
+      console.log('retrieveTransactions transactions ' + pagenum, JSON.stringify(transactions));
+      transactions = matchSorter(transactions, searchText, { keys: ['category', 'paymentmode', 'note'] });
+
+      if (transactions.length > 0) {
+        totalPages = 666;
+      }
+
+      console.log('retrieveTransactions transactions after matchSorter', JSON.stringify(transactions));
+      transactions.sort(sortBy<TransactionDto>('expenseDate', 'createdAt'));
+    }
   }
 
   const ret: TransactionsPaginatedDataDto = {
     transactions,
-    pagenum: 1,
-    totalPages: 6,
+    pagenum,
+    totalPages,
   };
 
   return ret;

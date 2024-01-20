@@ -36,6 +36,15 @@ const seed = async (): Promise<void> => {
     },
     {
       cashflow: 'expense',
+      category: 'food',
+      paymentmode: 'cash',
+      amount: 666888.99,
+      expenseDate: 20231111,
+      note: 'Notedfoodie',
+      id: 666888,
+    },
+    {
+      cashflow: 'expense',
       category: 'clothing',
       paymentmode: 'creditcard',
       amount: 654321.99,
@@ -114,6 +123,21 @@ export async function retrieveTransactions(pagenum: number, filter: FiltersWithS
   };
 
   return ret;
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export async function updateTransaction(updates: TransactionDto) {
+  await fakeNetwork();
+  let transactions = await localforage.getItem<TransactionDto[]>('transactions');
+  if (!transactions) {
+    transactions = [];
+  }
+  const pos = transactions.findIndex(trx => trx.id === updates.id);
+  if (pos < 0) throw new Error('Transaction id ' + updates.id + ' not found');
+
+  const origTransaction = transactions[pos];
+  transactions[pos] = { ...origTransaction, ...updates };
+  set(transactions);
 }
 
 function set(transactions: TransactionDto[]): void {

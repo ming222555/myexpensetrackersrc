@@ -17,6 +17,7 @@ function Search(props: { handleSearchChange: (search: string) => void }): JSX.El
 
   return (
     <div className='Search'>
+      {Math.random()}
       <input
         aria-label='Search'
         placeholder='Search'
@@ -37,4 +38,6 @@ function Search(props: { handleSearchChange: (search: string) => void }): JSX.El
   );
 }
 
-export default Search;
+const MemoizedSearch = React.memo(Search);
+
+export default MemoizedSearch;

@@ -39,6 +39,7 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
 
   return (
     <div className='TransactionsList'>
+      <p>{Math.random()}</p>
       <input
         type='checkbox'
         checked={selection.length === transactions.length && transactions.length > 0}
@@ -56,8 +57,6 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
   );
 }
 
-// const MemoizedTransactionsList = React.memo(TransactionsList);
+const MemoizedTransactionsList = React.memo(TransactionsList);
 
-// export default MemoizedTransactionsList;
-
-export default TransactionsList;
+export default MemoizedTransactionsList;

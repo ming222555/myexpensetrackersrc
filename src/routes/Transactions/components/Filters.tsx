@@ -57,4 +57,6 @@ function Filters(props: { handleFiltersChange: (filters: IFilters) => void }): J
   );
 }
 
-export default Filters;
+const MemoizedFilters = React.memo(Filters);
+
+export default MemoizedFilters;

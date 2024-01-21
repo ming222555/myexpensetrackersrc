@@ -1,6 +1,9 @@
 import React, { useReducer, useState } from 'react';
 
+import { useMutation } from '@tanstack/react-query';
+
 import { TransactionDto } from '../../../reactquery/transactions/transactionsRq';
+import { updateTransaction } from '../../../db/indexdb';
 
 interface StringisedFields {
   amount: string;
@@ -54,6 +57,12 @@ export default function EditModal(props: {
     expenseDate: props.transaction.expenseDate + '',
   });
 
+  const mutation = useMutation({
+    mutationFn: (updatesForTransaction: TransactionDto) => {
+      return updateTransaction(updatesForTransaction);
+    },
+  });
+
   function validate(): number {
     let rc = 0;
     const validationErrors = { ...initialErrors };
@@ -89,12 +98,12 @@ export default function EditModal(props: {
 
   function handleOnChange(evt: React.ChangeEvent<HTMLInputElement>): void {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const actionType = evt.target.getAttribute('data-actionType')!;
-    if (actionType !== 'note') {
-      dispatch({ type: actionType, payload: evt.target.value.trim() });
+    const actiontype = evt.target.getAttribute('data-actiontype')!;
+    if (actiontype !== 'note') {
+      dispatch({ type: actiontype, payload: evt.target.value.trim() });
       return;
     }
-    dispatch({ type: actionType, payload: evt.target.value });
+    dispatch({ type: actiontype, payload: evt.target.value });
   }
 
   function handleUpdate(evt: React.FormEvent<HTMLFormElement>): void {
@@ -102,37 +111,56 @@ export default function EditModal(props: {
     if (validate() < 0) {
       return;
     }
-    // mutate.mutateFn(transaction);
+    mutation.mutate(
+      {
+        ...transaction,
+        amount: parseFloat(transaction.amount),
+        expenseDate: parseInt(transaction.expenseDate),
+        note: transaction.note.trim(),
+      },
+      { onSuccess: props.handleUpdateSuccess },
+    );
   }
 
   return (
     <div>
+      <div>
+        {mutation.isPending ? (
+          'Updating transaction...'
+        ) : (
+          <>
+            {mutation.isError ? <div>An error occurred: {mutation.error.message}</div> : null}
+            {mutation.isSuccess ? <div>Transaction updated!</div> : null}
+          </>
+        )}
+      </div>
+      <hr />
       <form onSubmit={handleUpdate}>
         <button type='button' onClick={props.handleClose}>
           Close
         </button>
         <div>
-          cashflow <input type='text' value={transaction.cashflow} data-actionType='cashflow' onChange={handleOnChange} />{' '}
+          cashflow <input type='text' value={transaction.cashflow} data-actiontype='cashflow' onChange={handleOnChange} />{' '}
           <span>{errors.cashflow ? errors.cashflow : ' '}</span>
         </div>
         <div>
-          category <input type='text' value={transaction.category} data-actionType='category' onChange={handleOnChange} />{' '}
+          category <input type='text' value={transaction.category} data-actiontype='category' onChange={handleOnChange} />{' '}
           <span>{errors.category ? errors.category : ' '}</span>
         </div>
         <div>
-          paymentmode <input type='text' value={transaction.paymentmode} data-actionType='paymentmode' onChange={handleOnChange} />
+          paymentmode <input type='text' value={transaction.paymentmode} data-actiontype='paymentmode' onChange={handleOnChange} />
           <span>{errors.paymentmode ? errors.paymentmode : ' '}</span>
         </div>
         <div>
-          amount <input type='text' value={transaction.amount} data-actionType='amount' onChange={handleOnChange} />
+          amount <input type='text' value={transaction.amount} data-actiontype='amount' onChange={handleOnChange} />
           <span>{errors.amount ? errors.amount : ' '}</span>
         </div>
         <div>
-          expenseDate <input type='text' value={transaction.expenseDate} data-actionType='expenseDate' onChange={handleOnChange} />
+          expenseDate <input type='text' value={transaction.expenseDate} data-actiontype='expenseDate' onChange={handleOnChange} />
           <span>{errors.expenseDate ? errors.expenseDate : ' '}</span>
         </div>
         <div>
-          note <input type='text' value={transaction.note} data-actionType='note' onChange={handleOnChange} />
+          note <input type='text' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />
         </div>
         <div>
           created <span>{transaction.id}</span>

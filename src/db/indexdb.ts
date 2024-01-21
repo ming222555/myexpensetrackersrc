@@ -136,17 +136,20 @@ export async function updateTransaction(updates: TransactionDto) {
   if (pos < 0) throw new Error('Transaction id ' + updates.id + ' not found');
 
   const origTransaction = transactions[pos];
-  transactions[pos] = { ...origTransaction, ...updates };
-  set(transactions);
+  const newTransaction = { ...origTransaction, ...updates };
+  transactions[pos] = newTransaction;
+  await set(transactions);
+  return newTransaction;
 }
 
-function set(transactions: TransactionDto[]): void {
-  localforage.setItem('transactions', transactions);
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+function set(transactions: TransactionDto[]) {
+  return localforage.setItem('transactions', transactions);
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function fakeNetwork() {
   return new Promise(resolve => {
-    setTimeout(resolve, Math.random() * 800);
+    setTimeout(resolve, Math.random() * 8000); // 800
   });
 }

@@ -67,6 +67,10 @@ export default function Transactions(): JSX.Element {
     setTransactionToEdit(undefined);
   }
 
+  function handleUpdateSuccess(): void {
+    queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(pagenumRef.current, filter).queryKey });
+  }
+
   useEffect(() => {
     console.log('transactions useeffect filter', Math.random());
   }, [filter]);
@@ -119,7 +123,7 @@ export default function Transactions(): JSX.Element {
         </button>
       </div>
       {transactionToEdit && (
-        <EditModal transaction={transactionToEdit} handleClose={handleCloseEditModal} handleUpdateSuccess={handleCloseEditModal} />
+        <EditModal transaction={transactionToEdit} handleClose={handleCloseEditModal} handleUpdateSuccess={handleUpdateSuccess} />
       )}
     </>
   );

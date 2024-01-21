@@ -41,6 +41,12 @@ const transactionsSlice = createSlice({
       state.filter.cashflow = cashflow;
       state.filter.paymentmode = paymentmode;
     },
+    clearFilter(state) {
+      state.filter.categories = '';
+      state.filter.cashflow = '';
+      state.filter.paymentmode = '';
+      state.filter.search = '';
+    },
     addToSelection(state, action: PayloadAction<number>) {
       const id = action.payload;
       state.selection.push(id);
@@ -61,7 +67,8 @@ const transactionsSlice = createSlice({
   },
 });
 
-export const { search, filter, addToSelection, removeFromSelection, clearSelection, replaceSelection } = transactionsSlice.actions;
+export const { search, filter, clearFilter, addToSelection, removeFromSelection, clearSelection, replaceSelection } =
+  transactionsSlice.actions;
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const selectFilter = (state: RootState) => state.transactions.filter;

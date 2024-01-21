@@ -7,6 +7,7 @@ import type { Filters as IFilters } from '../../store/ducks/transactions/transac
 import {
   search,
   filter as filterActionCreator,
+  clearFilter,
   selectTransactions,
   clearSelection,
   initialState,
@@ -14,6 +15,7 @@ import {
 import Search from './components/Search';
 import TransactionsList from './components/TransactionsList';
 import EditModal from './components/EditModal';
+import CreateModal from './components/CreateModal';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import queryClient from '../../reactquery';
 import { transactionsQueryOptions, TransactionDto } from '../../reactquery/transactions/transactionsRq';
@@ -33,6 +35,7 @@ export default function Transactions(): JSX.Element {
   const pagenumRef = useRef(1);
   const setRender = useState({})[1];
   const [transactionToEdit, setTransactionToEdit] = useState<TransactionDto | undefined>(undefined);
+  const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
 
   useMemo(() => {
     pagenumRef.current = 1; // reset
@@ -67,8 +70,24 @@ export default function Transactions(): JSX.Element {
     setTransactionToEdit(undefined);
   }
 
+  function handleOpenCreateModal(): void {
+    dispatch(clearSelection());
+    setIsOpenCreateModal(true);
+  }
+
+  function handleCloseCreateModal(): void {
+    setIsOpenCreateModal(false);
+  }
+
   function handleUpdateSuccess(): void {
     queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(pagenumRef.current, filter).queryKey });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  async function handleCreateSuccess() {
+    await queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(1, initialState.filter).queryKey });
+    // pagenumRef.current = 1;
+    // dispatch(clearFilter());
   }
 
   useEffect(() => {
@@ -90,6 +109,9 @@ export default function Transactions(): JSX.Element {
         <div className='Transactions__data'>api response dataa {JSON.stringify(data)}</div>
         <button type='button' onClick={handleOpenEditModal} disabled={selection.length !== 1}>
           Edit
+        </button>{' '}
+        <button type='button' onClick={handleOpenCreateModal}>
+          New
         </button>{' '}
         <button type='button' disabled={selection.length === 0}>
           Delete
@@ -124,6 +146,20 @@ export default function Transactions(): JSX.Element {
       </div>
       {transactionToEdit && (
         <EditModal transaction={transactionToEdit} handleClose={handleCloseEditModal} handleUpdateSuccess={handleUpdateSuccess} />
+      )}
+      {isOpenCreateModal && (
+        <CreateModal
+          initial={{
+            cashflow: '',
+            category: '',
+            paymentmode: '',
+            amount: '',
+            expenseDate: '',
+            note: '',
+          }}
+          handleClose={handleCloseCreateModal}
+          handleCreateSuccess={handleCreateSuccess}
+        />
       )}
     </>
   );

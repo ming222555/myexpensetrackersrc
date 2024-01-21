@@ -143,6 +143,20 @@ export async function updateTransaction(updates: TransactionDto) {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export async function createTransaction(creationDetails: Omit<TransactionDto, 'id'>) {
+  await fakeNetwork();
+  let transactions = await localforage.getItem<TransactionDto[]>('transactions');
+  if (!transactions) {
+    transactions = [];
+  }
+  const newId = Date.now();
+  transactions.unshift({ ...creationDetails, id: newId });
+  await set(transactions);
+  console.log('newId', newId);
+  return newId;
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function set(transactions: TransactionDto[]) {
   return localforage.setItem('transactions', transactions);
 }

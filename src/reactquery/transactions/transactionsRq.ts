@@ -28,10 +28,20 @@ export async function fetchTransactions(pagenum: number, filter: FiltersWithSear
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function transactionsQueryOptions(pagenum: number, filter: FiltersWithSearch) {
+export function transactionsQueryOptions(pagenum: number, filter: FiltersWithSearch, staleTime = -1) {
+  if (staleTime < 0) {
+    return queryOptions({
+      queryKey: ['transactions', pagenum, filter],
+      queryFn: async () => fetchTransactions(pagenum, filter),
+      placeholderData: keepPreviousData,
+      // use global default staleTime
+    });
+  }
+
   return queryOptions({
     queryKey: ['transactions', pagenum, filter],
     queryFn: async () => fetchTransactions(pagenum, filter),
     placeholderData: keepPreviousData,
+    staleTime,
   });
 }

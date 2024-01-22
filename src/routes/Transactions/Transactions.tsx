@@ -7,7 +7,7 @@ import type { Filters as IFilters } from '../../store/ducks/transactions/transac
 import {
   search,
   filter as filterActionCreator,
-  clearFilter,
+  /* clearFilter, */
   selectTransactions,
   clearSelection,
   initialState,
@@ -16,6 +16,7 @@ import Search from './components/Search';
 import TransactionsList from './components/TransactionsList';
 import EditModal from './components/EditModal';
 import CreateModal from './components/CreateModal';
+import DeleteModal from './components/DeleteModal';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import queryClient from '../../reactquery';
 import { transactionsQueryOptions, TransactionDto } from '../../reactquery/transactions/transactionsRq';
@@ -36,6 +37,7 @@ export default function Transactions(): JSX.Element {
   const setRender = useState({})[1];
   const [transactionToEdit, setTransactionToEdit] = useState<TransactionDto | undefined>(undefined);
   const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
+  const [transactionIDsToDelete, setTransactionIDsToDelete] = useState<number[] | []>([]);
 
   useMemo(() => {
     pagenumRef.current = 1; // reset
@@ -79,17 +81,50 @@ export default function Transactions(): JSX.Element {
     setIsOpenCreateModal(false);
   }
 
+  function handleOpenDeleteModal(): void {
+    setTransactionIDsToDelete(selection);
+  }
+
+  function handleCloseDeleteModal(): void {
+    setTransactionIDsToDelete([]);
+  }
+
   function handleUpdateSuccess(): void {
     queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(pagenumRef.current, filter).queryKey });
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  async function handleCreateSuccess() {
+  /* async */ function handleCreateSuccess() {
     /* await queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(1, initialState.filter).queryKey });
     pagenumRef.current = 1;
     dispatch(clearFilter());
     // todo... redux on filters search */
     queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(pagenumRef.current, filter).queryKey });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  async function handleDeleteSuccess() {
+    dispatch(clearSelection());
+    const totalPagesB4Delete = data!.totalPages;
+    try {
+      const dataAfterDelete = await queryClient.fetchQuery(transactionsQueryOptions(pagenumRef.current, filter, 0));
+      const totalPagesAfterDelete = dataAfterDelete.totalPages;
+      const pagenumAfterDelete = dataAfterDelete.pagenum;
+
+      if (totalPagesAfterDelete === totalPagesB4Delete) {
+        return;
+      }
+      if (totalPagesAfterDelete < totalPagesB4Delete && totalPagesAfterDelete > 0) {
+        if (pagenumRef.current > pagenumAfterDelete) {
+          pagenumRef.current = pagenumAfterDelete;
+          await queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(pagenumRef.current, filter).queryKey });
+          setRender({});
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
   useEffect(() => {
@@ -115,7 +150,7 @@ export default function Transactions(): JSX.Element {
         <button type='button' onClick={handleOpenCreateModal}>
           New
         </button>{' '}
-        <button type='button' disabled={selection.length === 0}>
+        <button type='button' onClick={handleOpenDeleteModal} disabled={selection.length === 0}>
           Delete
         </button>
         <TransactionsList transactions={data!.transactions} />
@@ -162,6 +197,9 @@ export default function Transactions(): JSX.Element {
           handleClose={handleCloseCreateModal}
           handleCreateSuccess={handleCreateSuccess}
         />
+      )}
+      {transactionIDsToDelete.length > 0 && (
+        <DeleteModal selection={transactionIDsToDelete} handleClose={handleCloseDeleteModal} handleDeleteSuccess={handleDeleteSuccess} />
       )}
     </>
   );

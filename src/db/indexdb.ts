@@ -71,61 +71,77 @@ const seed = async (): Promise<void> => {
 seed();
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export async function retrieveTransactions(pagenum: number, filter: FiltersWithSearch) {
+export async function retrieveTransactions(pagenum: number, filter: FiltersWithSearch): Promise<TransactionsPaginatedDataDto> {
   let totalPages = 0;
   let totalItems = 0;
+
+  const EMPTY_DTO = {
+    transactions: [],
+    pagenum,
+    totalPages: 0,
+    totalItems: 0,
+  };
 
   await fakeNetwork();
   let transactions = await localforage.getItem<TransactionDto[]>('transactions');
   if (!transactions) {
-    transactions = [];
-  } else {
-    console.log('retrieveTransactions pagenum ' + pagenum, JSON.stringify(filter));
-    let filteringTerms = filter.cashflow.split(',');
-    if (filteringTerms.length === 1 && filteringTerms[0] === '') {
-      //
-    } else {
-      transactions = transactions.filter(trx => filteringTerms.includes(trx.cashflow));
-    }
-
-    filteringTerms = filter.categories.split(',');
-    if (filteringTerms.length === 1 && filteringTerms[0] === '') {
-      //
-    } else {
-      transactions = transactions.filter(trx => filteringTerms.includes(trx.category));
-    }
-
-    filteringTerms = filter.paymentmode.split(',');
-    if (filteringTerms.length === 1 && filteringTerms[0] === '') {
-      //
-    } else {
-      transactions = transactions.filter(trx => filteringTerms.includes(trx.paymentmode));
-    }
-
-    if (transactions.length > 0) {
-      const searchText = filter.search.trim();
-      console.log('retrieveTransactions searchText.' + searchText + '.');
-      console.log('retrieveTransactions transactions ' + pagenum, JSON.stringify(transactions));
-      transactions = matchSorter(transactions, searchText, { keys: ['category', 'paymentmode', 'note'] });
-
-      if (transactions.length > 0) {
-        // todo... identify transactions of pagenum... determine totalPages, totalItems
-        console.log('retrieveTransactions transactions after matchSorter', JSON.stringify(transactions));
-        transactions.sort(sortBy<TransactionDto>('-expenseDate', '-id'));
-        totalPages = 666;
-        totalItems = 888;
-      }
-    }
+    return EMPTY_DTO;
   }
 
-  const ret: TransactionsPaginatedDataDto = {
+  if (transactions.length === 0) {
+    return EMPTY_DTO;
+  }
+
+  // apply filters
+  console.log('retrieveTransactions pagenum ' + pagenum, JSON.stringify(filter));
+  let filteringTerms = filter.cashflow.split(',');
+  if (filteringTerms.length === 1 && filteringTerms[0] === '') {
+    //
+  } else {
+    transactions = transactions.filter(trx => filteringTerms.includes(trx.cashflow));
+  }
+
+  filteringTerms = filter.categories.split(',');
+  if (filteringTerms.length === 1 && filteringTerms[0] === '') {
+    //
+  } else {
+    transactions = transactions.filter(trx => filteringTerms.includes(trx.category));
+  }
+
+  filteringTerms = filter.paymentmode.split(',');
+  if (filteringTerms.length === 1 && filteringTerms[0] === '') {
+    //
+  } else {
+    transactions = transactions.filter(trx => filteringTerms.includes(trx.paymentmode));
+  }
+
+  if (transactions.length === 0) {
+    return EMPTY_DTO;
+  }
+
+  // apply search filter
+  const searchText = filter.search.trim();
+  console.log('retrieveTransactions searchText.' + searchText + '.');
+  console.log('retrieveTransactions transactions ' + pagenum, JSON.stringify(transactions));
+  transactions = matchSorter(transactions, searchText, { keys: ['category', 'paymentmode', 'note'] });
+
+  if (transactions.length === 0) {
+    return EMPTY_DTO;
+  }
+
+  console.log('retrieveTransactions transactions after matchSorter', JSON.stringify(transactions));
+  transactions.sort(sortBy<TransactionDto>('-expenseDate', '-id'));
+  // todo... identify transactions of pagenum... determine totalPages, totalItems
+  totalPages = 666;
+  totalItems = 888;
+  const computedPagenum = 123; // todo cf delete transactions
+
+  return {
     transactions,
-    pagenum,
+    pagenum: computedPagenum,
     totalPages,
     totalItems,
   };
-
-  return ret;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -157,6 +173,27 @@ export async function createTransaction(creationDetails: Omit<TransactionDto, 'i
   await set(transactions);
   console.log('newId', newId);
   return newId;
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export async function deleteTransactions(selection: number[]) {
+  await fakeNetwork();
+  const transactions = await localforage.getItem<TransactionDto[]>('transactions');
+  if (!transactions) {
+    return true;
+  }
+  if (transactions.length === 0) {
+    return true;
+  }
+  for (let i = 0; i < selection.length; i++) {
+    const id = selection[i];
+    const pos = transactions.findIndex(trx => trx.id === id);
+    if (pos > -1) {
+      transactions.splice(pos, 1);
+    }
+  }
+  await set(transactions);
+  return true;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

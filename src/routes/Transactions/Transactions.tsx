@@ -85,9 +85,11 @@ export default function Transactions(): JSX.Element {
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   async function handleCreateSuccess() {
-    await queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(1, initialState.filter).queryKey });
-    // pagenumRef.current = 1;
-    // dispatch(clearFilter());
+    /* await queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(1, initialState.filter).queryKey });
+    pagenumRef.current = 1;
+    dispatch(clearFilter());
+    // todo... redux on filters search */
+    queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(pagenumRef.current, filter).queryKey });
   }
 
   useEffect(() => {

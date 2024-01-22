@@ -42,10 +42,11 @@ const transactionsSlice = createSlice({
       state.filter.paymentmode = paymentmode;
     },
     clearFilter(state) {
-      state.filter.categories = '';
-      state.filter.cashflow = '';
-      state.filter.paymentmode = '';
-      state.filter.search = '';
+      // state.filter.categories = '';
+      // state.filter.cashflow = '';
+      // state.filter.paymentmode = '';
+      // state.filter.search = '';
+      return { ...state, filter: { ...initialState.filter } };
     },
     addToSelection(state, action: PayloadAction<number>) {
       const id = action.payload;

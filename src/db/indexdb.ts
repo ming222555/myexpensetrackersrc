@@ -73,6 +73,7 @@ seed();
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function retrieveTransactions(pagenum: number, filter: FiltersWithSearch) {
   let totalPages = 0;
+  let totalItems = 0;
 
   await fakeNetwork();
   let transactions = await localforage.getItem<TransactionDto[]>('transactions');
@@ -108,10 +109,11 @@ export async function retrieveTransactions(pagenum: number, filter: FiltersWithS
       transactions = matchSorter(transactions, searchText, { keys: ['category', 'paymentmode', 'note'] });
 
       if (transactions.length > 0) {
-        // todo... identify transactions of pagenum... determine totalPages
+        // todo... identify transactions of pagenum... determine totalPages, totalItems
         console.log('retrieveTransactions transactions after matchSorter', JSON.stringify(transactions));
         transactions.sort(sortBy<TransactionDto>('-expenseDate', '-id'));
         totalPages = 666;
+        totalItems = 888;
       }
     }
   }
@@ -120,6 +122,7 @@ export async function retrieveTransactions(pagenum: number, filter: FiltersWithS
     transactions,
     pagenum,
     totalPages,
+    totalItems,
   };
 
   return ret;

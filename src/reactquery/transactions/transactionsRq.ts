@@ -18,6 +18,7 @@ export interface TransactionsPaginatedDataDto {
   transactions: TransactionDto[];
   pagenum: number;
   totalPages: number;
+  totalItems: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

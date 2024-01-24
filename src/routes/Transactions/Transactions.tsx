@@ -127,6 +127,20 @@ export default function Transactions(): JSX.Element {
     }
   }
 
+  function handlePagenumClick(evt: React.MouseEvent<HTMLButtonElement>): void {
+    const pagenum = parseInt(evt.currentTarget.getAttribute('data-pagenum')!);
+    pagenumRef.current = pagenum;
+    setRender({});
+  }
+
+  function createArrayofSize(size: number): number[] {
+    const arr: number[] = [];
+    for (let i = 1; i < size + 1; i++) {
+      arr.push(i);
+    }
+    return arr;
+  }
+
   useEffect(() => {
     console.log('transactions useeffect filter', Math.random());
   }, [filter]);
@@ -180,6 +194,11 @@ export default function Transactions(): JSX.Element {
         >
           pg3
         </button>
+        {createArrayofSize(data!.totalPages).map(pagenum => (
+          <button key={pagenum} data-pagenum={pagenum} onClick={handlePagenumClick}>
+            {pagenum === data?.pagenum ? <em>{pagenum}</em> : pagenum}
+          </button>
+        ))}
       </div>
       {transactionToEdit && (
         <EditModal transaction={transactionToEdit} handleClose={handleCloseEditModal} handleUpdateSuccess={handleUpdateSuccess} />

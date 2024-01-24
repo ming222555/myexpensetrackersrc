@@ -70,12 +70,12 @@ const seed = async (): Promise<void> => {
 
 seed();
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function retrieveTransactions(pagenum: number, filter: FiltersWithSearch): Promise<TransactionsPaginatedDataDto> {
   let totalPages = 0;
-  let totalItems = 0;
 
-  const EMPTY_DTO = {
+  const ITEMS_PER_PAGE = 10;
+
+  const EMPTY_DTO: Readonly<TransactionsPaginatedDataDto> = {
     transactions: [],
     pagenum,
     totalPages: 0,
@@ -131,17 +131,62 @@ export async function retrieveTransactions(pagenum: number, filter: FiltersWithS
 
   console.log('retrieveTransactions transactions after matchSorter', JSON.stringify(transactions));
   transactions.sort(sortBy<TransactionDto>('-expenseDate', '-id'));
-  // todo... identify transactions of pagenum... determine totalPages, totalItems
-  totalPages = 666;
-  totalItems = 888;
-  const computedPagenum = 123; // todo cf delete transactions
 
-  return {
-    transactions,
-    pagenum: computedPagenum,
-    totalPages,
-    totalItems,
-  };
+  const totalItems = transactions.length; // after filtering
+
+  // pagination
+  const retTransactions: TransactionDto[] = [];
+  totalPages = Math.ceil(transactions.length / ITEMS_PER_PAGE);
+  const remainder = transactions.length % ITEMS_PER_PAGE;
+
+  if (pagenum < totalPages || (pagenum === totalPages && remainder === 0)) {
+    const idxFrom = (pagenum - 1) * ITEMS_PER_PAGE; // 0 index based
+    const idxTo = idxFrom + (ITEMS_PER_PAGE - 1);
+    const idxToPlusOne = idxTo + 1;
+    for (let i = idxFrom; i < idxToPlusOne; i++) {
+      retTransactions.push(transactions[i]);
+    }
+
+    return {
+      transactions: retTransactions,
+      pagenum,
+      totalPages,
+      totalItems,
+    };
+  } else if (pagenum === totalPages && remainder !== 0) {
+    // at last page with items less than ITEMS_PER_PAGE
+    const idxStart = (totalPages - 1) * ITEMS_PER_PAGE; // 0 index based
+    const idxFinish = idxStart + (remainder - 1);
+    const idxFinishPlusOne = idxFinish + 1;
+    for (let i = idxStart; i < idxFinishPlusOne; i++) {
+      retTransactions.push(transactions[i]);
+    }
+
+    return {
+      transactions: retTransactions,
+      pagenum,
+      totalPages,
+      totalItems,
+    };
+  } else if (pagenum > totalPages) {
+    // e.g. user has deleted all items from last page shown and then do a refresh
+    const idxBegin = (totalPages - 1) * ITEMS_PER_PAGE; // 0 index based
+    const idxEnd = idxBegin + (remainder > 0 ? remainder - 1 : ITEMS_PER_PAGE - 1);
+    const idxEndPlusOne = idxEnd + 1;
+    for (let i = idxBegin; i < idxEndPlusOne; i++) {
+      retTransactions.push(transactions[i]);
+    }
+
+    return {
+      transactions: retTransactions,
+      pagenum: totalPages,
+      totalPages,
+      totalItems,
+    };
+  } else {
+    // shouldn't reach here though
+    return EMPTY_DTO;
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

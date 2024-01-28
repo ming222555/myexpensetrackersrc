@@ -1,17 +1,72 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+// Override bootstrap's value of rem (i.e. html font-size)
+$font-size-root: 87.5%; // 100% => 16px, typically the browser default
+                        // 87.5% => 14px
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+//////////////////////////////////////////////////////
 
+// https://getbootstrap.com/docs/5.3/customize/sass/
+// Copied from node_modules/bootstrap/scss/bootstrap.scss
+@import '../node_modules/bootstrap/scss/mixins/_banner.scss';
+@include bsBanner("");
+
+
+// scss-docs-start import-stack
+// Configuration
+@import '../node_modules/bootstrap/scss/_functions.scss';
+@import '../node_modules/bootstrap/scss/_variables.scss';
+@import '../node_modules/bootstrap/scss/_variables-dark.scss';
+@import '../node_modules/bootstrap/scss/_maps.scss';
+@import '../node_modules/bootstrap/scss/_mixins.scss';
+@import '../node_modules/bootstrap/scss/_utilities.scss';
+
+// Layout & components
+@import '../node_modules/bootstrap/scss/_root.scss';
+@import '../node_modules/bootstrap/scss/_reboot.scss';
+@import '../node_modules/bootstrap/scss/_type.scss';
+// @import '../node_modules/bootstrap/scss/_images.scss';
+@import '../node_modules/bootstrap/scss/_containers.scss';
+@import '../node_modules/bootstrap/scss/_grid.scss';
+// @import '../node_modules/bootstrap/scss/_tables.scss';
+// @import '../node_modules/bootstrap/scss/_forms.scss';
+@import '../node_modules/bootstrap/scss/_buttons.scss';
+// @import '../node_modules/bootstrap/scss/_transitions.scss';
+// @import '../node_modules/bootstrap/scss/_dropdown.scss';
+// @import '../node_modules/bootstrap/scss/_button-group.scss';
+// @import '../node_modules/bootstrap/scss/_nav.scss';
+// @import '../node_modules/bootstrap/scss/_navbar.scss';
+// @import '../node_modules/bootstrap/scss/_card.scss';
+// @import '../node_modules/bootstrap/scss/_accordion.scss';
+// @import '../node_modules/bootstrap/scss/_breadcrumb.scss';
+// @import '../node_modules/bootstrap/scss/_pagination.scss';
+// @import '../node_modules/bootstrap/scss/_badge.scss';
+// @import '../node_modules/bootstrap/scss/_alert.scss';
+// @import '../node_modules/bootstrap/scss/_progress.scss';
+// @import '../node_modules/bootstrap/scss/_list-group.scss';
+@import '../node_modules/bootstrap/scss/_close.scss';
+// @import '../node_modules/bootstrap/scss/_toasts.scss';
+// @import '../node_modules/bootstrap/scss/_modal.scss';
+// @import '../node_modules/bootstrap/scss/_tooltip.scss';
+// @import '../node_modules/bootstrap/scss/_popover.scss';
+// @import '../node_modules/bootstrap/scss/_carousel.scss';
+// @import '../node_modules/bootstrap/scss/_spinners.scss';
+@import '../node_modules/bootstrap/scss/_offcanvas.scss';
+// @import '../node_modules/bootstrap/scss/_placeholders.scss';
+
+// Helpers
+@import '../node_modules/bootstrap/scss/_helpers.scss';
+
+// Utilities
+@import '../node_modules/bootstrap/scss/utilities/_api.scss';
+// scss-docs-end import-stack
+
+//////////////////////////////////////////////////////
+
+// https://icons.getbootstrap.com/
+@import '../node_modules/bootstrap-icons/font/bootstrap-icons.min.css';
+
+//////////////////////////////////////////////////////
+
+// Application's own styles
 @import './ErrorPage.scss';
 @import './routes/AppLayout/AppLayout.scss';
 @import './routes/Transactions/Transactions.scss';

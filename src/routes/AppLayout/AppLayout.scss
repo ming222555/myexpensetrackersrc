@@ -1,2 +1,14 @@
 .AppLayout {
+  display: flex;
+}
+.AppLayoutSider {
+  flex: 0 0 auto;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: sticky;
+  top: 0;
+}
+.AppLayoutMain {
+  outline: 2px solid blue;
 }

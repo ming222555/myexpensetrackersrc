@@ -8,7 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './index.scss';
 import store from './store/store';
-import Root from './routes/Root/Root';
+import AppLayout from './routes/AppLayout/AppLayout';
 import Transactions, { loader } from './routes/Transactions/Transactions';
 import queryClient from './reactquery';
 import ErrorPage from './ErrorPage';
@@ -24,7 +24,7 @@ const SHOW_DEV_TOOLS = true;
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: <AppLayout />,
     // errorElement: <ErrorPage />,
     errorElement: <ErrorPage />,
     // loader: rootLoader(queryClient),

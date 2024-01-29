@@ -1,43 +1,21 @@
 import React from 'react';
 
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+
+import SiderDrawer from './components/SiderDrawer';
+import SiderContent from './AppLayoutSider/Content';
 
 export default function AppLayout(): JSX.Element {
   return (
     <div className='AppLayout'>
       <aside className='AppLayoutSider'>
-        <p>Sider</p>
-        <Link to='transactions'>Transactions</Link>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider</p>
-        <p>Sider666</p>
+        <SiderDrawer className='d-flex flex-column'>
+          <SiderContent />
+        </SiderDrawer>
       </aside>
       <main className='AppLayoutMain'>
         <Outlet />
       </main>
-      {/* AppLayout Sider... <Link to='transactions'>Transactions</Link> */}
     </div>
   );
 }

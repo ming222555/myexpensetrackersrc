@@ -10,6 +10,7 @@ import './index.scss';
 import store from './store/store';
 import AppLayout from './routes/AppLayout/AppLayout';
 import Transactions, { loader } from './routes/Transactions/Transactions';
+import About from './routes/About/About';
 import queryClient from './reactquery';
 import ErrorPage from './ErrorPage';
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         path: 'transactions',
         element: <Transactions />,
         loader: loader,
+      },
+      {
+        path: 'about',
+        element: <About />,
       },
       // {
       //   path: 'contacts/:contactId/edit',

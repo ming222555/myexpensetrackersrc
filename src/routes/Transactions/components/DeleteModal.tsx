@@ -4,6 +4,8 @@ import { useMutation } from '@tanstack/react-query';
 
 import { deleteTransactions } from '../../../db/indexdb';
 import ModalSpinner from '../../../components/Modals/ModalSpinner';
+import ModalAlert from '../../../components/Modals/ModalAlert';
+import './DeleteModal.scss';
 
 export default function DeleteModal(props: { selection: number[]; handleClose: () => void; handleDeleteSuccess: () => void }): JSX.Element {
   const mutation = useMutation({
@@ -13,7 +15,9 @@ export default function DeleteModal(props: { selection: number[]; handleClose: (
   });
 
   function handleDelete(): void {
-    mutation.mutate(props.selection, { onSuccess: props.handleDeleteSuccess });
+    mutation.mutate(props.selection, {
+      onSuccess: () => setTimeout(() => props.handleDeleteSuccess(), 2000),
+    });
   }
 
   return (
@@ -25,19 +29,22 @@ export default function DeleteModal(props: { selection: number[]; handleClose: (
         ) : (
           <>
             {mutation.isError ? <span>An error occurred: {mutation.error.message}</span> : null}
-            {mutation.isSuccess ? <span>Transaction(s) deleted!</span> : null}
+            {/* {mutation.isSuccess ? <span>Transaction(s) deleted!</span> : null} */}
           </>
         )}
         <br />
         <br />
-        <button type='button' onClick={handleDelete} disabled={mutation.isPending}>
-          Yes
-        </button>{' '}
-        <button type='button' onClick={props.handleClose} disabled={mutation.isPending}>
-          No
-        </button>
+        <div className='DeleteModal__actions'>
+          <button type='button' onClick={handleDelete} disabled={mutation.isPending}>
+            Yes
+          </button>
+          <button type='button' onClick={props.handleClose} disabled={mutation.isPending}>
+            No
+          </button>
+        </div>
       </div>
       {mutation.isPending && <ModalSpinner />}
+      {mutation.isSuccess && <ModalAlert message='Transaction(s) successfully deleted!' />}
     </>
   );
 }

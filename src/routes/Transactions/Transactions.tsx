@@ -20,6 +20,8 @@ import DeleteModal from './components/DeleteModal';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import queryClient from '../../reactquery';
 import { transactionsQueryOptions, TransactionDto } from '../../reactquery/transactions/transactionsRq';
+import SiderDrawer from '../AppLayout/components/SiderDrawer';
+import ModalCreate from '../../components/Modals/ModalCreate';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const loader = async () => {
@@ -105,6 +107,7 @@ export default function Transactions(): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   async function handleDeleteSuccess() {
     dispatch(clearSelection());
+    handleCloseDeleteModal();
     const totalPagesB4Delete = data!.totalPages;
     try {
       const dataAfterDelete = await queryClient.fetchQuery(transactionsQueryOptions(pagenumRef.current, filter, 0));
@@ -151,26 +154,41 @@ export default function Transactions(): JSX.Element {
 
   return (
     <>
-      <div className='Transactions'>
-        <div className='Transactions__filterString'>
+      <article className='Transactions'>
+        <section className='TransactionsSection'>
+          <h2 className='TransactionsSection__title h6 p-3'>All Transactions</h2>
+          <Search handleSearchChange={handleSearchChange} />
+          <div className='TransactionsSection__actions'>
+            <button type='button' onClick={handleOpenCreateModal}>
+              New
+            </button>{' '}
+            <button type='button' onClick={handleOpenEditModal} disabled={selection.length !== 1}>
+              Edit
+            </button>{' '}
+            <button type='button' onClick={handleOpenDeleteModal} disabled={selection.length === 0}>
+              Delete
+            </button>
+          </div>
+          <TransactionsList transactions={data!.transactions} />
+          {/* todo react-bootstrap paginator for below... */}
+          {createArrayofSize(data!.totalPages).map(pagenum => (
+            <button key={pagenum} data-pagenum={pagenum} onClick={handlePagenumClick}>
+              {pagenum === data?.pagenum ? <em>{pagenum}</em> : pagenum}
+            </button>
+          ))}
+        </section>
+        <aside className='Transactions__filters'>
+          <SiderDrawer placement='end'>
+            <Filters handleFiltersChange={handleFiltersChange} />
+          </SiderDrawer>
+        </aside>
+        {/* <div className='Transactions__filterString'>
           <strong>{JSON.stringify(filter)}</strong>
           <br />
           <strong>{Math.random()}</strong>
         </div>
-        <div className='Transactions__data'>api response dataa {JSON.stringify(data)}</div>
-        <button type='button' onClick={handleOpenEditModal} disabled={selection.length !== 1}>
-          Edit
-        </button>{' '}
-        <button type='button' onClick={handleOpenCreateModal}>
-          New
-        </button>{' '}
-        <button type='button' onClick={handleOpenDeleteModal} disabled={selection.length === 0}>
-          Delete
-        </button>
-        <TransactionsList transactions={data!.transactions} />
-        <Search handleSearchChange={handleSearchChange} />
-        <Filters handleFiltersChange={handleFiltersChange} />
-        <button
+        <div className='Transactions__data'>api response dataa {JSON.stringify(data)}</div> */}
+        {/* <button
           onClick={(): void => {
             pagenumRef.current = 1;
             setRender({});
@@ -193,13 +211,8 @@ export default function Transactions(): JSX.Element {
           }}
         >
           pg3
-        </button>
-        {createArrayofSize(data!.totalPages).map(pagenum => (
-          <button key={pagenum} data-pagenum={pagenum} onClick={handlePagenumClick}>
-            {pagenum === data?.pagenum ? <em>{pagenum}</em> : pagenum}
-          </button>
-        ))}
-      </div>
+        </button> */}
+      </article>
       {transactionToEdit && (
         <EditModal transaction={transactionToEdit} handleClose={handleCloseEditModal} handleUpdateSuccess={handleUpdateSuccess} />
       )}
@@ -218,7 +231,9 @@ export default function Transactions(): JSX.Element {
         />
       )}
       {transactionIDsToDelete.length > 0 && (
-        <DeleteModal selection={transactionIDsToDelete} handleClose={handleCloseDeleteModal} handleDeleteSuccess={handleDeleteSuccess} />
+        <ModalCreate onClose={handleCloseDeleteModal}>
+          <DeleteModal selection={transactionIDsToDelete} handleClose={handleCloseDeleteModal} handleDeleteSuccess={handleDeleteSuccess} />
+        </ModalCreate>
       )}
     </>
   );

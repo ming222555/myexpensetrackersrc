@@ -1,10 +1,29 @@
+// .Transactions__filterString {
+//   border: 2px solid blue;
+//   margin: 1rem 0;
+// }
+// .Transactions__data {
+//   border: 2px solid blue;
+//   margin: 1rem 0;
+// }
 .Transactions {
-}
-.Transactions__filterString {
+  display: flex;
   border: 2px solid blue;
-  margin: 1rem 0;
 }
-.Transactions__data {
-  border: 2px solid blue;
-  margin: 1rem 0;
+.Transactions__filters { // aside
+  border: 2px solid green;
+  flex: 0 0 auto;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: sticky;
+  top: 0;
+  background: var(--bs-info);
+  @include media-breakpoint-up(sm) {
+    background: transparent;
+  };
+}
+.TransactionsSection { // section
+  border: 2px solid black;
+  flex: 1 1 auto;
 }

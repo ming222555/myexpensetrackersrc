@@ -1,4 +1,7 @@
 module.exports = {
+  // https://velog.io/@kerem119/ESLint-Prettier-settings-for-in-Typescript-React
+  //  .eslintrc.js
+  //  .prettierrc.txt
   root: true,
   extends: [
     "eslint:recommended",

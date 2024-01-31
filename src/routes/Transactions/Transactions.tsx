@@ -99,6 +99,7 @@ export default function Transactions(): JSX.Element {
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   /* async */ function handleCreateSuccess() {
+    handleCloseCreateModal();
     /* await queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(1, initialState.filter).queryKey });
     pagenumRef.current = 1;
     dispatch(clearFilter());
@@ -216,18 +217,20 @@ export default function Transactions(): JSX.Element {
         </ModalCreate>
       )}
       {isOpenCreateModal && (
-        <CreateModal
-          initial={{
-            cashflow: '',
-            category: '',
-            paymentmode: '',
-            amount: '',
-            expenseDate: '',
-            note: '',
-          }}
-          handleClose={handleCloseCreateModal}
-          handleCreateSuccess={handleCreateSuccess}
-        />
+        <ModalCreate onClose={handleCloseCreateModal}>
+          <CreateModal
+            initial={{
+              cashflow: '',
+              category: '',
+              paymentmode: '',
+              amount: '',
+              expenseDate: '',
+              note: '',
+            }}
+            handleClose={handleCloseCreateModal}
+            handleCreateSuccess={handleCreateSuccess}
+          />
+        </ModalCreate>
       )}
       {transactionIDsToDelete.length > 0 && (
         <ModalCreate onClose={handleCloseDeleteModal}>

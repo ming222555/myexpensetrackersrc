@@ -4,6 +4,9 @@ import { useMutation } from '@tanstack/react-query';
 
 import { TransactionDto } from '../../../reactquery/transactions/transactionsRq';
 import { createTransaction } from '../../../db/indexdb';
+import ModalSpinner from '../../../components/Modals/ModalSpinner';
+import ModalAlert from '../../../components/Modals/ModalAlert';
+import './CreateModal.scss';
 import { formatAMPM, formatYYYYMMDD } from '../../../util';
 
 interface StringisedFields {
@@ -117,62 +120,68 @@ export default function CreateModal(props: {
         expenseDate: parseInt(transaction.expenseDate),
         note: transaction.note.trim(),
       },
-      { onSuccess: props.handleCreateSuccess },
+      { onSuccess: () => setTimeout(() => props.handleCreateSuccess(), 2000) },
     );
   }
 
   return (
-    <div>
-      <div>
+    <>
+      <div className='CreateModal'>
+        <p>
+          <strong>Create transaction</strong>
+        </p>
         {mutation.isPending ? (
-          'Creating transaction...'
+          <span>Creating transaction...</span>
         ) : (
-          <>
-            {mutation.isError ? <div>An error occurred: {mutation.error.message}</div> : null}
-            {mutation.isSuccess ? <div>Transaction created!</div> : null}
-          </>
+          <>{mutation.isError ? <span className='text-danger'>An error occurred: {mutation.error.message}</span> : null}</>
         )}
+        <hr />
+        <form onSubmit={handleCreate}>
+          <div>
+            cashflow <input type='text' value={transaction.cashflow} data-actiontype='cashflow' onChange={handleOnChange} />{' '}
+            <span>{errors.cashflow ? errors.cashflow : ' '}</span>
+          </div>
+          <div>
+            category <input type='text' value={transaction.category} data-actiontype='category' onChange={handleOnChange} />{' '}
+            <span>{errors.category ? errors.category : ' '}</span>
+          </div>
+          <div>
+            paymentmode <input type='text' value={transaction.paymentmode} data-actiontype='paymentmode' onChange={handleOnChange} />
+            <span>{errors.paymentmode ? errors.paymentmode : ' '}</span>
+          </div>
+          <div>
+            amount <input type='text' value={transaction.amount} data-actiontype='amount' onChange={handleOnChange} />
+            <span>{errors.amount ? errors.amount : ' '}</span>
+          </div>
+          <div>
+            expenseDate <input type='text' value={transaction.expenseDate} data-actiontype='expenseDate' onChange={handleOnChange} />
+            <span>{errors.expenseDate ? errors.expenseDate : ' '}</span>
+          </div>
+          <div>
+            note <input type='text' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />
+          </div>
+          <div>
+            Created:{' '}
+            {mutation.data ? (
+              <span>
+                {formatYYYYMMDD(new Date(mutation.data))}, {formatAMPM(new Date(mutation.data))}
+              </span>
+            ) : (
+              ''
+            )}
+          </div>
+          <div className='button__actions'>
+            <button type='submit' disabled={mutation.isPending}>
+              Create
+            </button>
+            <button type='button' onClick={props.handleClose} disabled={mutation.isPending}>
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
-      <hr />
-      <form onSubmit={handleCreate}>
-        <button type='button' onClick={props.handleClose}>
-          Close
-        </button>
-        <div>
-          cashflow <input type='text' value={transaction.cashflow} data-actiontype='cashflow' onChange={handleOnChange} />{' '}
-          <span>{errors.cashflow ? errors.cashflow : ' '}</span>
-        </div>
-        <div>
-          category <input type='text' value={transaction.category} data-actiontype='category' onChange={handleOnChange} />{' '}
-          <span>{errors.category ? errors.category : ' '}</span>
-        </div>
-        <div>
-          paymentmode <input type='text' value={transaction.paymentmode} data-actiontype='paymentmode' onChange={handleOnChange} />
-          <span>{errors.paymentmode ? errors.paymentmode : ' '}</span>
-        </div>
-        <div>
-          amount <input type='text' value={transaction.amount} data-actiontype='amount' onChange={handleOnChange} />
-          <span>{errors.amount ? errors.amount : ' '}</span>
-        </div>
-        <div>
-          expenseDate <input type='text' value={transaction.expenseDate} data-actiontype='expenseDate' onChange={handleOnChange} />
-          <span>{errors.expenseDate ? errors.expenseDate : ' '}</span>
-        </div>
-        <div>
-          note <input type='text' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />
-        </div>
-        <div>
-          Created:{' '}
-          {mutation.data ? (
-            <span>
-              {formatYYYYMMDD(new Date(mutation.data))}, {formatAMPM(new Date(mutation.data))}
-            </span>
-          ) : (
-            ''
-          )}
-        </div>
-        <button type='submit'>Create</button>
-      </form>
-    </div>
+      {mutation.isPending && <ModalSpinner />}
+      {mutation.isSuccess && <ModalAlert message='Transaction successfully created!' />}
+    </>
   );
 }

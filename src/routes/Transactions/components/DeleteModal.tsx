@@ -27,14 +27,11 @@ export default function DeleteModal(props: { selection: number[]; handleClose: (
         {mutation.isPending ? (
           <span>Deleting transaction(s)...</span>
         ) : (
-          <>
-            {mutation.isError ? <span>An error occurred: {mutation.error.message}</span> : null}
-            {/* {mutation.isSuccess ? <span>Transaction(s) deleted!</span> : null} */}
-          </>
+          <>{mutation.isError ? <span className='text-danger'>An error occurred: {mutation.error.message}</span> : null}</>
         )}
         <br />
         <br />
-        <div className='DeleteModal__actions'>
+        <div className='button__actions'>
           <button type='button' onClick={handleDelete} disabled={mutation.isPending}>
             Yes
           </button>

@@ -92,6 +92,7 @@ export default function Transactions(): JSX.Element {
   }
 
   function handleUpdateSuccess(): void {
+    handleCloseEditModal();
     queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(pagenumRef.current, filter).queryKey });
   }
 
@@ -132,6 +133,9 @@ export default function Transactions(): JSX.Element {
 
   function handlePagenumClick(evt: React.MouseEvent<HTMLButtonElement>): void {
     const pagenum = parseInt(evt.currentTarget.getAttribute('data-pagenum')!);
+    if (pagenumRef.current === pagenum) {
+      return;
+    }
     pagenumRef.current = pagenum;
     setRender({});
   }
@@ -158,13 +162,13 @@ export default function Transactions(): JSX.Element {
         <section className='TransactionsSection'>
           <h2 className='TransactionsSection__title h6 p-3'>All Transactions</h2>
           <Search handleSearchChange={handleSearchChange} />
-          <div className='TransactionsSection__actions'>
+          <div className='button__actions'>
             <button type='button' onClick={handleOpenCreateModal}>
               New
-            </button>{' '}
+            </button>
             <button type='button' onClick={handleOpenEditModal} disabled={selection.length !== 1}>
               Edit
-            </button>{' '}
+            </button>
             <button type='button' onClick={handleOpenDeleteModal} disabled={selection.length === 0}>
               Delete
             </button>
@@ -214,7 +218,9 @@ export default function Transactions(): JSX.Element {
         </button> */}
       </article>
       {transactionToEdit && (
-        <EditModal transaction={transactionToEdit} handleClose={handleCloseEditModal} handleUpdateSuccess={handleUpdateSuccess} />
+        <ModalCreate onClose={handleCloseEditModal}>
+          <EditModal transaction={transactionToEdit} handleClose={handleCloseEditModal} handleUpdateSuccess={handleUpdateSuccess} />
+        </ModalCreate>
       )}
       {isOpenCreateModal && (
         <CreateModal

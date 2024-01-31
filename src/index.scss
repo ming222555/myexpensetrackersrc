@@ -67,5 +67,7 @@ $font-size-root: 87.5%; // 100% => 16px, typically the browser default
 //////////////////////////////////////////////////////
 
 // Application's own styles that needs sass functionality e.g. include mixins, etc
+// or simply styles that are shared
+@import './scss/shared.scss';
 @import './routes/AppLayout/AppLayout.scss';
 @import './routes/Transactions/Transactions.scss';

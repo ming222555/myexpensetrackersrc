@@ -27,7 +27,7 @@ $font-size-root: 87.5%; // 100% => 16px, typically the browser default
 @import '../node_modules/bootstrap/scss/_containers.scss';
 @import '../node_modules/bootstrap/scss/_grid.scss';
 // @import '../node_modules/bootstrap/scss/_tables.scss';
-// @import '../node_modules/bootstrap/scss/_forms.scss';
+@import '../node_modules/bootstrap/scss/_forms.scss';
 @import '../node_modules/bootstrap/scss/_buttons.scss';
 // @import '../node_modules/bootstrap/scss/_transitions.scss';
 // @import '../node_modules/bootstrap/scss/_dropdown.scss';

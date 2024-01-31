@@ -80,7 +80,7 @@ export default function CreateModal(props: {
       rc = -1;
     }
     if (!paymentmode) {
-      validationErrors.paymentmode = 'Paymentmode is required';
+      validationErrors.paymentmode = 'Payment Mode is required';
       rc = -1;
     }
 

@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from 'react';
 
 import { useMutation } from '@tanstack/react-query';
+import Form from 'react-bootstrap/Form';
 
 import { TransactionDto } from '../../../reactquery/transactions/transactionsRq';
 import { updateTransaction } from '../../../db/indexdb';
@@ -82,7 +83,7 @@ export default function EditModal(props: {
       rc = -1;
     }
     if (!paymentmode) {
-      validationErrors.paymentmode = 'Paymentmode is required';
+      validationErrors.paymentmode = 'Payment Mode is required';
       rc = -1;
     }
 
@@ -100,7 +101,7 @@ export default function EditModal(props: {
     return rc;
   }
 
-  function handleOnChange(evt: React.ChangeEvent<HTMLInputElement>): void {
+  function handleOnChange(evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const actiontype = evt.target.getAttribute('data-actiontype')!;
     if (actiontype !== 'note') {
@@ -138,19 +139,76 @@ export default function EditModal(props: {
           <>{mutation.isError ? <span className='text-danger'>An error occurred: {mutation.error.message}</span> : null}</>
         )}
         <hr />
-        <form onSubmit={handleUpdate}>
-          <div>
+        <Form onSubmit={handleUpdate}>
+          <Form.Group className='mb-3'>
+            <Form.Label htmlFor='editcashflow'>Cashflow</Form.Label>
+            <Form.Select
+              aria-label='Select Cashflow'
+              id='editcashflow'
+              aria-describedby='editcashflowHelpBlock'
+              value={transaction.cashflow}
+              data-actiontype='cashflow'
+              onChange={handleOnChange}
+            >
+              <option value=''></option>
+              <option value='income'>Income</option>
+              <option value='expense'>Expense</option>
+            </Form.Select>
+            <Form.Text id='editcashflowHelpBlock' className='text-danger'>
+              {errors.cashflow ? errors.cashflow : ''}
+            </Form.Text>
+          </Form.Group>
+          {/* <div>
             cashflow <input type='text' value={transaction.cashflow} data-actiontype='cashflow' onChange={handleOnChange} />{' '}
             <span>{errors.cashflow ? errors.cashflow : ' '}</span>
-          </div>
-          <div>
+          </div> */}
+          <Form.Group className='mb-3'>
+            <Form.Label htmlFor='editcategory'>Category</Form.Label>
+            <Form.Select
+              aria-label='Select Category'
+              id='editcategory'
+              aria-describedby='editcategoryHelpBlock'
+              value={transaction.category}
+              data-actiontype='category'
+              onChange={handleOnChange}
+            >
+              <option value=''></option>
+              <option value='clothing'>Clothing</option>
+              <option value='food'>Food</option>
+              <option value='transport'>Transport</option>
+              <option value='utilities'>Utilities</option>
+            </Form.Select>
+            <Form.Text id='editcategoryHelpBlock' className='text-danger'>
+              {errors.category ? errors.category : ''}
+            </Form.Text>
+          </Form.Group>
+          {/* <div>
             category <input type='text' value={transaction.category} data-actiontype='category' onChange={handleOnChange} />{' '}
             <span>{errors.category ? errors.category : ' '}</span>
-          </div>
-          <div>
+          </div> */}
+          <Form.Group className='mb-3'>
+            <Form.Label htmlFor='editpaymentmode'>Payment Mode</Form.Label>
+            <Form.Select
+              aria-label='Select Payment Mode'
+              id='editpaymentmode'
+              aria-describedby='editpaymentmodeHelpBlock'
+              value={transaction.paymentmode}
+              data-actiontype='paymentmode'
+              onChange={handleOnChange}
+            >
+              <option value=''></option>
+              <option value='cash'>Cash</option>
+              <option value='creditcard'>Credit Card</option>
+              <option value='debitcard'>Debit Card</option>
+            </Form.Select>
+            <Form.Text id='editpaymentmodeHelpBlock' className='text-danger'>
+              {errors.paymentmode ? errors.paymentmode : ''}
+            </Form.Text>
+          </Form.Group>
+          {/* <div>
             paymentmode <input type='text' value={transaction.paymentmode} data-actiontype='paymentmode' onChange={handleOnChange} />
             <span>{errors.paymentmode ? errors.paymentmode : ' '}</span>
-          </div>
+          </div> */}
           <div>
             amount <input type='text' value={transaction.amount} data-actiontype='amount' onChange={handleOnChange} />
             <span>{errors.amount ? errors.amount : ' '}</span>
@@ -159,15 +217,23 @@ export default function EditModal(props: {
             expenseDate <input type='text' value={transaction.expenseDate} data-actiontype='expenseDate' onChange={handleOnChange} />
             <span>{errors.expenseDate ? errors.expenseDate : ' '}</span>
           </div>
-          <div>
+          <Form.Group className='mb-3'>
+            <Form.Label htmlFor='editnote'>Note</Form.Label>
+            <Form.Control as='textarea' rows={3} id='editnote' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />
+          </Form.Group>
+          {/* <div>
             note <input type='text' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />
-          </div>
-          <div>
+          </div> */}
+          <br />
+          <Form.Text muted>
+            Created: {formatYYYYMMDD(new Date(transaction.id))}, {formatAMPM(new Date(transaction.id))}
+          </Form.Text>
+          {/* <div>
             Created:{' '}
             <span>
               {formatYYYYMMDD(new Date(transaction.id))}, {formatAMPM(new Date(transaction.id))}
             </span>
-          </div>
+          </div> */}
           <div className='button__actions'>
             <button type='submit' disabled={mutation.isPending}>
               Update
@@ -176,7 +242,7 @@ export default function EditModal(props: {
               Cancel
             </button>
           </div>
-        </form>
+        </Form>
       </div>
       {mutation.isPending && <ModalSpinner />}
       {mutation.isSuccess && <ModalAlert message='Transaction successfully updated!' />}

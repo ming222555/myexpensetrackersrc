@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { TransactionDto } from '../../../reactquery/transactions/transactionsRq';
 import { createTransaction } from '../../../db/indexdb';
+import { formatAMPM, formatYYYYMMDD } from '../../../util';
 
 interface StringisedFields {
   amount: string;
@@ -161,7 +162,14 @@ export default function CreateModal(props: {
           note <input type='text' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />
         </div>
         <div>
-          created <span>{mutation.data}</span>
+          Created:{' '}
+          {mutation.data ? (
+            <span>
+              {formatYYYYMMDD(new Date(mutation.data))}, {formatAMPM(new Date(mutation.data))}
+            </span>
+          ) : (
+            ''
+          )}
         </div>
         <button type='submit'>Create</button>
       </form>

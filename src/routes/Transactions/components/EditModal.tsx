@@ -7,6 +7,7 @@ import { updateTransaction } from '../../../db/indexdb';
 import ModalSpinner from '../../../components/Modals/ModalSpinner';
 import ModalAlert from '../../../components/Modals/ModalAlert';
 import './EditModal.scss';
+import { formatAMPM, formatYYYYMMDD } from '../../../util';
 
 interface StringisedFields {
   amount: string;
@@ -162,7 +163,10 @@ export default function EditModal(props: {
             note <input type='text' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />
           </div>
           <div>
-            created <span>{transaction.id}</span>
+            Created:{' '}
+            <span>
+              {formatYYYYMMDD(new Date(transaction.id))}, {formatAMPM(new Date(transaction.id))}
+            </span>
           </div>
           <div className='button__actions'>
             <button type='submit' disabled={mutation.isPending}>

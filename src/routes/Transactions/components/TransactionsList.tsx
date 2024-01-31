@@ -9,6 +9,7 @@ import {
   replaceSelection,
 } from '../../../store/ducks/transactions/transactionsSlice';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
+import './TransactionsList.scss';
 
 function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Element {
   const transactions = props.transactions;

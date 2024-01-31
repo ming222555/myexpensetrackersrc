@@ -66,12 +66,6 @@ $font-size-root: 87.5%; // 100% => 16px, typically the browser default
 
 //////////////////////////////////////////////////////
 
-// Application's own styles
-@import './ErrorPage.scss';
+// Application's own styles that needs sass functionality e.g. include mixins, etc
 @import './routes/AppLayout/AppLayout.scss';
 @import './routes/Transactions/Transactions.scss';
-@import './routes/Transactions/components/Search.scss';
-@import './routes/Transactions/components/Filters.scss';
-@import './routes/Transactions/components/MultiSelectCheckboxes.scss';
-@import './routes/Transactions/components/CategoryMultiSelectDropdown.scss';
-@import './routes/Transactions/components/TransactionsList.scss';

@@ -5,6 +5,7 @@ import { useDebounce } from 'rooks';
 import MultiSelectCheckboxes from './MultiSelectCheckboxes';
 import CategoryMultiSelectDropdown from './CategoryMultiSelectDropdown';
 import type { Filters as IFilters } from '../../../store/ducks/transactions/transactionsSlice';
+import './Filters.scss';
 
 function Filters(props: { handleFiltersChange: (filters: IFilters) => void }): JSX.Element {
   const formRef = useRef<HTMLFormElement>(null);

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+import './CategoryMultiSelectDropdown.scss';
+
 function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; handleFormChange: () => void }): JSX.Element {
   const { fieldname, title } = props;
   const allCategoriesRef = useRef([

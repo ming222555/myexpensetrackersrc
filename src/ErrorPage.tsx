@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
 
+import './ErrorPage.scss';
+
 const ERR_404 = 'Page not found';
 const ERR_401 = 'Authentication error';
 const ERR_403 = 'Authorisation error';

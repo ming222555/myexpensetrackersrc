@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+import './MultiSelectCheckboxes.scss';
+
 function MultiSelectCheckboxes(props: {
   fieldname: string;
   valuesLabels: string;

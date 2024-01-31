@@ -2,6 +2,8 @@ import React, { useMemo, useRef } from 'react';
 
 import { useDebounce } from 'rooks';
 
+import './Search.scss';
+
 function Search(props: { handleSearchChange: (search: string) => void }): JSX.Element {
   const qPrevTrimmedVal = useRef('');
 

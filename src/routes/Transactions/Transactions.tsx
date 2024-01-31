@@ -22,6 +22,7 @@ import queryClient from '../../reactquery';
 import { transactionsQueryOptions, TransactionDto } from '../../reactquery/transactions/transactionsRq';
 import SiderDrawer from '../AppLayout/components/SiderDrawer';
 import ModalCreate from '../../components/Modals/ModalCreate';
+import { createArrayofSize } from '../../util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const loader = async () => {
@@ -138,14 +139,6 @@ export default function Transactions(): JSX.Element {
     }
     pagenumRef.current = pagenum;
     setRender({});
-  }
-
-  function createArrayofSize(size: number): number[] {
-    const arr: number[] = [];
-    for (let i = 1; i < size + 1; i++) {
-      arr.push(i);
-    }
-    return arr;
   }
 
   useEffect(() => {

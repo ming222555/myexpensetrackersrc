@@ -34,3 +34,31 @@ export function formatYYYYMMDD(date: Date): string {
   // YYYY-MM-DD
   return date.getFullYear() + '-' + strMth + '-' + strDay;
 }
+
+export function isNonValidRegexMonetaryAmout(amt: string): string {
+  // return empty string '' if valid
+  // else error text if non valid
+  //
+  // https://www.codeproject.com/Questions/656212/Regex-expression-for-0-10-numbers-with-two-decimal
+  // https://itecnote.com/tecnote/javascript-regex-for-6-digits-before-and-2-digits-after-decimal/
+  const regexpression = /^\d{1,6}(\.\d{1,2})?$/;
+  const isValid = regexpression.test(amt);
+
+  if (isValid) {
+    return '';
+  }
+
+  const toFloat = parseFloat(amt);
+
+  if (isNaN(toFloat)) {
+    return 'Value must be valid number ######.##';
+  }
+
+  const posDec = amt.indexOf('.');
+
+  if (posDec > -1 && amt.substring(posDec).length > 3) {
+    return 'At most 2 decimal digits are allowed';
+  }
+
+  return 'Value must be valid number ######.##';
+}

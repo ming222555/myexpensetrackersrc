@@ -8,7 +8,7 @@ import { updateTransaction } from '../../../db/indexdb';
 import ModalSpinner from '../../../components/Modals/ModalSpinner';
 import ModalAlert from '../../../components/Modals/ModalAlert';
 import './EditModal.scss';
-import { formatAMPM, formatYYYYMMDD } from '../../../util';
+import { formatAMPM, formatYYYYMMDD, isNonValidRegexMonetaryAmout } from '../../../util';
 
 interface StringisedFields {
   amount: string;
@@ -87,9 +87,16 @@ export default function EditModal(props: {
       rc = -1;
     }
 
-    if (!amount) {
+    const strAmount = amount.trim();
+    if (!strAmount) {
       validationErrors.amount = 'Amount is required';
       rc = -1;
+    } else {
+      const errmsg = isNonValidRegexMonetaryAmout(strAmount);
+      if (errmsg) {
+        validationErrors.amount = errmsg;
+        rc = -1;
+      }
     }
 
     if (!expenseDate) {
@@ -209,10 +216,25 @@ export default function EditModal(props: {
             paymentmode <input type='text' value={transaction.paymentmode} data-actiontype='paymentmode' onChange={handleOnChange} />
             <span>{errors.paymentmode ? errors.paymentmode : ' '}</span>
           </div> */}
-          <div>
+          <Form.Group className='mb-3'>
+            <Form.Label htmlFor='editamount'>Amount $</Form.Label>
+            <Form.Control
+              type='text'
+              aria-label='Amount'
+              id='editamount'
+              aria-describedby='editamountHelpBlock'
+              value={transaction.amount}
+              data-actiontype='amount'
+              onChange={handleOnChange}
+            />
+            <Form.Text id='editamountHelpBlock' className='text-danger'>
+              {errors.amount ? errors.amount : ''}
+            </Form.Text>
+          </Form.Group>
+          {/* <div>
             amount <input type='text' value={transaction.amount} data-actiontype='amount' onChange={handleOnChange} />
             <span>{errors.amount ? errors.amount : ' '}</span>
-          </div>
+          </div> */}
           <div>
             expenseDate <input type='text' value={transaction.expenseDate} data-actiontype='expenseDate' onChange={handleOnChange} />
             <span>{errors.expenseDate ? errors.expenseDate : ' '}</span>

@@ -163,10 +163,6 @@ export default function CreateModal(props: {
               {errors.cashflow ? errors.cashflow : ''}
             </Form.Text>
           </Form.Group>
-          {/* <div>
-            cashflow <input type='text' value={transaction.cashflow} data-actiontype='cashflow' onChange={handleOnChange} />{' '}
-            <span>{errors.cashflow ? errors.cashflow : ' '}</span>
-          </div> */}
           <Form.Group className='mb-3'>
             <Form.Label htmlFor='editcategory'>Category</Form.Label>
             <Form.Select
@@ -187,10 +183,6 @@ export default function CreateModal(props: {
               {errors.category ? errors.category : ''}
             </Form.Text>
           </Form.Group>
-          {/* <div>
-            category <input type='text' value={transaction.category} data-actiontype='category' onChange={handleOnChange} />{' '}
-            <span>{errors.category ? errors.category : ' '}</span>
-          </div> */}
           <Form.Group className='mb-3'>
             <Form.Label htmlFor='editpaymentmode'>Payment Mode</Form.Label>
             <Form.Select
@@ -210,10 +202,6 @@ export default function CreateModal(props: {
               {errors.paymentmode ? errors.paymentmode : ''}
             </Form.Text>
           </Form.Group>
-          {/* <div>
-            paymentmode <input type='text' value={transaction.paymentmode} data-actiontype='paymentmode' onChange={handleOnChange} />
-            <span>{errors.paymentmode ? errors.paymentmode : ' '}</span>
-          </div> */}
           <Form.Group className='mb-3'>
             <Form.Label htmlFor='editamount'>Amount $</Form.Label>
             <Form.Control
@@ -229,10 +217,6 @@ export default function CreateModal(props: {
               {errors.amount ? errors.amount : ''}
             </Form.Text>
           </Form.Group>
-          {/* <div>
-            amount <input type='text' value={transaction.amount} data-actiontype='amount' onChange={handleOnChange} />
-            <span>{errors.amount ? errors.amount : ' '}</span>
-          </div> */}
           <div>
             expenseDate <input type='text' value={transaction.expenseDate} data-actiontype='expenseDate' onChange={handleOnChange} />
             <span>{errors.expenseDate ? errors.expenseDate : ' '}</span>
@@ -241,9 +225,6 @@ export default function CreateModal(props: {
             <Form.Label htmlFor='editnote'>Note</Form.Label>
             <Form.Control as='textarea' rows={3} id='editnote' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />
           </Form.Group>
-          {/* <div>
-            note <input type='text' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />
-          </div> */}
           <br />
           <Form.Text muted>
             Created:
@@ -255,16 +236,6 @@ export default function CreateModal(props: {
               ''
             )}
           </Form.Text>
-          {/* <div>
-            Created:{' '}
-            {mutation.data ? (
-              <span>
-                {formatYYYYMMDD(new Date(mutation.data))}, {formatAMPM(new Date(mutation.data))}
-              </span>
-            ) : (
-              ''
-            )}
-          </div> */}
           <div className='button__actions'>
             <button type='submit' disabled={mutation.isPending}>
               Create

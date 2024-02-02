@@ -66,6 +66,11 @@ $font-size-root: 87.5%; // 100% => 16px, typically the browser default
 
 //////////////////////////////////////////////////////
 
+// other third parties css
+@import 'react-datepicker/dist/react-datepicker.css';
+
+//////////////////////////////////////////////////////
+
 // Application's own styles that needs sass functionality e.g. include mixins, etc
 // or simply styles that are shared
 @import './scss/shared.scss';

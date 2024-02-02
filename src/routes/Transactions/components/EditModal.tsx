@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useMemo } from 'react';
 
 import { useMutation } from '@tanstack/react-query';
 import Form from 'react-bootstrap/Form';
@@ -10,7 +10,8 @@ import { updateTransaction } from '../../../db/indexdb';
 import ModalSpinner from '../../../components/Modals/ModalSpinner';
 import ModalAlert from '../../../components/Modals/ModalAlert';
 import './EditModal.scss';
-import { formatAMPM, formatYYYYMMDD, extractDollarFromAmount, extractCentFromAmount } from '../../../util';
+import { formatAMPM, formatYYYYMMDD, toIntYYYYMMDD, delimitYYYYMMDD, extractDollarFromAmount, extractCentFromAmount } from '../../../util';
+import DatepickerCustomInput from '../../../components/DatepickerCustomInput/DatepickerCustomInput';
 
 interface StringisedFields {
   amount: string;
@@ -126,6 +127,13 @@ export default function EditModal(props: {
     const cents = evt.target.value.replace(/\D/g, '');
     setCents(cents);
   }
+
+  const handleOnChangeExpenseDate = useMemo(() => {
+    return function (date: Date | null): void {
+      const actiontype = 'expenseDate';
+      dispatch({ type: actiontype, payload: toIntYYYYMMDD(date!) + '' });
+    };
+  }, []);
 
   function handleUpdate(evt: React.FormEvent<HTMLFormElement>): void {
     evt.preventDefault();
@@ -264,10 +272,36 @@ export default function EditModal(props: {
               </Form.Group>
             </Col>
           </Row>
-          <div>
+          {/* <Form.Group className='mb-3'>
+            <Form.Label htmlFor='editexpenseDate'>Date</Form.Label>
+            <Form.Control
+              type='text'
+              aria-label='Expense Date'
+              // id='editexpenseDate'
+              aria-describedby='editexpenseDateHelpBlock'
+              value={transaction.expenseDate}
+              data-actiontype='expenseDate'
+              onChange={handleOnChange}
+            />
+            <Form.Text id='editexpenseDateHelpBlock' className='text-danger'>
+              {errors.expenseDate ? errors.expenseDate : ''}
+            </Form.Text>
+          </Form.Group> */}
+          <Form.Group className='mb-3 mt-3'>
+            <Form.Label htmlFor='editexpenseDate' className='me-3'>
+              Date
+            </Form.Label>
+            <DatepickerCustomInput
+              initialDateString={delimitYYYYMMDD(transaction.expenseDate, '-')}
+              className='btn btn-primary'
+              memoOnChange={handleOnChangeExpenseDate}
+              id='editexpenseDate'
+            />
+          </Form.Group>
+          {/* <div>
             expenseDate <input type='text' value={transaction.expenseDate} data-actiontype='expenseDate' onChange={handleOnChange} />
             <span>{errors.expenseDate ? errors.expenseDate : ' '}</span>
-          </div>
+          </div> */}
           <Form.Group className='mb-3'>
             <Form.Label htmlFor='editnote'>Note</Form.Label>
             <Form.Control as='textarea' rows={3} id='editnote' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />

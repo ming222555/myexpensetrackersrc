@@ -93,6 +93,7 @@ export default function Transactions(): JSX.Element {
   }
 
   function handleUpdateSuccess(): void {
+    dispatch(clearSelection());
     handleCloseEditModal();
     queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(pagenumRef.current, filter).queryKey });
   }
@@ -140,6 +141,7 @@ export default function Transactions(): JSX.Element {
     }
     pagenumRef.current = pagenum;
     setRender({});
+    dispatch(clearSelection());
   }
 
   useEffect(() => {
@@ -168,7 +170,6 @@ export default function Transactions(): JSX.Element {
             </button>
           </div>
           <TransactionsList transactions={data!.transactions} />
-          {/* todo react-bootstrap paginator for below... */}
           {createArrayofSize(data!.totalPages).map(pagenum => (
             <button key={pagenum} data-pagenum={pagenum} onClick={handlePagenumClick}>
               {pagenum === data?.pagenum ? <em>{pagenum}</em> : pagenum}

@@ -1,3 +1,7 @@
+/**
+ * @param size e.g. 6
+ * @returns e.g. [1,2,3,4,5,6]
+ */
 export function createArrayofSize(size: number): number[] {
   const arr: number[] = [];
   for (let i = 1; i < size + 1; i++) {
@@ -6,6 +10,10 @@ export function createArrayofSize(size: number): number[] {
   return arr;
 }
 
+/**
+ * @param Date object
+ * @returns e.g. '2:07 pm'
+ */
 export function formatAMPM(date: Date): string {
   // https://stackoverflow.com/questions/8888491/how-do-you-display-javascript-datetime-in-12-hour-am-pm-format
   let hours = date.getHours();
@@ -18,6 +26,10 @@ export function formatAMPM(date: Date): string {
   return strTime;
 }
 
+/**
+ * @param Date object
+ * @returns e.g. '2023-06-30'
+ */
 export function formatYYYYMMDD(date: Date): string {
   const mth = date.getMonth() + 1;
   let strMth = mth + '';
@@ -31,10 +43,50 @@ export function formatYYYYMMDD(date: Date): string {
     strDay = '0' + day;
   }
 
-  // YYYY-MM-DD
+  // 'YYYY-MM-DD'
   return date.getFullYear() + '-' + strMth + '-' + strDay;
 }
 
+/**
+ * @param Date object
+ * @returns e.g. 20230630
+ */
+export function toIntYYYYMMDD(date: Date): number {
+  const mth = date.getMonth() + 1;
+  let strMth = mth + '';
+  if (mth < 10) {
+    strMth = '0' + mth;
+  }
+
+  const day = date.getDate();
+  let strDay = day + '';
+  if (day < 10) {
+    strDay = '0' + day;
+  }
+
+  // YYYYMMDD
+  return parseInt(date.getFullYear() + strMth + strDay);
+}
+
+/**
+ * @param strDate e.g. '20230630'
+ * @param delimiter e.g. '-'
+ * @returns e.g. '2023-06-30'
+ */
+export function delimitYYYYMMDD(strDate: string, delimiter: string): string {
+  // args
+  //   strDate e.g. '20230630'
+  //   delimiter e.g. '-'
+  const yyyy = strDate.substring(0, 4);
+  const mm = strDate.substring(4, 6);
+  const dd = strDate.substring(6);
+  return yyyy + delimiter + mm + delimiter + dd;
+}
+
+/**
+ * @param amt e.g. '123456.99'
+ * @returns empty string if regex is valid else error text
+ */
 export function isNonValidRegexMonetaryAmout(amt: string): string {
   // return empty string '' if valid
   // else error text if non valid
@@ -63,6 +115,10 @@ export function isNonValidRegexMonetaryAmout(amt: string): string {
   return 'Value must be valid number ######.##';
 }
 
+/**
+ * @param amount e.g. '123.99'
+ * @returns e.g. '123'
+ */
 export function extractDollarFromAmount(amount: string): string {
   if (!amount) {
     return '';
@@ -75,6 +131,10 @@ export function extractDollarFromAmount(amount: string): string {
   return amount;
 }
 
+/**
+ * @param amount e.g. '123.99'
+ * @returns e.g. '99'
+ */
 export function extractCentFromAmount(amount: string): string {
   if (!amount) {
     return '';

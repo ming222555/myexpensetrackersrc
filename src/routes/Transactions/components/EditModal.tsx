@@ -2,13 +2,15 @@ import React, { useReducer, useState } from 'react';
 
 import { useMutation } from '@tanstack/react-query';
 import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 import { TransactionDto } from '../../../reactquery/transactions/transactionsRq';
 import { updateTransaction } from '../../../db/indexdb';
 import ModalSpinner from '../../../components/Modals/ModalSpinner';
 import ModalAlert from '../../../components/Modals/ModalAlert';
 import './EditModal.scss';
-import { formatAMPM, formatYYYYMMDD, isNonValidRegexMonetaryAmout } from '../../../util';
+import { formatAMPM, formatYYYYMMDD, extractDollarFromAmount, extractCentFromAmount } from '../../../util';
 
 interface StringisedFields {
   amount: string;
@@ -58,9 +60,11 @@ export default function EditModal(props: {
 
   const [transaction, dispatch] = useReducer(reducer, {
     ...props.transaction,
-    amount: props.transaction.amount + '',
+    amount: extractDollarFromAmount(props.transaction.amount + ''),
     expenseDate: props.transaction.expenseDate + '',
   });
+
+  const [cents, setCents] = useState(extractCentFromAmount(props.transaction.amount + ''));
 
   const mutation = useMutation({
     mutationFn: (updatesForTransaction: TransactionDto) => {
@@ -86,17 +90,9 @@ export default function EditModal(props: {
       validationErrors.paymentmode = 'Payment Mode is required';
       rc = -1;
     }
-
-    const strAmount = amount.trim();
-    if (!strAmount) {
+    if (!amount) {
       validationErrors.amount = 'Amount is required';
       rc = -1;
-    } else {
-      const errmsg = isNonValidRegexMonetaryAmout(strAmount);
-      if (errmsg) {
-        validationErrors.amount = errmsg;
-        rc = -1;
-      }
     }
 
     if (!expenseDate) {
@@ -112,10 +108,23 @@ export default function EditModal(props: {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const actiontype = evt.target.getAttribute('data-actiontype')!;
     if (actiontype !== 'note') {
-      dispatch({ type: actiontype, payload: evt.target.value.trim() });
+      if (actiontype !== 'amount') {
+        // neither 'note' nor 'amount'
+        dispatch({ type: actiontype, payload: evt.target.value.trim() });
+        return;
+      }
+      // ...'amount'
+      const amount = evt.target.value.replace(/\D/g, '');
+      dispatch({ type: actiontype, payload: amount });
       return;
     }
+    // ...'note'
     dispatch({ type: actiontype, payload: evt.target.value });
+  }
+
+  function handleOnChangeCents(evt: React.ChangeEvent<HTMLInputElement>): void {
+    const cents = evt.target.value.replace(/\D/g, '');
+    setCents(cents);
   }
 
   function handleUpdate(evt: React.FormEvent<HTMLFormElement>): void {
@@ -123,10 +132,19 @@ export default function EditModal(props: {
     if (validate() < 0) {
       return;
     }
+
+    let amount = parseFloat(transaction.amount);
+    if (cents.length > 0) {
+      const nbrCents = parseInt(cents);
+      if (nbrCents > 0) {
+        amount = parseFloat(transaction.amount + '.' + cents);
+      }
+    }
+
     mutation.mutate(
       {
         ...transaction,
-        amount: parseFloat(transaction.amount),
+        amount,
         expenseDate: parseInt(transaction.expenseDate),
         note: transaction.note.trim(),
       },
@@ -204,21 +222,48 @@ export default function EditModal(props: {
               {errors.paymentmode ? errors.paymentmode : ''}
             </Form.Text>
           </Form.Group>
-          <Form.Group className='mb-3'>
-            <Form.Label htmlFor='editamount'>Amount $</Form.Label>
-            <Form.Control
-              type='text'
-              aria-label='Amount'
-              id='editamount'
-              aria-describedby='editamountHelpBlock'
-              value={transaction.amount}
-              data-actiontype='amount'
-              onChange={handleOnChange}
-            />
-            <Form.Text id='editamountHelpBlock' className='text-danger'>
-              {errors.amount ? errors.amount : ''}
-            </Form.Text>
-          </Form.Group>
+          <Row className='align-items-center'>
+            <Col xs='auto'>
+              <Form.Group className='mb-3'>
+                <Form.Label htmlFor='editamount'>Amount $</Form.Label>
+                <Form.Control
+                  type='text'
+                  aria-label='Amount'
+                  id='editamount'
+                  aria-describedby='editamountHelpBlock'
+                  value={transaction.amount}
+                  data-actiontype='amount'
+                  onChange={handleOnChange}
+                  maxLength={6}
+                  placeholder='000000'
+                  style={{ width: '6rem' }}
+                />
+                <Form.Text id='editamountHelpBlock' className='text-danger'>
+                  {errors.amount ? errors.amount : ''}
+                </Form.Text>
+              </Form.Group>
+            </Col>
+            <Col xs='auto'>
+              <Form.Text className='mb-3' muted>
+                <strong>.</strong>
+              </Form.Text>
+            </Col>
+            <Col xs='auto'>
+              <Form.Group className='mb-3'>
+                <Form.Label htmlFor='editcents'>cents</Form.Label>
+                <Form.Control
+                  type='text'
+                  aria-label='Cents'
+                  id='editcents'
+                  value={cents}
+                  onChange={handleOnChangeCents}
+                  maxLength={2}
+                  placeholder='00'
+                  style={{ width: '4rem' }}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
           <div>
             expenseDate <input type='text' value={transaction.expenseDate} data-actiontype='expenseDate' onChange={handleOnChange} />
             <span>{errors.expenseDate ? errors.expenseDate : ' '}</span>

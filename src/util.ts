@@ -62,3 +62,30 @@ export function isNonValidRegexMonetaryAmout(amt: string): string {
 
   return 'Value must be valid number ######.##';
 }
+
+export function extractDollarFromAmount(amount: string): string {
+  if (!amount) {
+    return '';
+  }
+  const pos = amount.indexOf('.');
+  if (pos > -1) {
+    const [dollars] = amount.split('.');
+    return dollars;
+  }
+  return amount;
+}
+
+export function extractCentFromAmount(amount: string): string {
+  if (!amount) {
+    return '';
+  }
+  const pos = amount.indexOf('.');
+  if (pos === -1) {
+    return '';
+  }
+  const cents = amount.split('.')[1];
+  if (cents.length === 1) {
+    return cents + '0';
+  }
+  return cents;
+}

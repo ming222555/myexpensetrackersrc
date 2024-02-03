@@ -1,14 +1,17 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useMemo } from 'react';
 
 import { useMutation } from '@tanstack/react-query';
 import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 import { TransactionDto } from '../../../reactquery/transactions/transactionsRq';
 import { createTransaction } from '../../../db/indexdb';
 import ModalSpinner from '../../../components/Modals/ModalSpinner';
 import ModalAlert from '../../../components/Modals/ModalAlert';
 import './CreateModal.scss';
-import { formatAMPM, formatYYYYMMDD, isNonValidRegexMonetaryAmout } from '../../../util';
+import { formatAMPM, formatYYYYMMDD, toIntYYYYMMDD, delimitYYYYMMDD } from '../../../util';
+import DatepickerCustomInput from '../../../components/DatepickerCustomInput/DatepickerCustomInput';
 
 interface StringisedFields {
   amount: string;
@@ -58,7 +61,10 @@ export default function CreateModal(props: {
 
   const [transaction, dispatch] = useReducer(reducer, {
     ...props.initial,
+    expenseDate: '20191130',
   });
+
+  const [cents, setCents] = useState('');
 
   const mutation = useMutation({
     mutationFn: (creationDetails: Omit<TransactionDto, 'id'>) => {
@@ -84,17 +90,9 @@ export default function CreateModal(props: {
       validationErrors.paymentmode = 'Payment Mode is required';
       rc = -1;
     }
-
-    const strAmount = amount.trim();
-    if (!strAmount) {
+    if (!amount) {
       validationErrors.amount = 'Amount is required';
       rc = -1;
-    } else {
-      const errmsg = isNonValidRegexMonetaryAmout(strAmount);
-      if (errmsg) {
-        validationErrors.amount = errmsg;
-        rc = -1;
-      }
     }
 
     if (!expenseDate) {
@@ -110,21 +108,50 @@ export default function CreateModal(props: {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const actiontype = evt.target.getAttribute('data-actiontype')!;
     if (actiontype !== 'note') {
-      dispatch({ type: actiontype, payload: evt.target.value.trim() });
+      if (actiontype !== 'amount') {
+        // neither 'note' nor 'amount'
+        dispatch({ type: actiontype, payload: evt.target.value.trim() });
+        return;
+      }
+      // ...'amount'
+      const amount = evt.target.value.replace(/\D/g, '');
+      dispatch({ type: actiontype, payload: amount });
       return;
     }
+    // ...'note'
     dispatch({ type: actiontype, payload: evt.target.value });
   }
+
+  function handleOnChangeCents(evt: React.ChangeEvent<HTMLInputElement>): void {
+    const cents = evt.target.value.replace(/\D/g, '');
+    setCents(cents);
+  }
+
+  const handleOnChangeExpenseDate = useMemo(() => {
+    return function (date: Date | null): void {
+      const actiontype = 'expenseDate';
+      dispatch({ type: actiontype, payload: toIntYYYYMMDD(date!) + '' });
+    };
+  }, []);
 
   function handleCreate(evt: React.FormEvent<HTMLFormElement>): void {
     evt.preventDefault();
     if (validate() < 0) {
       return;
     }
+
+    let amount = parseFloat(transaction.amount);
+    if (cents.length > 0) {
+      const nbrCents = parseInt(cents);
+      if (nbrCents > 0) {
+        amount = parseFloat(transaction.amount + '.' + cents);
+      }
+    }
+
     mutation.mutate(
       {
         ...transaction,
-        amount: parseFloat(transaction.amount),
+        amount,
         expenseDate: parseInt(transaction.expenseDate),
         note: transaction.note.trim(),
       },
@@ -202,32 +229,81 @@ export default function CreateModal(props: {
               {errors.paymentmode ? errors.paymentmode : ''}
             </Form.Text>
           </Form.Group>
-          <Form.Group className='mb-3'>
-            <Form.Label htmlFor='editamount'>Amount $</Form.Label>
+          <Row className='align-items-center'>
+            <Col xs='auto'>
+              <Form.Group className='mb-3'>
+                <Form.Label htmlFor='editamount'>Amount $</Form.Label>
+                <Form.Control
+                  type='text'
+                  aria-label='Amount'
+                  id='editamount'
+                  aria-describedby='editamountHelpBlock'
+                  value={transaction.amount}
+                  data-actiontype='amount'
+                  onChange={handleOnChange}
+                  maxLength={6}
+                  placeholder='000000'
+                  style={{ width: '6rem' }}
+                />
+                <Form.Text id='editamountHelpBlock' className='text-danger'>
+                  {errors.amount ? errors.amount : ''}
+                </Form.Text>
+              </Form.Group>
+            </Col>
+            <Col xs='auto'>
+              <Form.Text className='mb-3' muted>
+                <strong>.</strong>
+              </Form.Text>
+            </Col>
+            <Col xs='auto'>
+              <Form.Group className='mb-3'>
+                <Form.Label htmlFor='editcents'>cents</Form.Label>
+                <Form.Control
+                  type='text'
+                  aria-label='Cents'
+                  id='editcents'
+                  value={cents}
+                  onChange={handleOnChangeCents}
+                  maxLength={2}
+                  placeholder='00'
+                  style={{ width: '4rem' }}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          {/* <Form.Group className='mb-3'>
+            <Form.Label htmlFor='editexpenseDate'>Date</Form.Label>
             <Form.Control
               type='text'
-              aria-label='Amount'
-              id='editamount'
-              aria-describedby='editamountHelpBlock'
-              value={transaction.amount}
-              data-actiontype='amount'
+              aria-label='Expense Date'
+              // id='editexpenseDate'
+              aria-describedby='editexpenseDateHelpBlock'
+              value={transaction.expenseDate}
+              data-actiontype='expenseDate'
               onChange={handleOnChange}
             />
-            <Form.Text id='editamountHelpBlock' className='text-danger'>
-              {errors.amount ? errors.amount : ''}
+            <Form.Text id='editexpenseDateHelpBlock' className='text-danger'>
+              {errors.expenseDate ? errors.expenseDate : ''}
             </Form.Text>
+          </Form.Group> */}
+          <Form.Group className='mb-3 mt-3'>
+            <Form.Label htmlFor='editexpenseDate' className='me-3'>
+              Date
+            </Form.Label>
+            <DatepickerCustomInput
+              initialDateString={delimitYYYYMMDD('20191130', '-')}
+              className='btn btn-primary'
+              memoOnChange={handleOnChangeExpenseDate}
+              id='editexpenseDate'
+            />
           </Form.Group>
-          <div>
-            expenseDate <input type='text' value={transaction.expenseDate} data-actiontype='expenseDate' onChange={handleOnChange} />
-            <span>{errors.expenseDate ? errors.expenseDate : ' '}</span>
-          </div>
           <Form.Group className='mb-3'>
             <Form.Label htmlFor='editnote'>Note</Form.Label>
             <Form.Control as='textarea' rows={3} id='editnote' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />
           </Form.Group>
           <br />
           <Form.Text muted>
-            Created:
+            Created:{' '}
             {mutation.data ? (
               <span>
                 {formatYYYYMMDD(new Date(mutation.data))}, {formatAMPM(new Date(mutation.data))}

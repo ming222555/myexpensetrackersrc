@@ -9,12 +9,12 @@ export interface Filters {
   paymentmode: string;
 }
 
-export interface FiltersWithSearch extends Filters {
+export interface Filter extends Filters {
   search: string;
 }
 
 interface TransactionsState {
-  filter: FiltersWithSearch;
+  filter: Filter;
   selection: number[]; // transaction id's
 }
 
@@ -35,7 +35,7 @@ const transactionsSlice = createSlice({
     search(state, action: PayloadAction<string>) {
       state.filter.search = action.payload;
     },
-    filter(state, action: PayloadAction<Filters>) {
+    filters(state, action: PayloadAction<Filters>) {
       const { categories, cashflow, paymentmode } = action.payload;
       state.filter.categories = categories;
       state.filter.cashflow = cashflow;
@@ -68,7 +68,7 @@ const transactionsSlice = createSlice({
   },
 });
 
-export const { search, filter, clearFilter, addToSelection, removeFromSelection, clearSelection, replaceSelection } =
+export const { search, filters, clearFilter, addToSelection, removeFromSelection, clearSelection, replaceSelection } =
   transactionsSlice.actions;
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */

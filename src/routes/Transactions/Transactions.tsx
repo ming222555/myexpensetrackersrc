@@ -6,7 +6,7 @@ import Filters from './components/Filters';
 import type { Filters as IFilters } from '../../store/ducks/transactions/transactionsSlice';
 import {
   search,
-  filter as filterActionCreator,
+  filters as filtersActionCreator,
   /* clearFilter, */
   selectTransactions,
   clearSelection,
@@ -50,8 +50,8 @@ export default function Transactions(): JSX.Element {
   const { isPending, isError, error, data, fetchStatus } = useQuery(transactionsQueryOptions(pagenumRef.current, filter));
 
   const handleFiltersChange = useMemo(() => {
-    return function (filters: IFilters) {
-      dispatch(filterActionCreator(filters));
+    return function (argfilters: IFilters) {
+      dispatch(filtersActionCreator(argfilters));
       dispatch(clearSelection());
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

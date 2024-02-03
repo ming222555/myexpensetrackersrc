@@ -2,7 +2,7 @@ import localforage from 'localforage';
 import { matchSorter } from 'match-sorter';
 import sortBy from 'sort-by';
 
-import type { FiltersWithSearch } from '../store/ducks/transactions/transactionsSlice';
+import type { Filter } from '../store/ducks/transactions/transactionsSlice';
 import { TransactionDto, TransactionsPaginatedDataDto } from '../reactquery/transactions/transactionsRq';
 
 const seed = async (): Promise<void> => {
@@ -70,7 +70,7 @@ const seed = async (): Promise<void> => {
 
 seed();
 
-export async function retrieveTransactions(pagenum: number, filter: FiltersWithSearch): Promise<TransactionsPaginatedDataDto> {
+export async function retrieveTransactions(pagenum: number, filter: Filter): Promise<TransactionsPaginatedDataDto> {
   let totalPages = 0;
 
   const ITEMS_PER_PAGE = 10;

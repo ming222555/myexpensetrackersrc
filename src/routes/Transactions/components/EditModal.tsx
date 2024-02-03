@@ -298,10 +298,6 @@ export default function EditModal(props: {
               id='editexpenseDate'
             />
           </Form.Group>
-          {/* <div>
-            expenseDate <input type='text' value={transaction.expenseDate} data-actiontype='expenseDate' onChange={handleOnChange} />
-            <span>{errors.expenseDate ? errors.expenseDate : ' '}</span>
-          </div> */}
           <Form.Group className='mb-3'>
             <Form.Label htmlFor='editnote'>Note</Form.Label>
             <Form.Control as='textarea' rows={3} id='editnote' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />

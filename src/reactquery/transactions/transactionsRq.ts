@@ -1,6 +1,6 @@
 import { queryOptions, keepPreviousData } from '@tanstack/react-query';
 
-import type { FiltersWithSearch } from '../../store/ducks/transactions/transactionsSlice';
+import type { Filter } from '../../store/ducks/transactions/transactionsSlice';
 import { retrieveTransactions } from '../../db/indexdb';
 
 export interface TransactionDto {
@@ -22,13 +22,13 @@ export interface TransactionsPaginatedDataDto {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export async function fetchTransactions(pagenum: number, filter: FiltersWithSearch) {
+export async function fetchTransactions(pagenum: number, filter: Filter) {
   const response = await retrieveTransactions(pagenum, { ...filter });
   return response;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function transactionsQueryOptions(pagenum: number, filter: FiltersWithSearch, staleTime = -1) {
+export function transactionsQueryOptions(pagenum: number, filter: Filter, staleTime = -1) {
   if (staleTime < 0) {
     return queryOptions({
       queryKey: ['transactions', pagenum, filter],

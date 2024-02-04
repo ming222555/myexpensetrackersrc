@@ -1,7 +1,7 @@
-import React, { useMemo, useEffect, useRef, useState, startTransition } from 'react';
+import React, { useMemo, useEffect, useRef, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
-import Pagination from 'react-bootstrap/Pagination';
+import ReactPaginate from 'react-paginate';
 import { useDebounce } from 'rooks';
 
 import Filters from './components/Filters';
@@ -24,7 +24,6 @@ import queryClient from '../../reactquery';
 import { transactionsQueryOptions, TransactionDto } from '../../reactquery/transactions/transactionsRq';
 import SiderDrawer from '../AppLayout/components/SiderDrawer';
 import ModalCreate from '../../components/Modals/ModalCreate';
-import { createArrayofSize } from '../../util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const loader = async () => {
@@ -137,7 +136,9 @@ export default function Transactions(): JSX.Element {
   }
 
   const handlePagenumClick = useMemo(() => {
-    return function (pagenum: number): void {
+    return function (selectedItem: { selected: number }): void {
+      const pagenum = selectedItem.selected + 1; // ReactPaginate starts from 0 while we from 1
+      console.log('selectedItem.selected', pagenum);
       if (pagenumRef.current === pagenum) {
         return;
       }
@@ -148,17 +149,7 @@ export default function Transactions(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handlePagenumClickDebounced = useDebounce<(pagenum: number) => void>(handlePagenumClick, 500);
-
-  // function handlePagenumClick(evt: React.MouseEvent<HTMLButtonElement>): void {
-  //   const pagenum = parseInt(evt.currentTarget.getAttribute('data-pagenum')!);
-  //   if (pagenumRef.current === pagenum) {
-  //     return;
-  //   }
-  //   pagenumRef.current = pagenum;
-  //   setRender({});
-  //   dispatch(clearSelection());
-  // }
+  const handlePagenumClickDebounced = useDebounce<(selectedItem: { selected: number }) => void>(handlePagenumClick, 500);
 
   useEffect(() => {
     console.log('transactions useeffect filter', Math.random());
@@ -186,22 +177,28 @@ export default function Transactions(): JSX.Element {
             </button>
           </div>
           {data && <TransactionsList transactions={data.transactions} />}
-          {/* {createArrayofSize(data!.totalPages).map(pagenum => (
-            <button key={pagenum} data-pagenum={pagenum} onClick={handlePagenumClick}>
-              {pagenum === data?.pagenum ? <em>{pagenum}</em> : pagenum}
-            </button>
-          ))} */}
-          {data &&
-            data.totalPages > 1 &&
-            createArrayofSize(data.totalPages).map(pagenum => (
-              <button
-                key={pagenum}
-                data-pagenum={pagenum}
-                onClick={(evt): void => handlePagenumClickDebounced(parseInt(evt.currentTarget.getAttribute('data-pagenum')!))}
-              >
-                {pagenum === data?.pagenum ? <em>{pagenum}</em> : pagenum}
-              </button>
-            ))}
+          {data && data.totalPages > 1 && (
+            <ReactPaginate
+              nextLabel='next >'
+              onPageChange={handlePagenumClickDebounced}
+              pageRangeDisplayed={3}
+              marginPagesDisplayed={2}
+              pageCount={data.totalPages}
+              previousLabel='< previous'
+              pageClassName='page-item'
+              pageLinkClassName='page-link'
+              previousClassName='page-item'
+              previousLinkClassName='page-link'
+              nextClassName='page-item'
+              nextLinkClassName='page-link'
+              breakLabel='...'
+              breakClassName='page-item'
+              breakLinkClassName='page-link'
+              containerClassName='pagination'
+              activeClassName='active'
+              renderOnZeroPageCount={null}
+            />
+          )}
           {/* {data && data.totalPages > 1 && (
             <Pagination size='sm'>
               {createArrayofSize(data.totalPages).map(pagenum => (

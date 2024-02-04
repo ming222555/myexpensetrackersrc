@@ -1,6 +1,8 @@
-import React, { useMemo, useEffect, useRef, useState } from 'react';
+import React, { useMemo, useEffect, useRef, useState, startTransition } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
+import Pagination from 'react-bootstrap/Pagination';
+import { useDebounce } from 'rooks';
 
 import Filters from './components/Filters';
 import type { Filters as IFilters } from '../../store/ducks/transactions/transactionsSlice';
@@ -134,15 +136,29 @@ export default function Transactions(): JSX.Element {
     }
   }
 
-  function handlePagenumClick(evt: React.MouseEvent<HTMLButtonElement>): void {
-    const pagenum = parseInt(evt.currentTarget.getAttribute('data-pagenum')!);
-    if (pagenumRef.current === pagenum) {
-      return;
-    }
-    pagenumRef.current = pagenum;
-    setRender({});
-    dispatch(clearSelection());
-  }
+  const handlePagenumClick = useMemo(() => {
+    return function (pagenum: number): void {
+      if (pagenumRef.current === pagenum) {
+        return;
+      }
+      pagenumRef.current = pagenum;
+      setRender({});
+      dispatch(clearSelection());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handlePagenumClickDebounced = useDebounce<(pagenum: number) => void>(handlePagenumClick, 500);
+
+  // function handlePagenumClick(evt: React.MouseEvent<HTMLButtonElement>): void {
+  //   const pagenum = parseInt(evt.currentTarget.getAttribute('data-pagenum')!);
+  //   if (pagenumRef.current === pagenum) {
+  //     return;
+  //   }
+  //   pagenumRef.current = pagenum;
+  //   setRender({});
+  //   dispatch(clearSelection());
+  // }
 
   useEffect(() => {
     console.log('transactions useeffect filter', Math.random());
@@ -169,12 +185,32 @@ export default function Transactions(): JSX.Element {
               Delete
             </button>
           </div>
-          <TransactionsList transactions={data!.transactions} />
-          {createArrayofSize(data!.totalPages).map(pagenum => (
+          {data && <TransactionsList transactions={data.transactions} />}
+          {/* {createArrayofSize(data!.totalPages).map(pagenum => (
             <button key={pagenum} data-pagenum={pagenum} onClick={handlePagenumClick}>
               {pagenum === data?.pagenum ? <em>{pagenum}</em> : pagenum}
             </button>
-          ))}
+          ))} */}
+          {data &&
+            data.totalPages > 1 &&
+            createArrayofSize(data.totalPages).map(pagenum => (
+              <button
+                key={pagenum}
+                data-pagenum={pagenum}
+                onClick={(evt): void => handlePagenumClickDebounced(parseInt(evt.currentTarget.getAttribute('data-pagenum')!))}
+              >
+                {pagenum === data?.pagenum ? <em>{pagenum}</em> : pagenum}
+              </button>
+            ))}
+          {/* {data && data.totalPages > 1 && (
+            <Pagination size='sm'>
+              {createArrayofSize(data.totalPages).map(pagenum => (
+                <Pagination.Item key={pagenum} data-pagenum={pagenum} onClick={handlePagenumClick} active={pagenum === data.pagenum}>
+                  {pagenum}
+                </Pagination.Item>
+              ))}
+            </Pagination>
+          )} */}
         </section>
         <aside className='Transactions__filters'>
           <SiderDrawer placement='end'>

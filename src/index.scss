@@ -37,7 +37,7 @@ $font-size-root: 87.5%; // 100% => 16px, typically the browser default
 // @import '../node_modules/bootstrap/scss/_card.scss';
 // @import '../node_modules/bootstrap/scss/_accordion.scss';
 // @import '../node_modules/bootstrap/scss/_breadcrumb.scss';
-// @import '../node_modules/bootstrap/scss/_pagination.scss';
+@import '../node_modules/bootstrap/scss/_pagination.scss';
 // @import '../node_modules/bootstrap/scss/_badge.scss';
 @import '../node_modules/bootstrap/scss/_alert.scss';
 // @import '../node_modules/bootstrap/scss/_progress.scss';

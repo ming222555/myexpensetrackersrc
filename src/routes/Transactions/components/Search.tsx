@@ -15,7 +15,7 @@ function Search(props: { handleSearchChange: (search: string) => void }): JSX.El
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleFormChangeDebounced = useDebounce<(search: string) => void>(handleSearchChange, 500);
+  const handleSearchChangeDebounced = useDebounce<(search: string) => void>(handleSearchChange, 500);
 
   return (
     <div className='Search'>
@@ -32,7 +32,7 @@ function Search(props: { handleSearchChange: (search: string) => void }): JSX.El
           console.log('val', val);
           if (valTrimmed !== qPrevTrimmedVal.current) {
             qPrevTrimmedVal.current = valTrimmed;
-            handleFormChangeDebounced(valTrimmed);
+            handleSearchChangeDebounced(valTrimmed);
           }
         }}
       />

@@ -244,7 +244,7 @@ export default function EditModal(props: {
                   onChange={handleOnChange}
                   maxLength={6}
                   placeholder='000000'
-                  style={{ width: '6rem' }}
+                  style={{ width: '6rem', textAlign: 'right' }}
                 />
                 <Form.Text id='editamountHelpBlock' className='text-danger'>
                   {errors.amount ? errors.amount : ''}
@@ -267,7 +267,7 @@ export default function EditModal(props: {
                   onChange={handleOnChangeCents}
                   maxLength={2}
                   placeholder='00'
-                  style={{ width: '4rem' }}
+                  style={{ width: '4rem', textAlign: 'right' }}
                 />
               </Form.Group>
             </Col>

@@ -11,6 +11,7 @@ export interface Filters {
 
 export interface Filter extends Filters {
   search: string;
+  amountRange: string;
 }
 
 interface TransactionsState {
@@ -24,6 +25,7 @@ export const initialState = {
     categories: '',
     cashflow: '',
     paymentmode: '',
+    amountRange: '',
   },
   selection: [],
 } as TransactionsState;
@@ -40,6 +42,9 @@ const transactionsSlice = createSlice({
       state.filter.categories = categories;
       state.filter.cashflow = cashflow;
       state.filter.paymentmode = paymentmode;
+    },
+    amountRange(state, action: PayloadAction<string>) {
+      state.filter.amountRange = action.payload;
     },
     clearFilter(state) {
       // state.filter.categories = '';
@@ -68,7 +73,7 @@ const transactionsSlice = createSlice({
   },
 });
 
-export const { search, filters, clearFilter, addToSelection, removeFromSelection, clearSelection, replaceSelection } =
+export const { search, filters, amountRange, clearFilter, addToSelection, removeFromSelection, clearSelection, replaceSelection } =
   transactionsSlice.actions;
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */

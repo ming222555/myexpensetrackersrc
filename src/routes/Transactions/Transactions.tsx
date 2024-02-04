@@ -5,10 +5,12 @@ import ReactPaginate from 'react-paginate';
 import { useDebounce } from 'rooks';
 
 import Filters from './components/Filters';
+import AmountRange from './components/AmountRange';
 import type { Filters as IFilters } from '../../store/ducks/transactions/transactionsSlice';
 import {
   search,
   filters as filtersActionCreator,
+  amountRange,
   /* clearFilter, */
   selectTransactions,
   clearSelection,
@@ -53,6 +55,14 @@ export default function Transactions(): JSX.Element {
   const handleFiltersChange = useMemo(() => {
     return function (argfilters: IFilters) {
       dispatch(filtersActionCreator(argfilters));
+      dispatch(clearSelection());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleAmountRange = useMemo(() => {
+    return function (amt: string, amt2: string) {
+      dispatch(amountRange(amt + ',' + amt2));
       dispatch(clearSelection());
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -199,19 +209,13 @@ export default function Transactions(): JSX.Element {
               renderOnZeroPageCount={null}
             />
           )}
-          {/* {data && data.totalPages > 1 && (
-            <Pagination size='sm'>
-              {createArrayofSize(data.totalPages).map(pagenum => (
-                <Pagination.Item key={pagenum} data-pagenum={pagenum} onClick={handlePagenumClick} active={pagenum === data.pagenum}>
-                  {pagenum}
-                </Pagination.Item>
-              ))}
-            </Pagination>
-          )} */}
         </section>
         <aside className='Transactions__filters'>
           <SiderDrawer placement='end'>
-            <Filters handleFiltersChange={handleFiltersChange} />
+            <>
+              <Filters handleFiltersChange={handleFiltersChange} />
+              <AmountRange handleAmountRange={handleAmountRange} />
+            </>
           </SiderDrawer>
         </aside>
         {/* <div className='Transactions__filterString'>

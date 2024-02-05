@@ -142,11 +142,46 @@ export async function retrieveTransactions(pagenum: number, filter: Filter): Pro
           return false;
         } else {
           // here, amt and amt2 both empty strings
-          // by above logic, we shdn't be here, but typescript not aware so it reports error
+          // by above logic, we shdn't be here, but typescript not aware so it complains
           return true;
         }
       };
       transactions = transactions.filter(filterByAmountRangeFn);
+    }
+  }
+
+  // apply dateRange
+  filteringTerms = filter.dateRange.split(',');
+  if (filteringTerms.length === 1 && filteringTerms[0] === '') {
+    //
+  } else {
+    const dte = filteringTerms[0];
+    const dte2 = filteringTerms[1];
+
+    if (dte || dte2) {
+      const filterByDateRangeFn = (trx: TransactionDto): boolean => {
+        if (dte && dte2) {
+          if (trx.expenseDate >= parseInt(dte) && trx.expenseDate <= parseInt(dte2)) {
+            return true;
+          }
+          return false;
+        } else if (dte) {
+          if (trx.expenseDate >= parseInt(dte)) {
+            return true;
+          }
+          return false;
+        } else if (dte2) {
+          if (trx.expenseDate <= parseInt(dte2)) {
+            return true;
+          }
+          return false;
+        } else {
+          // here, dte and dte2 both empty strings
+          // by above logic, we shdn't be here, but typescript not aware so it complains
+          return true;
+        }
+      };
+      transactions = transactions.filter(filterByDateRangeFn);
     }
   }
 

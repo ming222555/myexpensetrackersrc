@@ -6,11 +6,13 @@ import { useDebounce } from 'rooks';
 
 import Filters from './components/Filters';
 import AmountRange from './components/AmountRange';
+import DateRange from './components/DateRange';
 import type { Filters as IFilters } from '../../store/ducks/transactions/transactionsSlice';
 import {
   search,
   filters as filtersActionCreator,
   amountRange,
+  dateRange,
   /* clearFilter, */
   selectTransactions,
   clearSelection,
@@ -63,6 +65,14 @@ export default function Transactions(): JSX.Element {
   const handleAmountRange = useMemo(() => {
     return function (amt: string, amt2: string) {
       dispatch(amountRange(amt + ',' + amt2));
+      dispatch(clearSelection());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleDateRange = useMemo(() => {
+    return function (dte: string, dte2: string) {
+      dispatch(dateRange(dte + ',' + dte2));
       dispatch(clearSelection());
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -207,6 +217,7 @@ export default function Transactions(): JSX.Element {
               containerClassName='pagination'
               activeClassName='active'
               renderOnZeroPageCount={null}
+              forcePage={data.pagenum - 1} // we are 1 index based but react-paginate 0 based
             />
           )}
         </section>
@@ -218,6 +229,7 @@ export default function Transactions(): JSX.Element {
             </>
           </SiderDrawer>
         </aside>
+        <DateRange handleDateRange={handleDateRange} />
         {/* <div className='Transactions__filterString'>
           <strong>{JSON.stringify(filter)}</strong>
           <br />

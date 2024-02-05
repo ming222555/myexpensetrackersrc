@@ -226,10 +226,10 @@ export default function Transactions(): JSX.Element {
             <>
               <Filters handleFiltersChange={handleFiltersChange} />
               <AmountRange handleAmountRange={handleAmountRange} />
+              <DateRange handleDateRange={handleDateRange} />
             </>
           </SiderDrawer>
         </aside>
-        <DateRange handleDateRange={handleDateRange} />
         {/* <div className='Transactions__filterString'>
           <strong>{JSON.stringify(filter)}</strong>
           <br />

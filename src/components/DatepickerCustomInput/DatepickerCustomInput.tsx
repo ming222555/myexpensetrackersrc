@@ -34,7 +34,10 @@ function DatepickerCustomInput({
         propsOnChange ? propsOnChange(date) : '';
       }}
       customInput={<ExampleCustomInput />}
-      dateFormat='YYYY/MM/dd'
+      excludeDateIntervals={[
+        { start: new Date('2001-01-01'), end: new Date('2019-05-31') },
+        { start: new Date('2019-11-30'), end: new Date('2099-12-01') },
+      ]}
     />
   );
 }

@@ -10,7 +10,7 @@ const navLinkDefault = 'btn btn-light mx-4 mb-4';
 export default function Content(): JSX.Element {
   return (
     <>
-      <h1 className='bg-dark h5 p-3 text-info'>EXPENSE TRACKER</h1>
+      <h1 className='position-sticky top-0 bg-dark h5 p-3 text-info'>EXPENSE TRACKER</h1>
       <br />
       <br />
       <Image src='face.png' rounded width='64%' className='align-self-center' />

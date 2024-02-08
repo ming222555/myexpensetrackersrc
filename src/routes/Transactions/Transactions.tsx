@@ -222,7 +222,7 @@ export default function Transactions(): JSX.Element {
             />
           )}
         </section>
-        <aside className='Transactions__filters'>
+        <aside className='Transactions__filters position-relative'>
           {/* <SiderDrawer placement='end'>
             <>
               <Filters handleFiltersChange={handleFiltersChange} />

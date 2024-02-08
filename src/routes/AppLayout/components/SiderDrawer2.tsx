@@ -20,7 +20,7 @@ export default function SiderDrawer2({
   const handleHide = (): void => setIsShowBackdrop(false);
 
   return (
-    <div className='SiderDrawer2 h-100'>
+    <div className={`SiderDrawer2 h-100 position-relative${isShowBackdrop ? ' z-3' : ' z-0'}`}>
       <div
         className={`SiderDrawer2__reveal h-100 d-${responsiveBreakPoint}-none bg-primary`}
         role='button'

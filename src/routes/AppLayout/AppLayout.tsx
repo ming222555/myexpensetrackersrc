@@ -9,7 +9,7 @@ import AppSiderContent from './AppLayoutSider/Content';
 export default function AppLayout(): JSX.Element {
   return (
     <div className='AppLayout'>
-      <aside className='AppLayoutSider'>
+      <aside className='AppLayoutSider position-relative'>
         <SiderDrawer2 as='nav' className='d-inline-flex flex-column position-relative'>
           <AppSiderContent />
         </SiderDrawer2>

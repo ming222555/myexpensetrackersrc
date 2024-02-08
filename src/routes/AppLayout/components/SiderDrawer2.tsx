@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 
 export default function SiderDrawer2({
   children,
-  // responsiveBreakPoint = 'sm',
+  responsiveBreakPoint = 'sm',
   as = 'div',
   className = '',
 }: {
   children: JSX.Element;
-  // responsiveBreakPoint?: string;
+  responsiveBreakPoint?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: React.ElementType<any>;
   className?: string;
@@ -20,8 +20,7 @@ export default function SiderDrawer2({
   return (
     <div className='SiderDrawer2 h-100'>
       <div
-        // className={`SiderDrawer2__reveal h-100 d-${responsiveBreakPoint}-none`}
-        className={`SiderDrawer2__reveal h-100 d-sm-none bg-primary`}
+        className={`SiderDrawer2__reveal h-100 d-${responsiveBreakPoint}-none bg-primary`}
         role='button'
         tabIndex={0}
         onClick={handleShow}
@@ -32,7 +31,9 @@ export default function SiderDrawer2({
       </div>
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div
-        className={`SiderDrawer2__backdrop${isShowBackdrop ? ' show' : ''}`}
+        className={`SiderDrawer2__backdrop position-fixed position-${responsiveBreakPoint}-static w-100 w-${responsiveBreakPoint}-auto${
+          isShowBackdrop ? ' show' : ''
+        }`}
         // role='button'
         // tabIndex={0}
         onClick={handleHide}

@@ -2,18 +2,11 @@
 .SiderDrawer2__reveal {}
 .SiderDrawer2__backdrop {
   background: rgba(0,0,0,0.05);
-  position: fixed;
   top: 0;
   left: -100%;
-  width: 100%;
   transition: left .5s;
   &.show {
     left: 0;
-  }
-
-  @include media-breakpoint-up(sm) {
-    position: static;
-    width: auto;
-  };  
+  }  
 }
 .SiderDrawer2__body {}

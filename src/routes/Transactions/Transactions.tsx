@@ -222,15 +222,8 @@ export default function Transactions(): JSX.Element {
             />
           )}
         </section>
-        <aside className='Transactions__filters position-relative'>
-          {/* <SiderDrawer placement='end'>
-            <>
-              <Filters handleFiltersChange={handleFiltersChange} />
-              <AmountRange handleAmountRange={handleAmountRange} />
-              <DateRange handleDateRange={handleDateRange} />
-            </>
-          </SiderDrawer> */}
-          <SiderDrawer2 className='d-inline-flex flex-column' placement='end'>
+        <aside className='Transactions__filters position-relative position-sm-sticky top-0'>
+          <SiderDrawer2 as='nav' responsiveBreakPoint='sm' className='d-inline-flex flex-column' placement='end'>
             <>
               <Filters handleFiltersChange={handleFiltersChange} />
               <AmountRange handleAmountRange={handleAmountRange} />
@@ -238,12 +231,12 @@ export default function Transactions(): JSX.Element {
             </>
           </SiderDrawer2>
         </aside>
-        {/* <div className='Transactions__filterString'>
+        {/* <div style={{ border: '2px solid blue', margin: '1rem 0' }}>
           <strong>{JSON.stringify(filter)}</strong>
           <br />
           <strong>{Math.random()}</strong>
         </div>
-        <div className='Transactions__data'>api response dataa {JSON.stringify(data)}</div> */}
+        <div style={{ border: '2px solid blue', margin: '1rem 0' }}>api response dataa {JSON.stringify(data)}</div> */}
         {/* <button
           onClick={(): void => {
             pagenumRef.current = 1;

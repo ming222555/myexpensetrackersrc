@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 
+import { BootstrapBreakpoints } from '../../../util';
+
 export default function SiderDrawer2({
   children,
-  responsiveBreakPoint = 'sm',
+  responsiveBreakPoint,
   as = 'div',
   className = '',
   placement = 'start',
 }: {
   children: JSX.Element;
-  responsiveBreakPoint?: string;
+  responsiveBreakPoint: BootstrapBreakpoints;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: React.ElementType<any>;
   className?: string;
@@ -20,7 +22,7 @@ export default function SiderDrawer2({
   const handleHide = (): void => setIsShowBackdrop(false);
 
   return (
-    <div className={`SiderDrawer2 h-100 position-relative${isShowBackdrop ? ' z-3' : ' z-0'}`}>
+    <div className={`bg-success SiderDrawer2 h-100 position-relative${isShowBackdrop ? ' z-3' : ' z-0'}`}>
       <div
         className={`SiderDrawer2__reveal h-100 d-${responsiveBreakPoint}-none bg-primary`}
         role='button'

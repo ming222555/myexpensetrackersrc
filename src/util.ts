@@ -1,3 +1,5 @@
+export type BootstrapBreakpoints = 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl';
+
 /**
  * @param size e.g. 6
  * @returns e.g. [1,2,3,4,5,6]

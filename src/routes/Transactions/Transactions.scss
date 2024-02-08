@@ -1,11 +1,3 @@
-// .Transactions__filterString {
-//   border: 2px solid blue;
-//   margin: 1rem 0;
-// }
-// .Transactions__data {
-//   border: 2px solid blue;
-//   margin: 1rem 0;
-// }
 .Transactions {
   display: flex;
   border: 2px solid blue; // causes bad vscrollbar appear
@@ -16,12 +8,7 @@
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  position: sticky;
-  top: 0;
   background: var(--bs-info);
-  @include media-breakpoint-up(sm) {
-    background: transparent;
-  };
 }
 .TransactionsSection { // section
   border: 2px solid black;

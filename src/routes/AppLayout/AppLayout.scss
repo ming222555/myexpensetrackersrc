@@ -1,18 +1,13 @@
 .AppLayout {
-  display: flex;
+  display: flex;  
 }
-.AppLayoutSider {
+.AppLayoutSider { // aside
   flex: 0 0 auto;
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  position: sticky;
-  top: 0;
   background: var(--bs-info);
-  @include media-breakpoint-up(sm) {
-    background: transparent;
-  };
 }
-.AppLayoutMain {
+.AppLayoutMain { // main
   flex: 1 1 auto;
 }

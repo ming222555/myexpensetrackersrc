@@ -6,7 +6,7 @@
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  // position: sticky;
+  position: sticky;
   top: 0;
   background: var(--bs-info);
   @include media-breakpoint-up(sm) {

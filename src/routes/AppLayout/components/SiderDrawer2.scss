@@ -5,8 +5,11 @@
   top: 0;
   left: -100%;
   transition: left .5s;
+  &--end {
+    left: 100%;
+  }
   &.show {
     left: 0;
-  }  
+  }
 }
 .SiderDrawer2__body {}

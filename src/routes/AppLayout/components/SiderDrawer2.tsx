@@ -5,12 +5,14 @@ export default function SiderDrawer2({
   responsiveBreakPoint = 'sm',
   as = 'div',
   className = '',
+  placement = 'start',
 }: {
   children: JSX.Element;
   responsiveBreakPoint?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: React.ElementType<any>;
   className?: string;
+  placement?: 'start' | 'end';
 }): JSX.Element {
   const [isShowBackdrop, setIsShowBackdrop] = useState(false);
 
@@ -31,9 +33,9 @@ export default function SiderDrawer2({
       </div>
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div
-        className={`SiderDrawer2__backdrop position-fixed position-${responsiveBreakPoint}-static w-100 w-${responsiveBreakPoint}-auto${
-          isShowBackdrop ? ' show' : ''
-        }`}
+        className={`SiderDrawer2__backdrop ${
+          placement === 'end' ? 'SiderDrawer2__backdrop--end d-flex justify-content-end ' : ''
+        }position-fixed position-${responsiveBreakPoint}-static w-100 w-${responsiveBreakPoint}-auto${isShowBackdrop ? ' show' : ''}`}
         // role='button'
         // tabIndex={0}
         onClick={handleHide}

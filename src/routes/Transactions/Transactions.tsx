@@ -26,7 +26,8 @@ import DeleteModal from './components/DeleteModal';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import queryClient from '../../reactquery';
 import { transactionsQueryOptions, TransactionDto } from '../../reactquery/transactions/transactionsRq';
-import SiderDrawer from '../AppLayout/components/SiderDrawer';
+// import SiderDrawer from '../AppLayout/components/SiderDrawer';
+import SiderDrawer2 from '../AppLayout/components/SiderDrawer2';
 import ModalCreate from '../../components/Modals/ModalCreate';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -222,13 +223,20 @@ export default function Transactions(): JSX.Element {
           )}
         </section>
         <aside className='Transactions__filters'>
-          <SiderDrawer placement='end'>
+          {/* <SiderDrawer placement='end'>
             <>
               <Filters handleFiltersChange={handleFiltersChange} />
               <AmountRange handleAmountRange={handleAmountRange} />
               <DateRange handleDateRange={handleDateRange} />
             </>
-          </SiderDrawer>
+          </SiderDrawer> */}
+          <SiderDrawer2 className='d-inline-flex flex-column' placement='end'>
+            <>
+              <Filters handleFiltersChange={handleFiltersChange} />
+              <AmountRange handleAmountRange={handleAmountRange} />
+              <DateRange handleDateRange={handleDateRange} />
+            </>
+          </SiderDrawer2>
         </aside>
         {/* <div className='Transactions__filterString'>
           <strong>{JSON.stringify(filter)}</strong>

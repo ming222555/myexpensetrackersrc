@@ -2,14 +2,57 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import './CategoryMultiSelectDropdown.scss';
 
+const allCategories = [
+  { name: 'clothing', label: 'Clothing', isSelected: false },
+  { name: 'entertainment', label: 'Entertainment', isSelected: false },
+  { name: 'food', label: 'Food', isSelected: false },
+  { name: 'lottery', label: 'Lottery', isSelected: false },
+  { name: 'shopping', label: 'Shopping', isSelected: false },
+  { name: 'sports', label: 'Sports', isSelected: false },
+  { name: 'transport', label: 'Transport', isSelected: false },
+  { name: 'utilities', label: 'Utilities', isSelected: false },
+];
+
+function Unselected(props: { selectedCategoryNames: string[]; handleChangeAddSelection: (categoryName: string) => void }): JSX.Element {
+  const [val, setVal] = useState('');
+
+  function handleChange(evt: React.ChangeEvent<HTMLSelectElement>): void {
+    const categoryName = evt.currentTarget.value;
+
+    if (categoryName) {
+      setVal(categoryName);
+      props.handleChangeAddSelection(categoryName);
+    }
+  }
+
+  useEffect(() => {
+    if (val) {
+      setVal('');
+    }
+  }, [val]);
+
+  return (
+    <select value={val} onChange={handleChange}>
+      <option value=''></option>
+      {allCategories
+        .filter(category => {
+          const pos = props.selectedCategoryNames.findIndex(categoryName => categoryName === category.name);
+          if (pos > -1) {
+            return false;
+          }
+          return true;
+        })
+        .map(catgy => (
+          <option key={catgy.name} value={catgy.name}>
+            {catgy.label}
+          </option>
+        ))}
+    </select>
+  );
+}
+
 function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; handleFormChange: () => void }): JSX.Element {
   const { fieldname, title } = props;
-  const allCategoriesRef = useRef([
-    { name: 'clothing', label: 'Clothing', isSelected: false },
-    { name: 'food', label: 'Food', isSelected: false },
-    { name: 'transport', label: 'Transport', isSelected: false },
-    { name: 'utilities', label: 'Utilities', isSelected: false },
-  ]);
   const [selectedCategoryNames, setSelectedCategoryNames] = useState<string[] | []>([]);
 
   function handleChangeRemoveSelection(evt: React.ChangeEvent<HTMLInputElement>): void {
@@ -20,12 +63,15 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
     setSelectedCategoryNames(dupSelectedCategoryNames);
   }
 
-  function handleChangeAddSelection(evt: React.MouseEvent<HTMLSpanElement>): void {
-    const categoryName = evt.currentTarget.title;
-    const categoryToAdd = allCategoriesRef.current.find(category => category.name === categoryName);
+  function handleChangeAddSelection(categoryName: string): void {
+    const categoryToAdd = allCategories.find(category => category.name === categoryName);
     const dupSelectedCategoryNames = [...selectedCategoryNames];
     dupSelectedCategoryNames.push(categoryToAdd!.name);
     setSelectedCategoryNames(dupSelectedCategoryNames);
+  }
+
+  function handleClearSelection(): void {
+    setSelectedCategoryNames([]);
   }
 
   const isMounted = useRef(false);
@@ -44,12 +90,13 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
     <div className='CategoryMultiSelectDropdown'>
       {Math.random()} {title}
       <div className='CategoryMultiSelectDropdown__selected'>
+        {selectedCategoryNames.length === 0 ? <span>Select Categories</span> : null}
         {selectedCategoryNames.map((categoryName, i) => {
-          const selectedCategory = allCategoriesRef.current.find(category => {
+          const selectedCategory = allCategories.find(category => {
             return category.name === categoryName;
           });
           return (
-            <div key={categoryName}>
+            <div key={categoryName} className='CategoryMultiSelectDropdown__selected-item'>
               <input
                 type='checkbox'
                 name={fieldname}
@@ -62,24 +109,13 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
             </div>
           );
         })}
+        {selectedCategoryNames.length > 0 ? (
+          <button type='button' className='btn btn-danger btn-sm CategoryMultiSelectDropdown__clear' onClick={handleClearSelection}>
+            <span className='bi-x-lg'></span>
+          </button>
+        ) : null}
       </div>
-      <ul className='CategoryMultiSelectDropdown__unselected'>
-        {allCategoriesRef.current
-          .filter(category => {
-            const pos = selectedCategoryNames.findIndex(categoryName => categoryName === category.name);
-            if (pos > -1) {
-              return false;
-            }
-            return true;
-          })
-          .map(catgy => (
-            <li key={catgy.name}>
-              <span title={catgy.name} onClick={handleChangeAddSelection}>
-                {catgy.label}
-              </span>
-            </li>
-          ))}
-      </ul>
+      <Unselected selectedCategoryNames={selectedCategoryNames} handleChangeAddSelection={handleChangeAddSelection} />
     </div>
   );
 }

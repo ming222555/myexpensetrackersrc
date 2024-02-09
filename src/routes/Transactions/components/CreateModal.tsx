@@ -173,7 +173,9 @@ export default function CreateModal(props: {
         <hr />
         <Form onSubmit={handleCreate}>
           <Form.Group className='mb-3'>
-            <Form.Label htmlFor='editcashflow'>Cashflow</Form.Label>
+            <Form.Label htmlFor='editcashflow' className='EditModal__label'>
+              Cashflow
+            </Form.Label>
             <Form.Select
               aria-label='Select Cashflow'
               id='editcashflow'
@@ -181,6 +183,7 @@ export default function CreateModal(props: {
               value={transaction.cashflow}
               data-actiontype='cashflow'
               onChange={handleOnChange}
+              size='sm'
             >
               <option value=''></option>
               <option value='income'>Income</option>
@@ -191,7 +194,9 @@ export default function CreateModal(props: {
             </Form.Text>
           </Form.Group>
           <Form.Group className='mb-3'>
-            <Form.Label htmlFor='editcategory'>Category</Form.Label>
+            <Form.Label htmlFor='editcategory' className='EditModal__label'>
+              Category
+            </Form.Label>
             <Form.Select
               aria-label='Select Category'
               id='editcategory'
@@ -199,6 +204,7 @@ export default function CreateModal(props: {
               value={transaction.category}
               data-actiontype='category'
               onChange={handleOnChange}
+              size='sm'
             >
               <option value=''></option>
               <option value='clothing'>Clothing</option>
@@ -211,7 +217,9 @@ export default function CreateModal(props: {
             </Form.Text>
           </Form.Group>
           <Form.Group className='mb-3'>
-            <Form.Label htmlFor='editpaymentmode'>Payment Mode</Form.Label>
+            <Form.Label htmlFor='editpaymentmode' className='EditModal__label'>
+              Payment Mode
+            </Form.Label>
             <Form.Select
               aria-label='Select Payment Mode'
               id='editpaymentmode'
@@ -219,6 +227,7 @@ export default function CreateModal(props: {
               value={transaction.paymentmode}
               data-actiontype='paymentmode'
               onChange={handleOnChange}
+              size='sm'
             >
               <option value=''></option>
               <option value='cash'>Cash</option>
@@ -232,7 +241,9 @@ export default function CreateModal(props: {
           <Row className='align-items-center'>
             <Col xs='auto'>
               <Form.Group className='mb-3'>
-                <Form.Label htmlFor='editamount'>Amount $</Form.Label>
+                <Form.Label htmlFor='editamount' className='EditModal__label'>
+                  Amount $
+                </Form.Label>
                 <Form.Control
                   type='text'
                   aria-label='Amount'
@@ -244,6 +255,7 @@ export default function CreateModal(props: {
                   maxLength={6}
                   placeholder='000000'
                   style={{ width: '6rem', textAlign: 'right' }}
+                  size='sm'
                 />
                 <Form.Text id='editamountHelpBlock' className='text-danger'>
                   {errors.amount ? errors.amount : ''}
@@ -257,7 +269,9 @@ export default function CreateModal(props: {
             </Col>
             <Col xs='auto'>
               <Form.Group className='mb-3'>
-                <Form.Label htmlFor='editcents'>cents</Form.Label>
+                <Form.Label htmlFor='editcents' className='EditModal__label'>
+                  cents
+                </Form.Label>
                 <Form.Control
                   type='text'
                   aria-label='Cents'
@@ -267,6 +281,7 @@ export default function CreateModal(props: {
                   maxLength={2}
                   placeholder='00'
                   style={{ width: '4rem', textAlign: 'right' }}
+                  size='sm'
                 />
               </Form.Group>
             </Col>
@@ -287,7 +302,7 @@ export default function CreateModal(props: {
             </Form.Text>
           </Form.Group> */}
           <Form.Group className='mb-3 mt-3'>
-            <Form.Label htmlFor='editexpenseDate' className='me-3'>
+            <Form.Label htmlFor='editexpenseDate' className='me-3 EditModal__label'>
               Date
             </Form.Label>
             <DatepickerCustomInput
@@ -298,7 +313,9 @@ export default function CreateModal(props: {
             />
           </Form.Group>
           <Form.Group className='mb-3'>
-            <Form.Label htmlFor='editnote'>Note</Form.Label>
+            <Form.Label htmlFor='editnote' className='EditModal__label'>
+              Note
+            </Form.Label>
             <Form.Control as='textarea' rows={3} id='editnote' value={transaction.note} data-actiontype='note' onChange={handleOnChange} />
           </Form.Group>
           <br />

@@ -1,14 +1,17 @@
 .Transactions {
   display: flex;
-  border: 2px solid blue; // causes bad vscrollbar appear
+  // border: 2px solid blue; // causes bad vscrollbar appear
 }
 .Transactions__filters { // aside
-  border: 2px solid green; // causes bad vscrollbar appear
+  // border: 2px solid green; // causes bad vscrollbar appear
   flex: 0 0 auto;
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   background: var(--bs-info);
+  .SiderDrawer2__body {
+    width: 18rem;
+  }
 }
 .TransactionsSection { // section
   border: 2px solid black;

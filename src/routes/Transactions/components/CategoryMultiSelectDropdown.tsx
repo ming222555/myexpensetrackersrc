@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+import Form from 'react-bootstrap/Form';
+
 import './CategoryMultiSelectDropdown.scss';
 
 const allCategories = [
@@ -32,22 +34,24 @@ function Unselected(props: { selectedCategoryNames: string[]; handleChangeAddSel
   }, [val]);
 
   return (
-    <select value={val} onChange={handleChange}>
-      <option value=''></option>
-      {allCategories
-        .filter(category => {
-          const pos = props.selectedCategoryNames.findIndex(categoryName => categoryName === category.name);
-          if (pos > -1) {
-            return false;
-          }
-          return true;
-        })
-        .map(catgy => (
-          <option key={catgy.name} value={catgy.name}>
-            {catgy.label}
-          </option>
-        ))}
-    </select>
+    <Form.Group className='mb-3'>
+      <Form.Select size='sm' value={val} onChange={handleChange}>
+        <option value=''></option>
+        {allCategories
+          .filter(category => {
+            const pos = props.selectedCategoryNames.findIndex(categoryName => categoryName === category.name);
+            if (pos > -1) {
+              return false;
+            }
+            return true;
+          })
+          .map(catgy => (
+            <option key={catgy.name} value={catgy.name}>
+              {catgy.label}
+            </option>
+          ))}
+      </Form.Select>
+    </Form.Group>
   );
 }
 
@@ -87,16 +91,18 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
   }, [selectedCategoryNames]);
 
   return (
-    <div className='CategoryMultiSelectDropdown'>
-      {Math.random()} {title}
+    <div className='CategoryMultiSelectDropdown my-3'>
+      <h6 className='h6 CategoryMultiSelectDropdown__title text-info'>{title}</h6> {/* {Math.random()} */}
       <div className='CategoryMultiSelectDropdown__selected'>
-        {selectedCategoryNames.length === 0 ? <span>Select Categories</span> : null}
+        {selectedCategoryNames.length === 0 ? (
+          <span className='CategoryMultiSelectDropdown__dropdownLabel text-paper'>Select Categories</span>
+        ) : null}
         {selectedCategoryNames.map((categoryName, i) => {
           const selectedCategory = allCategories.find(category => {
             return category.name === categoryName;
           });
           return (
-            <div key={categoryName} className='CategoryMultiSelectDropdown__selected-item'>
+            <div key={categoryName} className='CategoryMultiSelectDropdown__selected-item bg-paper text-white'>
               <input
                 type='checkbox'
                 name={fieldname}

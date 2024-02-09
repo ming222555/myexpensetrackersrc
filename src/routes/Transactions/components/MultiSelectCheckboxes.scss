@@ -1,5 +1,11 @@
 .MultiSelectCheckboxes {
-  display: flex;
   border: 2px solid blue;
-  margin: 1rem 0;
+}
+.MultiSelectCheckboxes__title {
+  font-size: .9rem;
+}
+.MultiSelectCheckboxes__cbxs {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: .8rem;
 }

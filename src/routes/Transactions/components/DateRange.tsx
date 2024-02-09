@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import { toIntYYYYMMDD } from '../../../util';
+import './DateRange.scss';
 
 export default function DateRange(props: { handleDateRange: (dte: string, dte2: string) => void }): JSX.Element {
   // const [startDate, setStartDate] = useState<Date | null>(new Date('2019-06-01'));
@@ -35,8 +36,8 @@ export default function DateRange(props: { handleDateRange: (dte: string, dte2: 
   }
 
   return (
-    <div>
-      <button onClick={(): void => console.log('startDate endDate', startDate + '   ' + endDate)}>clk me</button>
+    <div className='DateRange my-2'>
+      <h6 className='h6 DateRange__title text-info'>Select a date range</h6>
       <div>
         <DatePicker
           selected={startDate}
@@ -48,7 +49,7 @@ export default function DateRange(props: { handleDateRange: (dte: string, dte2: 
           isClearable
         />
       </div>
-      <div>
+      <div className='d-flex'>
         <DatePicker
           selected={endDate}
           onChange={(date): void => setEndDate(date)}
@@ -59,9 +60,7 @@ export default function DateRange(props: { handleDateRange: (dte: string, dte2: 
           placeholderText='mm/dd/yyyy'
           isClearable
         />
-      </div>
-      <div className='button__actions'>
-        <button type='button' onClick={handleDateRange}>
+        <button type='button' className='ms-2' onClick={handleDateRange}>
           Go
         </button>
       </div>

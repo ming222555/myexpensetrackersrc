@@ -222,12 +222,12 @@ export default function Transactions(): JSX.Element {
             />
           )}
         </section>
-        <aside className='Transactions__filters position-relative position-sm-sticky top-0'>
-          <SiderDrawer2 as='nav' responsiveBreakPoint='sm' className='d-inline-flex flex-column' placement='end'>
+        <aside className='Transactions__filters position-sm-sticky top-0'>
+          <SiderDrawer2 as='nav' responsiveBreakPoint='md' className='d-inline-flex flex-column px-2' placement='end'>
             <>
               <Filters handleFiltersChange={handleFiltersChange} />
-              <AmountRange handleAmountRange={handleAmountRange} />
               <DateRange handleDateRange={handleDateRange} />
+              <AmountRange handleAmountRange={handleAmountRange} />
             </>
           </SiderDrawer2>
         </aside>

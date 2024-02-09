@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+import Form from 'react-bootstrap/Form';
+
 import './MultiSelectCheckboxes.scss';
 
 function MultiSelectCheckboxes(props: {
@@ -34,14 +36,15 @@ function MultiSelectCheckboxes(props: {
   }, [selectedFlags]);
 
   return (
-    <div className='MultiSelectCheckboxes'>
-      {Math.random()} {title}
-      {valuesLabels.current.map((valueDescriptionString, i) => {
-        const valueDescription = valueDescriptionString.split(';');
-        const val = valueDescription[0];
-        return (
-          <div key={val}>
-            <input
+    <div className='MultiSelectCheckboxes my-3'>
+      <h6 className='h6 MultiSelectCheckboxes__title text-info'>{title}</h6> {/* {Math.random()} */}
+      <div className='MultiSelectCheckboxes__cbxs'>
+        {valuesLabels.current.map((valueDescriptionString, i) => {
+          const valueDescription = valueDescriptionString.split(';');
+          const val = valueDescription[0];
+          return (
+            <Form.Check
+              key={val}
               type='checkbox'
               name={fieldname}
               id={fieldname + val + i}
@@ -49,11 +52,11 @@ function MultiSelectCheckboxes(props: {
               data-idx={i}
               onChange={handleChange}
               checked={!!selectedFlags[i]}
+              label={valueDescription[1]}
             />
-            <label htmlFor={fieldname + val + i}>{valueDescription[1]}</label>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -49,7 +49,7 @@ function Filters(props: { handleFiltersChange: (filters: IFilters) => void }): J
         />
         <MultiSelectCheckboxes
           fieldname='paymentmode'
-          valuesLabels='cash;Cash|debitcard;Debit Card|creditcard;Credit Card'
+          valuesLabels='cash;Cash|debitcard;Debit Card|creditcard;Credit Card|creditcard;Credit Card|creditcard;Credit Card'
           title='Payment Mode'
           handleFormChange={handleFormChangeDebounced}
         />

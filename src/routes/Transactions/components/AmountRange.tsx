@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import './AmountRange.scss';
+
 export default function AmountRange(props: { handleAmountRange: (amt: string, amt2: string) => void }): JSX.Element {
   const [amt, setAmt] = useState('');
   const [amt2, setAmt2] = useState('');
@@ -31,8 +33,8 @@ export default function AmountRange(props: { handleAmountRange: (amt: string, am
   }
 
   return (
-    <div className='AmountRange'>
-      <label htmlFor='AmountRangeAmt'>Amount range</label>
+    <div className='AmountRange my-2'>
+      <h6 className='h6 AmountRange__title text-info'>Amount range</h6>
       <div>
         <input
           type='text'
@@ -44,7 +46,7 @@ export default function AmountRange(props: { handleAmountRange: (amt: string, am
           onChange={handleOnChangeAmt}
         />
       </div>
-      <div>
+      <div className='d-flex'>
         <input
           type='text'
           value={amt2}
@@ -54,9 +56,7 @@ export default function AmountRange(props: { handleAmountRange: (amt: string, am
           style={{ textAlign: 'right' }}
           onChange={handleOnChangeAmt2}
         />
-      </div>
-      <div className='button__actions'>
-        <button type='button' onClick={handleAmountRange}>
+        <button type='button' className='ms-2' onClick={handleAmountRange}>
           Go
         </button>
       </div>

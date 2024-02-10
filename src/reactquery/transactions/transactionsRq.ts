@@ -1,7 +1,7 @@
 import { queryOptions, keepPreviousData } from '@tanstack/react-query';
 
 import type { Filter } from '../../store/ducks/transactions/transactionsSlice';
-import { retrieveTransactions } from '../../db/indexdb';
+import { retrieveTransactions, retrieveSumTransactionsAmount } from '../../db/indexdb';
 
 export interface TransactionDto {
   cashflow: string;
@@ -41,6 +41,31 @@ export function transactionsQueryOptions(pagenum: number, filter: Filter, staleT
   return queryOptions({
     queryKey: ['transactions', pagenum, filter],
     queryFn: async () => fetchTransactions(pagenum, filter),
+    placeholderData: keepPreviousData,
+    staleTime,
+  });
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export async function fetchSumTransactionsAmount() {
+  const response = await retrieveSumTransactionsAmount();
+  return response;
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export function sumTransactionsAmountQueryOptions(staleTime = -1) {
+  if (staleTime < 0) {
+    return queryOptions({
+      queryKey: ['sumTransactionsAmount'],
+      queryFn: async () => fetchSumTransactionsAmount(),
+      placeholderData: keepPreviousData,
+      // use global default staleTime
+    });
+  }
+
+  return queryOptions({
+    queryKey: ['sumTransactionsAmount'],
+    queryFn: async () => fetchSumTransactionsAmount(),
     placeholderData: keepPreviousData,
     staleTime,
   });

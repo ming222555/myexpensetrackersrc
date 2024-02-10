@@ -2,12 +2,17 @@ import React from 'react';
 
 import { NavLink } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
+import { useQuery } from '@tanstack/react-query';
+
+import { sumTransactionsAmountQueryOptions } from '../../../reactquery/transactions/transactionsRq';
 
 const navLinkPending = 'btn btn-warning text-white mx-4 mb-4';
 const navLinkActive = 'btn btn-info text-white mx-4 mb-4';
 const navLinkDefault = 'btn btn-light mx-4 mb-4';
 
 export default function Content(): JSX.Element {
+  const { isPending, isError, error, data, fetchStatus } = useQuery(sumTransactionsAmountQueryOptions());
+
   return (
     <>
       <h1 className='position-sticky top-0 bg-dark h5 p-3 text-info'>EXPENSE TRACKER</h1>
@@ -32,7 +37,7 @@ a5 5 0 0 0 5 5 h125 a5 5 0 0 0 5 -5 v-25 a5 5 0 0 1 -10 0 a5 5 0 0 1 10 0 v-35'
               style={{ fill: 'none', stroke: '#828282', strokeWidth: '2px' }}
             />
             <text x='64' y='50' style={{ textAnchor: 'middle', letterSpacing: '0.5pt' }} className='wallet-balance'>
-              $ 888.88
+              $ 888.88 ... {data ?? 0}
             </text>
           </g>
         </svg>

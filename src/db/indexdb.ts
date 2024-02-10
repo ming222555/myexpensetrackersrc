@@ -311,6 +311,25 @@ export async function deleteTransactions(selection: number[]) {
   return true;
 }
 
+export async function retrieveSumTransactionsAmount(): Promise<number> {
+  await fakeNetwork();
+  const transactions = await localforage.getItem<TransactionDto[]>('transactions');
+  if (!transactions) {
+    return 0;
+  }
+
+  if (transactions.length === 0) {
+    return 0;
+  }
+
+  const getSum = (sum: number, trx: TransactionDto): number => {
+    return sum + trx.amount;
+  };
+
+  const sum = transactions.reduce(getSum, 0);
+  return sum;
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function set(transactions: TransactionDto[]) {
   return localforage.setItem('transactions', transactions);

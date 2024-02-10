@@ -25,7 +25,7 @@ import CreateModal from './components/CreateModal';
 import DeleteModal from './components/DeleteModal';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import queryClient from '../../reactquery';
-import { transactionsQueryOptions, TransactionDto } from '../../reactquery/transactions/transactionsRq';
+import { transactionsQueryOptions, TransactionDto, sumTransactionsAmountQueryOptions } from '../../reactquery/transactions/transactionsRq';
 // import SiderDrawer from '../AppLayout/components/SiderDrawer';
 import SiderDrawer2 from '../AppLayout/components/SiderDrawer2';
 import ModalCreate from '../../components/Modals/ModalCreate';
@@ -33,6 +33,12 @@ import ModalCreate from '../../components/Modals/ModalCreate';
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const loader = async () => {
   const query = transactionsQueryOptions(1, initialState.filter);
+  return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export const sumTransactionsAmountLoader = async () => {
+  const query = sumTransactionsAmountQueryOptions();
   return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
 };
 

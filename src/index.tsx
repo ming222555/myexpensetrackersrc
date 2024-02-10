@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.scss';
 import store from './store/store';
 import AppLayout from './routes/AppLayout/AppLayout';
-import Transactions, { loader } from './routes/Transactions/Transactions';
+import Transactions, { loader, sumTransactionsAmountLoader } from './routes/Transactions/Transactions';
 import About from './routes/About/About';
 import queryClient from './reactquery';
 import ErrorPage from './ErrorPage';
@@ -26,9 +26,8 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <AppLayout />,
-    // errorElement: <ErrorPage />,
     errorElement: <ErrorPage />,
-    // loader: rootLoader(queryClient),
+    loader: sumTransactionsAmountLoader,
     // action: rootAction(queryClient),
     children: [
       // {

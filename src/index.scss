@@ -2,6 +2,25 @@
 $font-size-root: 87.5%; // 100% => 16px, typically the browser default
                         // 87.5% => 14px
 
+// Add xxxl: 1590px to override bootstrap breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px, // 36
+  md: 768px, // 48
+  mg: 925px, // 32
+  lg: 992px, // 32
+  xl: 1200px, // 60
+  xxl: 1400px // 80
+);
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  mg: 957px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);
+
 //////////////////////////////////////////////////////
 
 // https://getbootstrap.com/docs/5.3/customize/sass/

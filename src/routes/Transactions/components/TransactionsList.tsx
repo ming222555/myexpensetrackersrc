@@ -85,7 +85,17 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
             <span>{delimitMMDDYYYY(trx.expenseDate, '-')}</span>
           </div>
           <div className='app__col TransactionsList__col TransactionsList__col--paymentmode'>
-            <span>{trx.paymentmode}</span>
+            {/* <span>{trx.paymentmode}</span> */}
+            {/* <span>{`${trx.paymentmode === 'cash' ? 'Cash' : trx.paymentmode === 'creditcard' ? 'Credit Card' : trx.paymentmode === 'debitcard ? 'Debit Card' : ''}`}</span> */}
+            <span>{`${
+              trx.paymentmode === 'cash'
+                ? 'Cash'
+                : trx.paymentmode === 'creditcard'
+                  ? 'Credit Card'
+                  : trx.paymentmode === 'debitcard'
+                    ? 'Debit Card'
+                    : ''
+            }`}</span>
           </div>
           <div className='app__col TransactionsList__col TransactionsList__col--amount'>
             <span>$ {zeroPaddMoney(trx.amount)}</span>

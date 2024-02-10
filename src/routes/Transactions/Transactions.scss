@@ -17,3 +17,9 @@
   border: 2px solid black;
   flex: 1 1 auto;
 }
+.Transactions__paginate {
+  font-size: .75rem;
+  .page-link {
+    font-size: .75rem;
+  }
+}

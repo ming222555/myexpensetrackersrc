@@ -201,27 +201,30 @@ export default function Transactions(): JSX.Element {
           </div>
           {data && <TransactionsList transactions={data.transactions} />}
           {data && data.totalPages > 1 && (
-            <ReactPaginate
-              nextLabel='next >'
-              onPageChange={handlePagenumClickDebounced}
-              pageRangeDisplayed={3}
-              marginPagesDisplayed={2}
-              pageCount={data.totalPages}
-              previousLabel='< prev'
-              pageClassName='page-item'
-              pageLinkClassName='page-link'
-              previousClassName='page-item'
-              previousLinkClassName='page-link'
-              nextClassName='page-item'
-              nextLinkClassName='page-link'
-              breakLabel='...'
-              breakClassName='page-item'
-              breakLinkClassName='page-link'
-              containerClassName='pagination'
-              activeClassName='active'
-              renderOnZeroPageCount={null}
-              forcePage={data.pagenum - 1} // we are 1 index based but react-paginate 0 based
-            />
+            <div className='Transactions__paginate d-flex align-items-baseline'>
+              <ReactPaginate
+                nextLabel=' >'
+                onPageChange={handlePagenumClickDebounced}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                pageCount={data.totalPages}
+                previousLabel='< '
+                pageClassName='page-item'
+                pageLinkClassName='page-link'
+                previousClassName='page-item'
+                previousLinkClassName='page-link'
+                nextClassName='page-item'
+                nextLinkClassName='page-link'
+                breakLabel='...'
+                breakClassName='page-item'
+                breakLinkClassName='page-link'
+                containerClassName='pagination'
+                activeClassName='active'
+                renderOnZeroPageCount={null}
+                forcePage={data.pagenum - 1} // we are 1 index based but react-paginate 0 based
+              />
+              <div className='ms-2'>{`${data.pagenum} of ${data.totalPages} pages (${data.totalItems}) items`}</div>
+            </div>
           )}
         </section>
         <aside className='Transactions__filters position-sm-sticky top-0'>

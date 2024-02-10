@@ -183,13 +183,15 @@ export default function Transactions(): JSX.Element {
   return (
     <>
       <article className='Transactions'>
-        <section className='TransactionsSection'>
-          <h2 className='TransactionsSection__title h6 p-3'>All Transactions</h2>
-          <Search handleSearchChange={handleSearchChange} />
-          <div className='button__actions'>
-            <button type='button' onClick={handleOpenCreateModal}>
+        <section className='TransactionsSection bg-light px-2'>
+          <h2 className='h6 py-3'>All Transactions</h2>
+          <div className='d-flex'>
+            <Search handleSearchChange={handleSearchChange} />
+            <button type='button' className='ms-2' onClick={handleOpenCreateModal}>
               New
             </button>
+          </div>
+          <div className='button__actions py-3'>
             <button type='button' onClick={handleOpenEditModal} disabled={selection.length !== 1}>
               Edit
             </button>

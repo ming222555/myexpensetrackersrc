@@ -95,14 +95,14 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
       <h6 className='h6 CategoryMultiSelectDropdown__title text-info'>{title}</h6> {/* {Math.random()} */}
       <div className='CategoryMultiSelectDropdown__selected'>
         {selectedCategoryNames.length === 0 ? (
-          <span className='CategoryMultiSelectDropdown__dropdownLabel text-paper'>Select Categories</span>
+          <span className='CategoryMultiSelectDropdown__dropdownLabel text-paper-dark'>Select Categories</span>
         ) : null}
         {selectedCategoryNames.map((categoryName, i) => {
           const selectedCategory = allCategories.find(category => {
             return category.name === categoryName;
           });
           return (
-            <div key={categoryName} className='CategoryMultiSelectDropdown__selected-item bg-paper text-white'>
+            <div key={categoryName} className='CategoryMultiSelectDropdown__selected-item bg-paper text-black'>
               <input
                 type='checkbox'
                 name={fieldname}

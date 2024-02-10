@@ -39,7 +39,7 @@ function Filters(props: { handleFiltersChange: (filters: IFilters) => void }): J
   return (
     <div className='Filters'>
       <h5 className='h5 d-flex align-items-center bg-paper'>
-        <span className='bi-filter h1'></span>Filters
+        <span className='h1 bi-filter'></span>Filters
       </h5>{' '}
       {/* {Math.random()} */}
       <form className='Filters__form' role='search' ref={formRef}>

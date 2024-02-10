@@ -69,13 +69,24 @@
     flex: 0 0 8rem;
   }
 }
-.TransactionsList__col--amount {
+.TransactionsList__col--amount,
+.TransactionsList__col--amount-desktop {
   outline: 1px solid blue;
   color: #ed1a3d;
   font-weight: 700;
+  text-align: right;
   flex: 0 0 7.2rem;
+}
+.TransactionsList__col--amount {
   @include media-breakpoint-up(sm) {
     display: none;
+  }
+}
+.TransactionsList__col--amount-desktop {
+  margin-left: auto;
+  display: none;
+  @include media-breakpoint-up(sm) {
+    display: block;
   }
 }
 .TransactionsList__col--note {
@@ -85,17 +96,6 @@
   @include media-breakpoint-up(sm) {
     flex: 0 1 auto;
     margin-top: 0;
-  }
-}
-.TransactionsList__col--amount-desktop {
-  outline: 1px solid blue;
-  color: #ed1a3d;
-  font-weight: 700;
-  margin-left: auto;
-  display: none;
-  @include media-breakpoint-up(sm) {
-    display: block;
-    flex: 0 0 7.2rem;
   }
 }
 .TransactionsList__field {}

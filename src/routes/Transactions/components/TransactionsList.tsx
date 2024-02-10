@@ -9,7 +9,7 @@ import {
   replaceSelection,
 } from '../../../store/ducks/transactions/transactionsSlice';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { delimitYYYYMMDD } from '../../../util';
+import { delimitMMDDYYYY, zeroPaddMoney } from '../../../util';
 
 function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Element {
   const transactions = props.transactions;
@@ -82,19 +82,19 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
             <span>{trx.category}</span>
           </div>
           <div className='app__col TransactionsList__col TransactionsList__col--expensedate'>
-            <span>{delimitYYYYMMDD(trx.expenseDate + '', '-')}</span>
+            <span>{delimitMMDDYYYY(trx.expenseDate, '-')}</span>
           </div>
           <div className='app__col TransactionsList__col TransactionsList__col--paymentmode'>
             <span>{trx.paymentmode}</span>
           </div>
           <div className='app__col TransactionsList__col TransactionsList__col--amount'>
-            <span>$ {trx.amount}</span>
+            <span>$ {zeroPaddMoney(trx.amount)}</span>
           </div>
           <div className='app__col TransactionsList__col TransactionsList__col--note'>
             <span className='TransactionsList__field TransactionsList__field--note'>{trx.note}</span>
           </div>
           <div className='app__col TransactionsList__col TransactionsList__col--amount-desktop'>
-            <span>$ {trx.amount}</span>
+            <span>$ {zeroPaddMoney(trx.amount)}</span>
           </div>
         </div>
         // <div key={trx.id}>

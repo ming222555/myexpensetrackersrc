@@ -86,6 +86,22 @@ export function delimitYYYYMMDD(strDate: string, delimiter: string): string {
 }
 
 /**
+ * @param yyyymmdd e.g. 20230630
+ * @param delimiter e.g. '-'
+ * @returns e.g. '06-30-2023'
+ */
+export function delimitMMDDYYYY(yyyymmdd: number, delimiter: string): string {
+  // args
+  //   yyyymmdd e.g. 20230630
+  //   delimiter e.g. '-'
+  const strDate = yyyymmdd + '';
+  const yyyy = strDate.substring(0, 4);
+  const mm = strDate.substring(4, 6);
+  const dd = strDate.substring(6);
+  return mm + delimiter + dd + delimiter + yyyy;
+}
+
+/**
  * @param amt e.g. '123456.99'
  * @returns empty string if regex is valid else error text
  */
@@ -150,4 +166,22 @@ export function extractCentFromAmount(amount: string): string {
     return cents + '0';
   }
   return cents;
+}
+
+/**
+ * @param amount e.g. 123.1
+ * @returns e.g. '123.10'
+ */
+export function zeroPaddMoney(amount: number): string {
+  const strAmount = amount + '';
+
+  const pos = strAmount.indexOf('.');
+  if (pos === -1) {
+    return strAmount;
+  }
+  const cents = strAmount.split('.')[1];
+  if (cents.length === 1) {
+    return strAmount + '0';
+  }
+  return strAmount;
 }

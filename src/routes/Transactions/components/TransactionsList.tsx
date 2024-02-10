@@ -46,6 +46,7 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
         checked={selection.length === transactions.length && transactions.length > 0}
         style={{ display: `${transactions.length > 0 ? 'inline-block' : 'none'}` }}
         onChange={handleToggleAll}
+        className={`${selection.length > 0 && selection.length < transactions.length ? 'TransactionsList__partiallyselected' : ''}`}
       />
       {transactions.map(trx => (
         <div key={trx.id}>

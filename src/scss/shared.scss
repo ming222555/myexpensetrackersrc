@@ -4,6 +4,13 @@
   column-gap: 1rem;
 }
 
+.app__row {
+  display: flex;
+}
+.app__col {
+  padding: .48rem;
+}
+
 $color-paper: var(--bs-gray-300);
 $color-paper-dark: var(--bs-gray-500);
 

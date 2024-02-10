@@ -207,7 +207,7 @@ export default function Transactions(): JSX.Element {
               pageRangeDisplayed={3}
               marginPagesDisplayed={2}
               pageCount={data.totalPages}
-              previousLabel='< previous'
+              previousLabel='< prev'
               pageClassName='page-item'
               pageLinkClassName='page-link'
               previousClassName='page-item'

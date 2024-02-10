@@ -1,6 +1,7 @@
 .TransactionsList {
   border: 1px solid blue;
   margin: 1rem 0;
+  font-size: .96rem;
 }
 .TransactionsList__partiallyselected {
   margin: 0;
@@ -8,9 +9,100 @@
   position: relative;
   &::after {
     position: absolute;
-    top: -0.4rem;
+    top: 0.36rem;
     left: 0;
     content: '--';
     font-weight: 700;
   }
+}
+.TransactionsList__row {
+  // background: lightgreen;
+  // background: transparent;
+  flex-wrap: wrap;
+  @include media-breakpoint-up(sm) {
+    flex-wrap: nowrap;
+  }
+  &:first-child {
+    font-weight: 700;
+    // background: lightblue;
+    .TransactionsList__col--note {
+      display: none;
+      @include media-breakpoint-up(sm) {
+        display: block;
+      }
+    }
+    .TransactionsList__col--amount,
+    .TransactionsList__col--amount-desktop {
+      color: inherit;
+    }
+  }
+  &:not(:first-child) {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    margin-bottom: .5rem;
+    @include media-breakpoint-up(sm) {
+      margin-bottom: 0;
+    }
+  }
+}
+.TransactionsList__col {
+  // background: lightgray;
+  background: transparent;
+  // outline: 1px solid blue;
+}
+.TransactionsList__col--category,
+.TransactionsList__col--expensedate,
+.TransactionsList__col--paymentmode {
+  flex: 1 0 0;
+}
+.TransactionsList__col--category {
+  @include media-breakpoint-up(sm) {
+    flex: 0 0 8rem;
+  }
+}
+.TransactionsList__col--expensedate {
+  @include media-breakpoint-up(sm) {
+    flex: 0 0 7rem;
+  }
+}
+.TransactionsList__col--paymentmode {
+  @include media-breakpoint-up(sm) {
+    flex: 0 0 8rem;
+  }
+}
+.TransactionsList__col--amount {
+  outline: 1px solid blue;
+  color: #ed1a3d;
+  font-weight: 700;
+  flex: 0 0 7.2rem;
+  @include media-breakpoint-up(sm) {
+    display: none;
+  }
+}
+.TransactionsList__col--note {
+  flex: 0 1 100%;
+  overflow: hidden;
+  margin-top: -8px;
+  @include media-breakpoint-up(sm) {
+    flex: 0 1 auto;
+    margin-top: 0;
+  }
+}
+.TransactionsList__col--amount-desktop {
+  outline: 1px solid blue;
+  color: #ed1a3d;
+  font-weight: 700;
+  margin-left: auto;
+  display: none;
+  @include media-breakpoint-up(sm) {
+    display: block;
+    flex: 0 0 7.2rem;
+  }
+}
+.TransactionsList__field {}
+.TransactionsList__field--note {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

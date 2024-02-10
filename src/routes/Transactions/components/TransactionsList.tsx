@@ -9,7 +9,7 @@ import {
   replaceSelection,
 } from '../../../store/ducks/transactions/transactionsSlice';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import './TransactionsList.scss';
+import { delimitYYYYMMDD } from '../../../util';
 
 function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Element {
   const transactions = props.transactions;
@@ -39,21 +39,69 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
   }
 
   return (
-    <div className='TransactionsList'>
-      <p>{Math.random()}</p>
-      <input
+    <div className='TransactionsList bg-white'>
+      {/* <p>{Math.random()}</p> */}
+      <div className='app__row TransactionsList__row bg-paper'>
+        <input
+          type='checkbox'
+          checked={selection.length === transactions.length && transactions.length > 0}
+          style={{ display: `${transactions.length > 0 ? 'inline-block' : 'none'}` }}
+          onChange={handleToggleAll}
+          className={`${selection.length > 0 && selection.length < transactions.length ? 'TransactionsList__partiallyselected' : ''}`}
+        />
+        <div className='app__col TransactionsList__col TransactionsList__col--category'>
+          <span>Category</span>
+        </div>
+        <div className='app__col TransactionsList__col TransactionsList__col--expensedate'>
+          <span>Date</span>
+        </div>
+        <div className='app__col TransactionsList__col TransactionsList__col--paymentmode'>
+          <span>Paid By</span>
+        </div>
+        <div className='app__col TransactionsList__col TransactionsList__col--amount'>
+          <span>Amount</span>
+        </div>
+        <div className='app__col TransactionsList__col TransactionsList__col--note'>
+          <span className='TransactionsList__field TransactionsList__field--note'>Note</span>
+        </div>
+        <div className='app__col TransactionsList__col TransactionsList__col--amount-desktop'>
+          <span>Amount</span>
+        </div>
+      </div>
+      {/* <input
         type='checkbox'
         checked={selection.length === transactions.length && transactions.length > 0}
         style={{ display: `${transactions.length > 0 ? 'inline-block' : 'none'}` }}
         onChange={handleToggleAll}
         className={`${selection.length > 0 && selection.length < transactions.length ? 'TransactionsList__partiallyselected' : ''}`}
-      />
+      /> */}
       {transactions.map(trx => (
-        <div key={trx.id}>
+        <div key={trx.id} className='app__row TransactionsList__row'>
           <input type='checkbox' checked={selection.findIndex(id => id === trx.id) > -1} data-id={trx.id} onChange={handleChange} />
-          <span>{trx.category}</span> <span>{trx.expenseDate}</span> <span>{trx.paymentmode}</span> <span>{trx.note}</span>{' '}
-          <span>{trx.amount}</span>
+          <div className='app__col TransactionsList__col TransactionsList__col--category'>
+            <span>{trx.category}</span>
+          </div>
+          <div className='app__col TransactionsList__col TransactionsList__col--expensedate'>
+            <span>{delimitYYYYMMDD(trx.expenseDate + '', '-')}</span>
+          </div>
+          <div className='app__col TransactionsList__col TransactionsList__col--paymentmode'>
+            <span>{trx.paymentmode}</span>
+          </div>
+          <div className='app__col TransactionsList__col TransactionsList__col--amount'>
+            <span>$ {trx.amount}</span>
+          </div>
+          <div className='app__col TransactionsList__col TransactionsList__col--note'>
+            <span className='TransactionsList__field TransactionsList__field--note'>{trx.note}</span>
+          </div>
+          <div className='app__col TransactionsList__col TransactionsList__col--amount-desktop'>
+            <span>$ {trx.amount}</span>
+          </div>
         </div>
+        // <div key={trx.id}>
+        //   <input type='checkbox' checked={selection.findIndex(id => id === trx.id) > -1} data-id={trx.id} onChange={handleChange} />
+        //   <span>{trx.category}</span> <span>{trx.expenseDate}</span> <span>{trx.paymentmode}</span> <span>{trx.note}</span>{' '}
+        //   <span>{trx.amount}</span>
+        // </div>
       ))}
     </div>
   );

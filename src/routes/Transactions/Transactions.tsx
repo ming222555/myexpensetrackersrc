@@ -183,7 +183,7 @@ export default function Transactions(): JSX.Element {
   return (
     <>
       <article className='Transactions'>
-        <section className='TransactionsSection bg-light px-2'>
+        <section className='TransactionsSection bg-light px-3'>
           <h2 className='h6 py-3'>All Transactions</h2>
           <div className='d-flex'>
             <Search handleSearchChange={handleSearchChange} />

@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import { TransactionDto } from '../../../reactquery/transactions/transactionsRq';
-import { updateTransaction } from '../../../db/indexdb';
+import { updateTransaction, tblCashflows, tblCategories, tblPaymentmodes } from '../../../db/indexdb';
 import ModalSpinner from '../../../components/Modals/ModalSpinner';
 import ModalAlert from '../../../components/Modals/ModalAlert';
 import './EditModal.scss';
@@ -187,8 +187,11 @@ export default function EditModal(props: {
               size='sm'
             >
               <option value=''></option>
-              <option value='income'>Income</option>
-              <option value='expense'>Expense</option>
+              {tblCashflows.map(cashflow => (
+                <option key={cashflow.name} value={cashflow.name}>
+                  {cashflow.label}
+                </option>
+              ))}
             </Form.Select>
             <Form.Text id='editcashflowHelpBlock' className='text-danger'>
               {errors.cashflow ? errors.cashflow : ''}
@@ -208,10 +211,11 @@ export default function EditModal(props: {
               size='sm'
             >
               <option value=''></option>
-              <option value='clothing'>Clothing</option>
-              <option value='food'>Food</option>
-              <option value='transport'>Transport</option>
-              <option value='utilities'>Utilities</option>
+              {tblCategories.map(catgy => (
+                <option key={catgy.name} value={catgy.name}>
+                  {catgy.label}
+                </option>
+              ))}
             </Form.Select>
             <Form.Text id='editcategoryHelpBlock' className='text-danger'>
               {errors.category ? errors.category : ''}
@@ -231,9 +235,14 @@ export default function EditModal(props: {
               size='sm'
             >
               <option value=''></option>
-              <option value='cash'>Cash</option>
+              {/* <option value='cash'>Cash</option>
               <option value='creditcard'>Credit Card</option>
-              <option value='debitcard'>Debit Card</option>
+              <option value='debitcard'>Debit Card</option> */}
+              {tblPaymentmodes.map(paymentmode => (
+                <option key={paymentmode.name} value={paymentmode.name}>
+                  {paymentmode.label}
+                </option>
+              ))}
             </Form.Select>
             <Form.Text id='editpaymentmodeHelpBlock' className='text-danger'>
               {errors.paymentmode ? errors.paymentmode : ''}

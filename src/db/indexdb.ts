@@ -5,6 +5,36 @@ import sortBy from 'sort-by';
 import type { Filter } from '../store/ducks/transactions/transactionsSlice';
 import { TransactionDto, TransactionsPaginatedDataDto } from '../reactquery/transactions/transactionsRq';
 
+export const tblCashflows = [
+  { name: 'income', label: 'Income' },
+  { name: 'expense', label: 'Expense' },
+];
+
+export const tblCategories = [
+  { name: 'bills', label: 'Bills' },
+  { name: 'business', label: 'Business' },
+  { name: 'clothing', label: 'Clothing' },
+  { name: 'education', label: 'Education' },
+  { name: 'extraincome', label: 'Extra income' },
+  { name: 'food', label: 'Food' },
+  { name: 'healthcare', label: 'Health Care' },
+  { name: 'housing', label: 'Housing' },
+  { name: 'insurance', label: 'Insurance' },
+  { name: 'miscellaneous', label: 'Miscellaneous' },
+  { name: 'personalcare', label: 'Personal Care' },
+  { name: 'salary', label: 'Salary' },
+  { name: 'shopping', label: 'Shopping' },
+  { name: 'tax', label: 'Tax' },
+  { name: 'transportation', label: 'Transportation' },
+  { name: 'utilities', label: 'Utilities' },
+];
+
+export const tblPaymentmodes = [
+  { name: 'cash', label: 'Cash' },
+  { name: 'debitcard', label: 'Debit Card' },
+  { name: 'creditcard', label: 'Credit Card' },
+];
+
 const seed = async (): Promise<void> => {
   const initialData: TransactionDto[] = [
     {

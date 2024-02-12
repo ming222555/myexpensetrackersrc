@@ -2,18 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import Form from 'react-bootstrap/Form';
 
+import { tblCategories } from '../../../db/indexdb';
 import './CategoryMultiSelectDropdown.scss';
-
-const allCategories = [
-  { name: 'clothing', label: 'Clothing', isSelected: false },
-  { name: 'entertainment', label: 'Entertainment', isSelected: false },
-  { name: 'food', label: 'Food', isSelected: false },
-  { name: 'lottery', label: 'Lottery', isSelected: false },
-  { name: 'shopping', label: 'Shopping', isSelected: false },
-  { name: 'sports', label: 'Sports', isSelected: false },
-  { name: 'transport', label: 'Transport', isSelected: false },
-  { name: 'utilities', label: 'Utilities', isSelected: false },
-];
 
 function Unselected(props: { selectedCategoryNames: string[]; handleChangeAddSelection: (categoryName: string) => void }): JSX.Element {
   const [val, setVal] = useState('');
@@ -37,7 +27,7 @@ function Unselected(props: { selectedCategoryNames: string[]; handleChangeAddSel
     <Form.Group className='mb-3'>
       <Form.Select size='sm' value={val} onChange={handleChange}>
         <option value=''></option>
-        {allCategories
+        {tblCategories
           .filter(category => {
             const pos = props.selectedCategoryNames.findIndex(categoryName => categoryName === category.name);
             if (pos > -1) {
@@ -68,7 +58,7 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
   }
 
   function handleChangeAddSelection(categoryName: string): void {
-    const categoryToAdd = allCategories.find(category => category.name === categoryName);
+    const categoryToAdd = tblCategories.find(category => category.name === categoryName);
     const dupSelectedCategoryNames = [...selectedCategoryNames];
     dupSelectedCategoryNames.push(categoryToAdd!.name);
     setSelectedCategoryNames(dupSelectedCategoryNames);
@@ -98,7 +88,7 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
           <span className='CategoryMultiSelectDropdown__dropdownLabel text-paper-dark'>Select Categories</span>
         ) : null}
         {selectedCategoryNames.map((categoryName, i) => {
-          const selectedCategory = allCategories.find(category => {
+          const selectedCategory = tblCategories.find(category => {
             return category.name === categoryName;
           });
           return (

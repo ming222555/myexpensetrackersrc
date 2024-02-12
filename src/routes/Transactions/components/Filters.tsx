@@ -5,7 +5,20 @@ import { useDebounce } from 'rooks';
 import MultiSelectCheckboxes from './MultiSelectCheckboxes';
 import CategoryMultiSelectDropdown from './CategoryMultiSelectDropdown';
 import type { Filters as IFilters } from '../../../store/ducks/transactions/transactionsSlice';
+import { tblCashflows, tblPaymentmodes } from '../../../db/indexdb';
 import './Filters.scss';
+
+const getCashflows = (strConcat: string, elem: { name: string; label: string }, idx: number): string => {
+  return strConcat + `${idx > 0 ? '|' + elem.name + ';' + elem.label : elem.name + ';' + elem.label}`;
+};
+// e.g. 'income;Income|expense;Expense'
+const concatCashflows = tblCashflows.reduce(getCashflows, '');
+
+const getPaymentmodes = (strConcat: string, elem: { name: string; label: string }, idx: number): string => {
+  return strConcat + `${idx > 0 ? '|' + elem.name + ';' + elem.label : elem.name + ';' + elem.label}`;
+};
+// e.g. 'cash;Cash|debitcard;Debit Card|creditcard;Credit Card'
+const concatPaymentmodes = tblPaymentmodes.reduce(getPaymentmodes, '');
 
 function Filters(props: { handleFiltersChange: (filters: IFilters) => void }): JSX.Element {
   const formRef = useRef<HTMLFormElement>(null);
@@ -46,13 +59,13 @@ function Filters(props: { handleFiltersChange: (filters: IFilters) => void }): J
         <CategoryMultiSelectDropdown fieldname='categories' title='Category' handleFormChange={handleFormChangeDebounced} />
         <MultiSelectCheckboxes
           fieldname='cashflow'
-          valuesLabels='income;Income|expense;Expense'
+          valuesLabels={concatCashflows}
           title='Cashflow'
           handleFormChange={handleFormChangeDebounced}
         />
         <MultiSelectCheckboxes
           fieldname='paymentmode'
-          valuesLabels='cash;Cash|debitcard;Debit Card|creditcard;Credit Card'
+          valuesLabels={concatPaymentmodes}
           title='Payment Mode'
           handleFormChange={handleFormChangeDebounced}
         />

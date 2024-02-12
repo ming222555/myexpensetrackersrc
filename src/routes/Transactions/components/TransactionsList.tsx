@@ -76,8 +76,21 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
         className={`${selection.length > 0 && selection.length < transactions.length ? 'TransactionsList__partiallyselected' : ''}`}
       /> */}
       {transactions.map(trx => (
-        <div key={trx.id} className='app__row TransactionsList__row'>
-          <input type='checkbox' checked={selection.findIndex(id => id === trx.id) > -1} data-id={trx.id} onChange={handleChange} />
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+        <label
+          key={trx.id}
+          className='app__row TransactionsList__row'
+          data-checked={selection.findIndex(id => id === trx.id) > -1}
+          data-id={trx.id}
+          htmlFor={'trxlist' + trx.id}
+        >
+          <input
+            type='checkbox'
+            checked={selection.findIndex(id => id === trx.id) > -1}
+            data-id={trx.id}
+            id={'trxlist' + trx.id}
+            onChange={handleChange}
+          />
           <div className='app__col TransactionsList__col TransactionsList__col--category'>
             <span>{trx.category}</span>
           </div>
@@ -106,7 +119,7 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
           <div className='app__col TransactionsList__col TransactionsList__col--amount-desktop'>
             <span>$ {zeroPaddMoney(trx.amount)}</span>
           </div>
-        </div>
+        </label>
         // <div key={trx.id}>
         //   <input type='checkbox' checked={selection.findIndex(id => id === trx.id) > -1} data-id={trx.id} onChange={handleChange} />
         //   <span>{trx.category}</span> <span>{trx.expenseDate}</span> <span>{trx.paymentmode}</span> <span>{trx.note}</span>{' '}

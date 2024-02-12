@@ -361,7 +361,8 @@ export async function retrieveSumTransactionsAmount(): Promise<number> {
   }
 
   const getSum = (sum: number, trx: TransactionDto): number => {
-    return sum + trx.amount;
+    const delta = trx.cashflow === 'income' ? trx.amount : trx.cashflow === 'expense' ? -1 * trx.amount : 0;
+    return sum + delta;
   };
 
   const sum = transactions.reduce(getSum, 0);

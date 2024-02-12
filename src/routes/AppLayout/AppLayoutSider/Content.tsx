@@ -25,8 +25,21 @@ export default function Content(): JSX.Element {
           <style>
             {
               '.wallet-balance { \
-                  fill: #828282; \
-                  font-size: 1.2rem; \
+                fill: #828282; \
+                font-size: 1.2rem; \
+                }'
+            }
+          </style>
+
+          <style>
+            {
+              '.wallet-balance { \
+                fill: #828282; \
+                font-size: 1.2rem; \
+                } \
+                .wallet-balance.deficit { \
+                  fill: #ff0000; \
+                  font-weight: 500; \
                 }'
             }
           </style>
@@ -36,7 +49,13 @@ export default function Content(): JSX.Element {
 a5 5 0 0 0 5 5 h125 a5 5 0 0 0 5 -5 v-25 a5 5 0 0 1 -10 0 a5 5 0 0 1 10 0 v-35'
               style={{ fill: 'none', stroke: '#828282', strokeWidth: '2px' }}
             />
-            <text x='68' y='50' style={{ textAnchor: 'middle', letterSpacing: '0.5pt' }} className='wallet-balance'>
+            {/* <text x='68' y='50' style={{ textAnchor: 'middle', letterSpacing: '0.5pt' }} className='wallet-balance bg-danger'> */}
+            <text
+              x='68'
+              y='50'
+              style={{ textAnchor: 'middle', letterSpacing: '0.5pt' }}
+              className={`wallet-balance${data && data < 0 ? ' deficit' : ''}`}
+            >
               {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data ?? 0)}
             </text>
           </g>

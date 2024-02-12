@@ -10,6 +10,7 @@ import {
 } from '../../../store/ducks/transactions/transactionsSlice';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import { delimitMMDDYYYY, zeroPaddMoney } from '../../../util';
+import { dbLookupCategories } from '../../../db/indexdb';
 
 function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Element {
   const transactions = props.transactions;
@@ -92,7 +93,7 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
             onChange={handleChange}
           />
           <div className='app__col TransactionsList__col TransactionsList__col--category'>
-            <span>{trx.category}</span>
+            <span>{dbLookupCategories(trx.category)}</span>
           </div>
           <div className='app__col TransactionsList__col TransactionsList__col--expensedate'>
             <span>{delimitMMDDYYYY(trx.expenseDate, '-')}</span>

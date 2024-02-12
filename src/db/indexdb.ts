@@ -35,6 +35,14 @@ export const tblPaymentmodes = [
   { name: 'creditcard', label: 'Credit Card' },
 ];
 
+export function dbLookupCategories(key: string): string {
+  const category = tblCategories.find(catgy => catgy.name === key);
+  if (category) {
+    return category.label;
+  }
+  return '';
+}
+
 const seed = async (): Promise<void> => {
   const initialData: TransactionDto[] = [
     {

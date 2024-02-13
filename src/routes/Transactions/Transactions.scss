@@ -22,4 +22,7 @@
   .page-link {
     font-size: .75rem;
   }
+  .page-link[aria-current='page'] {
+    z-index: auto;
+  }
 }

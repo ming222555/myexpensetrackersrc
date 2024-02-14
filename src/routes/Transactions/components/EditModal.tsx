@@ -27,7 +27,7 @@ export default function EditModal(props: {
   function reducer(state: TransactionForForm, action: { type: string; payload: string }): TransactionForForm {
     switch (action.type) {
       case 'cashflow':
-        return { ...state, cashflow: action.payload };
+        return { ...state, cashflow: action.payload, category: '' }; // reset category
         break;
       case 'category':
         return { ...state, category: action.payload };
@@ -212,7 +212,11 @@ export default function EditModal(props: {
             >
               <option value=''></option>
               {tblCategories.map(catgy => (
-                <option key={catgy.name} value={catgy.name}>
+                <option
+                  key={catgy.name}
+                  value={catgy.name}
+                  className={`${!transaction.cashflow || transaction.cashflow === catgy.cashflow ? 'd-block' : 'd-none'}`}
+                >
                   {catgy.label}
                 </option>
               ))}

@@ -21,12 +21,12 @@ export const tblCategories = [
   { name: 'housing', label: 'Housing', cashflow: 'expense' },
   { name: 'insurance', label: 'Insurance', cashflow: 'expense' },
   { name: 'interests', label: 'Interests', cashflow: 'income' },
+  { name: 'lottery', label: 'Lottery', cashflow: 'expense' },
   { name: 'miscellaneous', label: 'Miscellaneous', cashflow: 'expense' },
-  { name: 'personalcare', label: 'Personal Care', cashflow: 'expense' },
   { name: 'salary', label: 'Salary', cashflow: 'income' },
   { name: 'shopping', label: 'Shopping', cashflow: 'expense' },
   { name: 'tax', label: 'Tax', cashflow: 'expense' },
-  { name: 'transportation', label: 'Transportation', cashflow: 'expense' },
+  { name: 'transportation', label: 'Transport', cashflow: 'expense' },
   { name: 'utilities', label: 'Utilities', cashflow: 'expense' },
 ];
 
@@ -435,11 +435,11 @@ const seed = async (): Promise<void> => {
     },
     {
       cashflow: 'expense',
-      category: 'personalcare',
+      category: 'lottery',
       paymentmode: 'cash',
       amount: 10,
       expenseDate: 20191111,
-      note: 'Deodorant, roll-on',
+      note: 'System 7',
       id: 1707825830382,
     },
     {
@@ -876,11 +876,11 @@ const seed = async (): Promise<void> => {
     },
     {
       cashflow: 'expense',
-      category: 'personalcare',
+      category: 'lottery',
       paymentmode: 'creditcard',
       amount: 10,
       expenseDate: 20191118,
-      note: '1 box of antibiotics (12 doses)',
+      note: 'Quickpick Ordinary',
       id: 1707802054624,
     },
     {
@@ -1308,11 +1308,11 @@ const seed = async (): Promise<void> => {
     },
     {
       cashflow: 'expense',
-      category: 'personalcare',
+      category: 'lottery',
       paymentmode: 'cash',
       amount: 15,
       expenseDate: 20191125,
-      note: 'Cold medicine',
+      note: 'System 7',
       id: 1707787037406,
     },
     {
@@ -1434,11 +1434,11 @@ const seed = async (): Promise<void> => {
     },
     {
       cashflow: 'expense',
-      category: 'personalcare',
-      paymentmode: 'debitcard',
+      category: 'lottery',
+      paymentmode: 'cash',
       amount: 7,
       expenseDate: 20191127,
-      note: 'Skin care solution',
+      note: 'System Roll',
       id: 1707785744844,
     },
     {

@@ -54,7 +54,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191101,
       note: 'Public and other transport',
-      id: 1707917754640,
+      id: 1707917754642,
     },
     {
       cashflow: 'income',
@@ -63,7 +63,7 @@ const seed = async (): Promise<void> => {
       amount: 6000,
       expenseDate: 20191101,
       note: 'Monthly Net Salary',
-      id: 1707917480265,
+      id: 1707917480267,
     },
     {
       cashflow: 'expense',
@@ -72,7 +72,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191101,
       note: 'Confederate cush',
-      id: 1707917369563,
+      id: 1707917369565,
     },
     {
       cashflow: 'expense',
@@ -81,7 +81,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191101,
       note: 'Boiled peanuts',
-      id: 1707917264886,
+      id: 1707917264888,
     },
     {
       cashflow: 'expense',
@@ -90,7 +90,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191101,
       note: 'Cars and trucks, used',
-      id: 1707917205275,
+      id: 1707917205277,
     },
     {
       cashflow: 'expense',
@@ -99,7 +99,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191101,
       note: 'Palmetto Cheese, Mint julep',
-      id: 1707917130404,
+      id: 1707917130406,
     },
     {
       cashflow: 'expense',
@@ -108,7 +108,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191102,
       note: "Po' boy sandwich, RC Cola",
-      id: 1707917031069,
+      id: 1707917031071,
     },
     {
       cashflow: 'expense',
@@ -117,7 +117,7 @@ const seed = async (): Promise<void> => {
       amount: 20,
       expenseDate: 20191102,
       note: 'Laundry and cleaning supplies',
-      id: 1707916932399,
+      id: 1707916932401,
     },
     {
       cashflow: 'expense',
@@ -126,7 +126,7 @@ const seed = async (): Promise<void> => {
       amount: 40,
       expenseDate: 20191102,
       note: 'Pair of Running Shoes',
-      id: 1707916874200,
+      id: 1707916874202,
     },
     {
       cashflow: 'expense',
@@ -135,7 +135,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191102,
       note: 'Public and other transport',
-      id: 1707916575864,
+      id: 1707916575866,
     },
     {
       cashflow: 'expense',
@@ -144,7 +144,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191102,
       note: 'Vienna sausages, Mello Yello',
-      id: 1707915807585,
+      id: 1707915807587,
     },
     {
       cashflow: 'expense',
@@ -153,7 +153,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191102,
       note: 'Public and other transportation',
-      id: 1707915707991,
+      id: 1707915707993,
     },
     {
       cashflow: 'expense',
@@ -162,7 +162,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191103,
       note: 'Vehicle purchases',
-      id: 1707915057599,
+      id: 1707915057601,
     },
     {
       cashflow: 'expense',
@@ -171,7 +171,7 @@ const seed = async (): Promise<void> => {
       amount: 150,
       expenseDate: 20191103,
       note: 'Expense for Utilities',
-      id: 1707914967185,
+      id: 1707914967187,
     },
     {
       cashflow: 'expense',
@@ -180,7 +180,7 @@ const seed = async (): Promise<void> => {
       amount: 220,
       expenseDate: 20191103,
       note: 'Electricity bill',
-      id: 1707914855040,
+      id: 1707914855042,
     },
     {
       cashflow: 'expense',
@@ -189,7 +189,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191103,
       note: 'Muffuletta sandwich, Mint julep',
-      id: 1707914594618,
+      id: 1707914594620,
     },
     {
       cashflow: 'expense',
@@ -198,7 +198,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191103,
       note: 'Cars and trucks, used',
-      id: 1707914542337,
+      id: 1707914542339,
     },
     {
       cashflow: 'expense',
@@ -207,7 +207,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191103,
       note: 'Vienna sausages, Mello Yello',
-      id: 1707914496804,
+      id: 1707914496806,
     },
     {
       cashflow: 'income',
@@ -216,7 +216,7 @@ const seed = async (): Promise<void> => {
       amount: 120,
       expenseDate: 20191104,
       note: 'Income from Sale',
-      id: 1707914359902,
+      id: 1707914359904,
     },
     {
       cashflow: 'expense',
@@ -225,7 +225,7 @@ const seed = async (): Promise<void> => {
       amount: 15,
       expenseDate: 20191104,
       note: 'Quickpick Ordinary',
-      id: 1707913897884,
+      id: 1707913897886,
     },
     {
       cashflow: 'expense',
@@ -234,7 +234,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191104,
       note: 'Muffuletta sandwich, Mint julep',
-      id: 1707913267306,
+      id: 1707913267308,
     },
     {
       cashflow: 'expense',
@@ -243,7 +243,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191104,
       note: 'Beer cheese',
-      id: 1707913130005,
+      id: 1707913130007,
     },
     {
       cashflow: 'expense',
@@ -252,7 +252,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191104,
       note: 'Public and other transport',
-      id: 1707912946351,
+      id: 1707912946353,
     },
     {
       cashflow: 'expense',
@@ -261,7 +261,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191104,
       note: "Po' boy sandwich, RC Cola",
-      id: 1707912856919,
+      id: 1707912856921,
     },
     {
       cashflow: 'expense',
@@ -270,7 +270,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191105,
       note: 'Maintenance and repairs',
-      id: 1707891949716,
+      id: 1707891949718,
     },
     {
       cashflow: 'expense',
@@ -279,7 +279,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191105,
       note: "Steen's cane syrup",
-      id: 1707891835445,
+      id: 1707891835447,
     },
     {
       cashflow: 'expense',
@@ -288,7 +288,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191105,
       note: 'Cars and trucks, used',
-      id: 1707891786115,
+      id: 1707891786117,
     },
     {
       cashflow: 'expense',
@@ -297,7 +297,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191105,
       note: 'Fitness Club',
-      id: 1707891741017,
+      id: 1707891741019,
     },
     {
       cashflow: 'expense',
@@ -306,7 +306,7 @@ const seed = async (): Promise<void> => {
       amount: 25,
       expenseDate: 20191105,
       note: 'Household textiles',
-      id: 1707891672209,
+      id: 1707891672211,
     },
     {
       cashflow: 'expense',
@@ -315,7 +315,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191105,
       note: 'Pimento cheese sandwich',
-      id: 1707891607975,
+      id: 1707891607977,
     },
     {
       cashflow: 'expense',
@@ -324,7 +324,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191106,
       note: 'Beer cheese',
-      id: 1707891485013,
+      id: 1707891485015,
     },
     {
       cashflow: 'expense',
@@ -333,7 +333,7 @@ const seed = async (): Promise<void> => {
       amount: 180,
       expenseDate: 20191106,
       note: 'Expense for Health Care',
-      id: 1707891443436,
+      id: 1707891443438,
     },
     {
       cashflow: 'income',
@@ -342,7 +342,7 @@ const seed = async (): Promise<void> => {
       amount: 110,
       expenseDate: 20191106,
       note: 'Income from Funds',
-      id: 1707891370676,
+      id: 1707891370678,
     },
     {
       cashflow: 'expense',
@@ -351,7 +351,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191106,
       note: 'Maintenance and repairs',
-      id: 1707891313423,
+      id: 1707891313425,
     },
     {
       cashflow: 'expense',
@@ -360,7 +360,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191106,
       note: "Po' boy sandwich, RC Cola",
-      id: 1707891227268,
+      id: 1707891227270,
     },
     {
       cashflow: 'expense',
@@ -369,7 +369,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191106,
       note: 'Gasoline and motor oil',
-      id: 1707891096856,
+      id: 1707891096858,
     },
     {
       cashflow: 'expense',
@@ -378,7 +378,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191107,
       note: "Po' boy sandwich, RC Cola",
-      id: 1707890905856,
+      id: 1707890905858,
     },
     {
       cashflow: 'expense',
@@ -387,7 +387,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191107,
       note: 'Maintenance and repairs',
-      id: 1707890757091,
+      id: 1707890757093,
     },
     {
       cashflow: 'expense',
@@ -396,7 +396,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191107,
       note: 'Frito pie, Muscadine wine and juice',
-      id: 1707890706958,
+      id: 1707890706960,
     },
     {
       cashflow: 'expense',
@@ -405,7 +405,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191107,
       note: 'Other vehicle expenses',
-      id: 1707890655347,
+      id: 1707890655349,
     },
     {
       cashflow: 'expense',
@@ -414,7 +414,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191107,
       note: 'Taxi Start (Normal Tariff)',
-      id: 1707890523092,
+      id: 1707890523094,
     },
     {
       cashflow: 'expense',
@@ -423,7 +423,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191107,
       note: 'Pickled pigs feet',
-      id: 1707890452528,
+      id: 1707890452530,
     },
     {
       cashflow: 'expense',
@@ -432,7 +432,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191108,
       note: 'Cheese straws, Red Rock Cola',
-      id: 1707884196966,
+      id: 1707884196968,
     },
     {
       cashflow: 'expense',
@@ -441,7 +441,7 @@ const seed = async (): Promise<void> => {
       amount: 18,
       expenseDate: 20191108,
       note: 'Other vehicle expenses',
-      id: 1707884048757,
+      id: 1707884048759,
     },
     {
       cashflow: 'expense',
@@ -450,7 +450,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191108,
       note: 'Palmetto Cheese, Mint julep',
-      id: 1707883815897,
+      id: 1707883815899,
     },
     {
       cashflow: 'income',
@@ -459,7 +459,7 @@ const seed = async (): Promise<void> => {
       amount: 90,
       expenseDate: 20191108,
       note: 'Income from Interests',
-      id: 1707883745707,
+      id: 1707883745709,
     },
     {
       cashflow: 'expense',
@@ -468,7 +468,7 @@ const seed = async (): Promise<void> => {
       amount: 50,
       expenseDate: 20191108,
       note: 'Personal things',
-      id: 1707882768824,
+      id: 1707882768826,
     },
     {
       cashflow: 'expense',
@@ -477,7 +477,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191108,
       note: 'Public and other transportation',
-      id: 1707882682533,
+      id: 1707882682535,
     },
     {
       cashflow: 'expense',
@@ -486,7 +486,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191108,
       note: 'Vienna sausages, Mello Yello',
-      id: 1707882540430,
+      id: 1707882540432,
     },
     {
       cashflow: 'expense',
@@ -495,7 +495,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191109,
       note: 'Chicken salad, Mello Yello',
-      id: 1707882438300,
+      id: 1707882438302,
     },
     {
       cashflow: 'expense',
@@ -504,7 +504,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191109,
       note: 'Maintenance and repairs',
-      id: 1707882339623,
+      id: 1707882339625,
     },
     {
       cashflow: 'expense',
@@ -513,7 +513,7 @@ const seed = async (): Promise<void> => {
       amount: 45,
       expenseDate: 20191109,
       note: 'Pair of Running Shoes',
-      id: 1707882269610,
+      id: 1707882269612,
     },
     {
       cashflow: 'expense',
@@ -522,7 +522,7 @@ const seed = async (): Promise<void> => {
       amount: 15,
       expenseDate: 20191109,
       note: 'Household textiles',
-      id: 1707882061060,
+      id: 1707882061062,
     },
     {
       cashflow: 'expense',
@@ -531,7 +531,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191109,
       note: 'Peanut butter and banana sandwich',
-      id: 1707882000157,
+      id: 1707882000159,
     },
     {
       cashflow: 'expense',
@@ -540,7 +540,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191109,
       note: 'Maintenance and repairs',
-      id: 1707881841461,
+      id: 1707881841463,
     },
     {
       cashflow: 'expense',
@@ -549,7 +549,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191109,
       note: 'Creole cream cheese',
-      id: 1707880012849,
+      id: 1707880012851,
     },
     {
       cashflow: 'expense',
@@ -558,7 +558,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191110,
       note: 'Beer cheese',
-      id: 1707826993282,
+      id: 1707826993284,
     },
     {
       cashflow: 'expense',
@@ -567,7 +567,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191110,
       note: 'Maintenance and repairs',
-      id: 1707826896544,
+      id: 1707826896546,
     },
     {
       cashflow: 'expense',
@@ -576,7 +576,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191110,
       note: 'Fatback or hog jowl',
-      id: 1707826837382,
+      id: 1707826837384,
     },
     {
       cashflow: 'expense',
@@ -585,7 +585,7 @@ const seed = async (): Promise<void> => {
       amount: 160,
       expenseDate: 20191110,
       note: 'Expense for Utilities',
-      id: 1707826777066,
+      id: 1707826777068,
     },
     {
       cashflow: 'expense',
@@ -594,7 +594,7 @@ const seed = async (): Promise<void> => {
       amount: 5,
       expenseDate: 20191110,
       note: 'Movie Outing',
-      id: 1707826605125,
+      id: 1707826605127,
     },
     {
       cashflow: 'expense',
@@ -603,7 +603,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191110,
       note: 'Maintenance and repairs',
-      id: 1707826539176,
+      id: 1707826539178,
     },
     {
       cashflow: 'expense',
@@ -612,7 +612,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191110,
       note: 'Chicken salad, Mello Yello',
-      id: 1707826482751,
+      id: 1707826482753,
     },
     {
       cashflow: 'expense',
@@ -621,7 +621,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191111,
       note: 'Pimento cheese sandwich',
-      id: 1707826222207,
+      id: 1707826222209,
     },
     {
       cashflow: 'expense',
@@ -630,7 +630,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191111,
       note: 'Vehicle purchases',
-      id: 1707826127950,
+      id: 1707826127952,
     },
     {
       cashflow: 'expense',
@@ -639,7 +639,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191111,
       note: 'Peanuts in Coke',
-      id: 1707826056927,
+      id: 1707826056929,
     },
     {
       cashflow: 'expense',
@@ -648,7 +648,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191111,
       note: 'Public and private hires',
-      id: 1707825953141,
+      id: 1707825953143,
     },
     {
       cashflow: 'expense',
@@ -657,7 +657,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191111,
       note: 'System 7',
-      id: 1707825830382,
+      id: 1707825830384,
     },
     {
       cashflow: 'income',
@@ -666,7 +666,7 @@ const seed = async (): Promise<void> => {
       amount: 120,
       expenseDate: 20191111,
       note: 'Income from refund',
-      id: 1707825772509,
+      id: 1707825772511,
     },
     {
       cashflow: 'expense',
@@ -675,7 +675,7 @@ const seed = async (): Promise<void> => {
       amount: 65,
       expenseDate: 20191111,
       note: 'Beauty care things',
-      id: 1707825598774,
+      id: 1707825598776,
     },
     {
       cashflow: 'expense',
@@ -684,7 +684,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191111,
       note: 'Fatback or hog jowl',
-      id: 1707825428811,
+      id: 1707825428813,
     },
     {
       cashflow: 'expense',
@@ -693,7 +693,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191112,
       note: 'Pickled pigs feet',
-      id: 1707825045845,
+      id: 1707825045847,
     },
     {
       cashflow: 'expense',
@@ -702,7 +702,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191112,
       note: 'Other vehicle expenses',
-      id: 1707824942892,
+      id: 1707824942894,
     },
     {
       cashflow: 'expense',
@@ -711,7 +711,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191112,
       note: "Po' boy sandwich, RC Cola",
-      id: 1707824838686,
+      id: 1707824838688,
     },
     {
       cashflow: 'expense',
@@ -720,7 +720,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191112,
       note: 'Vehicle purchases',
-      id: 1707824722502,
+      id: 1707824722504,
     },
     {
       cashflow: 'expense',
@@ -729,7 +729,7 @@ const seed = async (): Promise<void> => {
       amount: 230,
       expenseDate: 20191112,
       note: 'Vehicle insurance',
-      id: 1707824649464,
+      id: 1707824649466,
     },
     {
       cashflow: 'expense',
@@ -738,7 +738,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191112,
       note: 'Fatback or hog jowl',
-      id: 1707824542932,
+      id: 1707824542934,
     },
     {
       cashflow: 'expense',
@@ -747,7 +747,7 @@ const seed = async (): Promise<void> => {
       amount: 25,
       expenseDate: 20191112,
       note: 'Household furnishings',
-      id: 1707824468413,
+      id: 1707824468415,
     },
     {
       cashflow: 'expense',
@@ -756,7 +756,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191113,
       note: "Po' boy sandwich, RC Cola",
-      id: 1707824324201,
+      id: 1707824324203,
     },
     {
       cashflow: 'expense',
@@ -765,7 +765,7 @@ const seed = async (): Promise<void> => {
       amount: 2,
       expenseDate: 20191113,
       note: 'Tennis Court Rent',
-      id: 1707824253721,
+      id: 1707824253723,
     },
     {
       cashflow: 'income',
@@ -774,7 +774,7 @@ const seed = async (): Promise<void> => {
       amount: 90,
       expenseDate: 20191113,
       note: 'Income from Gits',
-      id: 1707824135007,
+      id: 1707824135009,
     },
     {
       cashflow: 'expense',
@@ -783,7 +783,7 @@ const seed = async (): Promise<void> => {
       amount: 180,
       expenseDate: 20191113,
       note: 'Expense for Health Care',
-      id: 1707823890948,
+      id: 1707823890950,
     },
     {
       cashflow: 'expense',
@@ -792,7 +792,7 @@ const seed = async (): Promise<void> => {
       amount: 9,
       expenseDate: 20191113,
       note: 'Public and other transportation',
-      id: 1707823806347,
+      id: 1707823806349,
     },
     {
       cashflow: 'expense',
@@ -801,7 +801,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191113,
       note: 'Chicken salad, Mello Yello',
-      id: 1707823682450,
+      id: 1707823682452,
     },
     {
       cashflow: 'expense',
@@ -810,7 +810,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191113,
       note: 'Other vehicle expenses',
-      id: 1707823581007,
+      id: 1707823581009,
     },
     {
       cashflow: 'expense',
@@ -819,7 +819,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191113,
       note: 'Cheese straws, Red Rock Cola',
-      id: 1707823495642,
+      id: 1707823495644,
     },
     {
       cashflow: 'expense',
@@ -828,7 +828,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191114,
       note: 'Palmetto Cheese, Mint julep',
-      id: 1707823361877,
+      id: 1707823361879,
     },
     {
       cashflow: 'expense',
@@ -837,7 +837,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191114,
       note: 'Other vehicle expenses',
-      id: 1707823288213,
+      id: 1707823288215,
     },
     {
       cashflow: 'income',
@@ -846,7 +846,7 @@ const seed = async (): Promise<void> => {
       amount: 190,
       expenseDate: 20191114,
       note: 'Income from Own Buisness',
-      id: 1707823206313,
+      id: 1707823206315,
     },
     {
       cashflow: 'expense',
@@ -855,7 +855,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191114,
       note: 'Boiled peanuts',
-      id: 1707823117427,
+      id: 1707823117429,
     },
     {
       cashflow: 'expense',
@@ -864,7 +864,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191114,
       note: 'Vehicle purchases',
-      id: 1707823054862,
+      id: 1707823054864,
     },
     {
       cashflow: 'expense',
@@ -873,7 +873,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191114,
       note: 'Fatback or hog jowl',
-      id: 1707822994768,
+      id: 1707822994770,
     },
     {
       cashflow: 'expense',
@@ -882,7 +882,7 @@ const seed = async (): Promise<void> => {
       amount: 220,
       expenseDate: 20191115,
       note: 'Cellular phone service',
-      id: 1707822604834,
+      id: 1707822604836,
     },
     {
       cashflow: 'expense',
@@ -891,7 +891,7 @@ const seed = async (): Promise<void> => {
       amount: 65,
       expenseDate: 20191115,
       note: 'Personal things',
-      id: 1707822518297,
+      id: 1707822518299,
     },
     {
       cashflow: 'income',
@@ -900,7 +900,7 @@ const seed = async (): Promise<void> => {
       amount: 100,
       expenseDate: 20191115,
       note: 'Interest from Deposit',
-      id: 1707822357458,
+      id: 1707822357460,
     },
     {
       cashflow: 'expense',
@@ -909,7 +909,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191115,
       note: 'Pickled pigs feet',
-      id: 1707822214684,
+      id: 1707822214686,
     },
     {
       cashflow: 'expense',
@@ -918,7 +918,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191115,
       note: 'Cars and trucks, used',
-      id: 1707822152239,
+      id: 1707822152241,
     },
     {
       cashflow: 'expense',
@@ -927,7 +927,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191115,
       note: 'Vienna sausages, Mello Yello',
-      id: 1707822062887,
+      id: 1707822062889,
     },
     {
       cashflow: 'expense',
@@ -936,7 +936,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191115,
       note: 'Vehicle purchases',
-      id: 1707821879373,
+      id: 1707821879375,
     },
     {
       cashflow: 'expense',
@@ -945,7 +945,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191115,
       note: 'Peanut butter and banana sandwich',
-      id: 1707821747671,
+      id: 1707821747673,
     },
     {
       cashflow: 'expense',
@@ -954,7 +954,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191116,
       note: 'Peanut butter and banana sandwich',
-      id: 1707810725645,
+      id: 1707810725647,
     },
     {
       cashflow: 'expense',
@@ -963,7 +963,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191116,
       note: 'Other vehicle expenses',
-      id: 1707810661979,
+      id: 1707810661981,
     },
     {
       cashflow: 'expense',
@@ -972,7 +972,7 @@ const seed = async (): Promise<void> => {
       amount: 3,
       expenseDate: 20191116,
       note: 'Cinema',
-      id: 1707810591079,
+      id: 1707810591081,
     },
     {
       cashflow: 'expense',
@@ -981,7 +981,7 @@ const seed = async (): Promise<void> => {
       amount: 135,
       expenseDate: 20191116,
       note: 'Pair of Jeans',
-      id: 1707810521635,
+      id: 1707810521637,
     },
     {
       cashflow: 'expense',
@@ -990,7 +990,7 @@ const seed = async (): Promise<void> => {
       amount: 20,
       expenseDate: 20191116,
       note: 'Household furnishings',
-      id: 1707810305941,
+      id: 1707810305943,
     },
     {
       cashflow: 'expense',
@@ -999,7 +999,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191116,
       note: 'Chicken salad, Mello Yello',
-      id: 1707810233933,
+      id: 1707810233935,
     },
     {
       cashflow: 'expense',
@@ -1008,7 +1008,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191116,
       note: 'Other vehicle expenses',
-      id: 1707810087796,
+      id: 1707810087798,
     },
     {
       cashflow: 'expense',
@@ -1017,7 +1017,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191116,
       note: 'Peanuts in Coke',
-      id: 1707810025888,
+      id: 1707810025890,
     },
     {
       cashflow: 'expense',
@@ -1026,7 +1026,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191117,
       note: 'Confederate cush',
-      id: 1707809879366,
+      id: 1707809879368,
     },
     {
       cashflow: 'expense',
@@ -1035,7 +1035,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191117,
       note: 'Cars and trucks, used',
-      id: 1707809815685,
+      id: 1707809815687,
     },
     {
       cashflow: 'expense',
@@ -1044,7 +1044,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191117,
       note: 'Boiled peanuts',
-      id: 1707809763555,
+      id: 1707809763557,
     },
     {
       cashflow: 'expense',
@@ -1053,7 +1053,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191117,
       note: 'Public and other transportation',
-      id: 1707809704764,
+      id: 1707809704766,
     },
     {
       cashflow: 'expense',
@@ -1062,7 +1062,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191117,
       note: 'Peanut butter and banana sandwich',
-      id: 1707809639153,
+      id: 1707809639155,
     },
     {
       cashflow: 'expense',
@@ -1071,7 +1071,7 @@ const seed = async (): Promise<void> => {
       amount: 160,
       expenseDate: 20191117,
       note: 'Expense for Utilities',
-      id: 1707809429334,
+      id: 1707809429336,
     },
     {
       cashflow: 'expense',
@@ -1080,7 +1080,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191118,
       note: "Po' boy sandwich, RC Cola",
-      id: 1707802294886,
+      id: 1707802294888,
     },
     {
       cashflow: 'expense',
@@ -1089,7 +1089,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191118,
       note: 'Maintenance and repairs',
-      id: 1707802170751,
+      id: 1707802170753,
     },
     {
       cashflow: 'expense',
@@ -1098,7 +1098,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191118,
       note: 'Quickpick Ordinary',
-      id: 1707802054624,
+      id: 1707802054626,
     },
     {
       cashflow: 'expense',
@@ -1107,7 +1107,7 @@ const seed = async (): Promise<void> => {
       amount: 60,
       expenseDate: 20191118,
       note: 'Beauty care things',
-      id: 1707801929300,
+      id: 1707801929302,
     },
     {
       cashflow: 'expense',
@@ -1116,7 +1116,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191118,
       note: "Po' boy sandwich, RC Cola",
-      id: 1707801654474,
+      id: 1707801654476,
     },
     {
       cashflow: 'expense',
@@ -1125,7 +1125,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191118,
       note: 'Other vehicle expenses',
-      id: 1707801517147,
+      id: 1707801517149,
     },
     {
       cashflow: 'expense',
@@ -1134,7 +1134,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191118,
       note: 'Palmetto Cheese, Mint julep',
-      id: 1707801407766,
+      id: 1707801407768,
     },
     {
       cashflow: 'expense',
@@ -1143,7 +1143,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191119,
       note: 'Cheese straws, Red Rock Cola',
-      id: 1707797442138,
+      id: 1707797442140,
     },
     {
       cashflow: 'expense',
@@ -1152,7 +1152,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191119,
       note: 'Cars and trucks, used',
-      id: 1707797317997,
+      id: 1707797317999,
     },
     {
       cashflow: 'expense',
@@ -1161,7 +1161,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191119,
       note: 'Confederate cush',
-      id: 1707797257614,
+      id: 1707797257616,
     },
     {
       cashflow: 'expense',
@@ -1170,7 +1170,7 @@ const seed = async (): Promise<void> => {
       amount: 9,
       expenseDate: 20191119,
       note: 'Vehicle purchases',
-      id: 1707797172162,
+      id: 1707797172164,
     },
     {
       cashflow: 'expense',
@@ -1179,7 +1179,7 @@ const seed = async (): Promise<void> => {
       amount: 30,
       expenseDate: 20191119,
       note: 'Major appliances, housewares',
-      id: 1707797062581,
+      id: 1707797062583,
     },
     {
       cashflow: 'expense',
@@ -1188,7 +1188,7 @@ const seed = async (): Promise<void> => {
       amount: 3,
       expenseDate: 20191119,
       note: 'Cappuccino (regular)',
-      id: 1707796962410,
+      id: 1707796962412,
     },
     {
       cashflow: 'income',
@@ -1197,7 +1197,7 @@ const seed = async (): Promise<void> => {
       amount: 90,
       expenseDate: 20191119,
       note: 'Income from Gits',
-      id: 1707796889772,
+      id: 1707796889774,
     },
     {
       cashflow: 'expense',
@@ -1206,7 +1206,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191119,
       note: 'Frito pie, Muscadine wine and juice',
-      id: 1707796780555,
+      id: 1707796780557,
     },
     {
       cashflow: 'expense',
@@ -1215,7 +1215,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191120,
       note: 'Boiled peanuts',
-      id: 1707796393785,
+      id: 1707796393787,
     },
     {
       cashflow: 'expense',
@@ -1224,7 +1224,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191120,
       note: 'Vehicle purchases',
-      id: 1707796323757,
+      id: 1707796323759,
     },
     {
       cashflow: 'expense',
@@ -1233,7 +1233,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191120,
       note: 'Beer cheese',
-      id: 1707796261234,
+      id: 1707796261236,
     },
     {
       cashflow: 'expense',
@@ -1242,7 +1242,7 @@ const seed = async (): Promise<void> => {
       amount: 170,
       expenseDate: 20191120,
       note: 'Expense for Health Care',
-      id: 1707796189499,
+      id: 1707796189501,
     },
     {
       cashflow: 'expense',
@@ -1251,7 +1251,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191120,
       note: 'Other vehicle expenses',
-      id: 1707796107393,
+      id: 1707796107395,
     },
     {
       cashflow: 'expense',
@@ -1260,7 +1260,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191120,
       note: 'Creole cream cheese',
-      id: 1707796013751,
+      id: 1707796013753,
     },
     {
       cashflow: 'expense',
@@ -1269,7 +1269,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191121,
       note: 'Beer cheese',
-      id: 1707795771613,
+      id: 1707795771615,
     },
     {
       cashflow: 'expense',
@@ -1278,7 +1278,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191121,
       note: 'Vehicle purchases',
-      id: 1707795583405,
+      id: 1707795583407,
     },
     {
       cashflow: 'expense',
@@ -1287,7 +1287,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191121,
       note: 'Frito pie, Muscadine wine and juice',
-      id: 1707795492162,
+      id: 1707795492164,
     },
     {
       cashflow: 'expense',
@@ -1296,7 +1296,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191121,
       note: 'Gasoline and motor oil',
-      id: 1707795429097,
+      id: 1707795429099,
     },
     {
       cashflow: 'expense',
@@ -1305,7 +1305,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191121,
       note: 'Confederate cush',
-      id: 1707795348188,
+      id: 1707795348190,
     },
     {
       cashflow: 'expense',
@@ -1314,7 +1314,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191122,
       note: 'Peanut butter and banana sandwich',
-      id: 1707795209486,
+      id: 1707795209488,
     },
     {
       cashflow: 'expense',
@@ -1323,7 +1323,7 @@ const seed = async (): Promise<void> => {
       amount: 9,
       expenseDate: 20191122,
       note: 'Vehicle purchases',
-      id: 1707795014519,
+      id: 1707795014521,
     },
     {
       cashflow: 'expense',
@@ -1332,7 +1332,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191122,
       note: 'Chicken salad, Mello Yello',
-      id: 1707794921298,
+      id: 1707794921300,
     },
     {
       cashflow: 'expense',
@@ -1341,7 +1341,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191122,
       note: 'Cars and trucks, used',
-      id: 1707794778007,
+      id: 1707794778009,
     },
     {
       cashflow: 'expense',
@@ -1350,7 +1350,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191122,
       note: 'Peanuts in Coke',
-      id: 1707794621371,
+      id: 1707794621373,
     },
     {
       cashflow: 'expense',
@@ -1359,7 +1359,7 @@ const seed = async (): Promise<void> => {
       amount: 50,
       expenseDate: 20191122,
       note: 'Beauty care things',
-      id: 1707794538761,
+      id: 1707794538763,
     },
     {
       cashflow: 'income',
@@ -1368,7 +1368,7 @@ const seed = async (): Promise<void> => {
       amount: 80,
       expenseDate: 20191122,
       note: 'Income from refund',
-      id: 1707794437690,
+      id: 1707794437692,
     },
     {
       cashflow: 'expense',
@@ -1377,7 +1377,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191123,
       note: 'Vienna sausages, Mello Yello',
-      id: 1707794200166,
+      id: 1707794200168,
     },
     {
       cashflow: 'expense',
@@ -1386,7 +1386,7 @@ const seed = async (): Promise<void> => {
       amount: 9,
       expenseDate: 20191123,
       note: 'Cars and trucks, used',
-      id: 1707794130086,
+      id: 1707794130088,
     },
     {
       cashflow: 'expense',
@@ -1395,7 +1395,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191123,
       note: 'Vienna sausages, Mello Yello',
-      id: 1707794038856,
+      id: 1707794038858,
     },
     {
       cashflow: 'expense',
@@ -1404,7 +1404,7 @@ const seed = async (): Promise<void> => {
       amount: 30,
       expenseDate: 20191123,
       note: 'Major appliances, housewares',
-      id: 1707793960625,
+      id: 1707793960627,
     },
     {
       cashflow: 'expense',
@@ -1413,7 +1413,7 @@ const seed = async (): Promise<void> => {
       amount: 4,
       expenseDate: 20191123,
       note: 'Taxi Start (Normal Tariff)',
-      id: 1707793853846,
+      id: 1707793853848,
     },
     {
       cashflow: 'expense',
@@ -1422,7 +1422,7 @@ const seed = async (): Promise<void> => {
       amount: 140,
       expenseDate: 20191123,
       note: 'Textwood Jeans',
-      id: 1707793714838,
+      id: 1707793714840,
     },
     {
       cashflow: 'expense',
@@ -1431,7 +1431,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191123,
       note: 'Public and other transportation',
-      id: 1707793627680,
+      id: 1707793627682,
     },
     {
       cashflow: 'expense',
@@ -1440,7 +1440,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191123,
       note: 'Chicken salad, Mello Yello',
-      id: 1707793569810,
+      id: 1707793569812,
     },
     {
       cashflow: 'expense',
@@ -1449,7 +1449,7 @@ const seed = async (): Promise<void> => {
       amount: 9,
       expenseDate: 20191124,
       note: 'Other vehicle expenses',
-      id: 1707792783998,
+      id: 1707792784000,
     },
     {
       cashflow: 'expense',
@@ -1458,7 +1458,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191124,
       note: 'Chicken salad, Mello Yello',
-      id: 1707792711359,
+      id: 1707792711361,
     },
     {
       cashflow: 'expense',
@@ -1467,7 +1467,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191124,
       note: 'Public and other transportation',
-      id: 1707792640425,
+      id: 1707792640427,
     },
     {
       cashflow: 'expense',
@@ -1476,7 +1476,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191124,
       note: 'Pimento cheese sandwich',
-      id: 1707792481142,
+      id: 1707792481144,
     },
     {
       cashflow: 'expense',
@@ -1485,7 +1485,7 @@ const seed = async (): Promise<void> => {
       amount: 250,
       expenseDate: 20191124,
       note: 'Vehicle insurance',
-      id: 1707792405453,
+      id: 1707792405455,
     },
     {
       cashflow: 'expense',
@@ -1494,7 +1494,7 @@ const seed = async (): Promise<void> => {
       amount: 130,
       expenseDate: 20191124,
       note: 'Expense for Utilities',
-      id: 1707792280683,
+      id: 1707792280685,
     },
     {
       cashflow: 'expense',
@@ -1503,7 +1503,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191124,
       note: 'Confederate cush',
-      id: 1707792170100,
+      id: 1707792170102,
     },
     {
       cashflow: 'expense',
@@ -1512,7 +1512,7 @@ const seed = async (): Promise<void> => {
       amount: 180,
       expenseDate: 20191125,
       note: 'Social Security and Medicare taxes',
-      id: 1707787227381,
+      id: 1707787227383,
     },
     {
       cashflow: 'expense',
@@ -1521,7 +1521,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191125,
       note: 'Cheese straws, Red Rock Cola',
-      id: 1707787115022,
+      id: 1707787115024,
     },
     {
       cashflow: 'expense',
@@ -1530,7 +1530,7 @@ const seed = async (): Promise<void> => {
       amount: 15,
       expenseDate: 20191125,
       note: 'System 7',
-      id: 1707787037406,
+      id: 1707787037408,
     },
     {
       cashflow: 'expense',
@@ -1539,7 +1539,7 @@ const seed = async (): Promise<void> => {
       amount: 60,
       expenseDate: 20191125,
       note: 'Household things & Utilities',
-      id: 1707786971278,
+      id: 1707786971280,
     },
     {
       cashflow: 'expense',
@@ -1548,7 +1548,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191125,
       note: 'Cars and trucks, used',
-      id: 1707786906391,
+      id: 1707786906393,
     },
     {
       cashflow: 'expense',
@@ -1557,7 +1557,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191125,
       note: 'Fatback or hog jowl',
-      id: 1707786848672,
+      id: 1707786848674,
     },
     {
       cashflow: 'expense',
@@ -1566,7 +1566,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191125,
       note: 'Public and other transportation',
-      id: 1707786765712,
+      id: 1707786765714,
     },
     {
       cashflow: 'expense',
@@ -1575,7 +1575,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191125,
       note: 'Vienna sausages, Mello Yello',
-      id: 1707786699450,
+      id: 1707786699452,
     },
     {
       cashflow: 'expense',
@@ -1584,7 +1584,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191126,
       note: 'Palmetto Cheese, Mint julep',
-      id: 1707786574093,
+      id: 1707786574095,
     },
     {
       cashflow: 'expense',
@@ -1593,7 +1593,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191126,
       note: 'Other vehicle expenses',
-      id: 1707786510647,
+      id: 1707786510649,
     },
     {
       cashflow: 'income',
@@ -1602,7 +1602,7 @@ const seed = async (): Promise<void> => {
       amount: 80,
       expenseDate: 20191126,
       note: 'Income from refund',
-      id: 1707786431021,
+      id: 1707786431023,
     },
     {
       cashflow: 'expense',
@@ -1611,7 +1611,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191126,
       note: 'Peanut butter and banana sandwich',
-      id: 1707786205914,
+      id: 1707786205916,
     },
     {
       cashflow: 'expense',
@@ -1620,7 +1620,7 @@ const seed = async (): Promise<void> => {
       amount: 25,
       expenseDate: 20191126,
       note: 'Laundry and cleaning supplies',
-      id: 1707786128030,
+      id: 1707786128032,
     },
     {
       cashflow: 'expense',
@@ -1629,7 +1629,7 @@ const seed = async (): Promise<void> => {
       amount: 9,
       expenseDate: 20191126,
       note: 'Cars and trucks, used',
-      id: 1707786047740,
+      id: 1707786047742,
     },
     {
       cashflow: 'expense',
@@ -1638,7 +1638,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191126,
       note: 'Beer cheese',
-      id: 1707785980973,
+      id: 1707785980975,
     },
     {
       cashflow: 'expense',
@@ -1647,7 +1647,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191127,
       note: 'Pickled pigs feet',
-      id: 1707785842911,
+      id: 1707785842913,
     },
     {
       cashflow: 'expense',
@@ -1656,7 +1656,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191127,
       note: 'System Roll',
-      id: 1707785744844,
+      id: 1707785744846,
     },
     {
       cashflow: 'expense',
@@ -1665,7 +1665,7 @@ const seed = async (): Promise<void> => {
       amount: 70,
       expenseDate: 20191127,
       note: 'Expense for Health Care',
-      id: 1707785567009,
+      id: 1707785567011,
     },
     {
       cashflow: 'expense',
@@ -1674,7 +1674,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191127,
       note: 'Peanuts in Coke',
-      id: 1707785465644,
+      id: 1707785465646,
     },
     {
       cashflow: 'expense',
@@ -1683,7 +1683,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191127,
       note: 'Vehicle purchases',
-      id: 1707785387335,
+      id: 1707785387337,
     },
     {
       cashflow: 'expense',
@@ -1692,7 +1692,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191127,
       note: "Po' boy sandwich, RC Cola",
-      id: 1707785285948,
+      id: 1707785285950,
     },
     {
       cashflow: 'income',
@@ -1701,7 +1701,7 @@ const seed = async (): Promise<void> => {
       amount: 200,
       expenseDate: 20191128,
       note: 'Income from investments',
-      id: 1707784365645,
+      id: 1707784365647,
     },
     {
       cashflow: 'expense',
@@ -1710,7 +1710,7 @@ const seed = async (): Promise<void> => {
       amount: 9,
       expenseDate: 20191128,
       note: 'Cars and trucks, used',
-      id: 1707784175772,
+      id: 1707784175774,
     },
     {
       cashflow: 'expense',
@@ -1719,7 +1719,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191128,
       note: 'Cheese straws, Red Rock Cola',
-      id: 1707784036599,
+      id: 1707784036601,
     },
     {
       cashflow: 'expense',
@@ -1728,7 +1728,7 @@ const seed = async (): Promise<void> => {
       amount: 180,
       expenseDate: 20191128,
       note: 'Electricity bill',
-      id: 1707783950009,
+      id: 1707783950011,
     },
     {
       cashflow: 'expense',
@@ -1737,7 +1737,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191128,
       note: 'Muffuletta sandwich, Mint julep',
-      id: 1707783855849,
+      id: 1707783855851,
     },
     {
       cashflow: 'expense',
@@ -1746,7 +1746,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191128,
       note: 'Maintenance and repairs',
-      id: 1707783735734,
+      id: 1707783735736,
     },
     {
       cashflow: 'expense',
@@ -1755,7 +1755,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191128,
       note: 'Fatback or hog jowl',
-      id: 1707783632880,
+      id: 1707783632882,
     },
     {
       cashflow: 'expense',
@@ -1764,7 +1764,7 @@ const seed = async (): Promise<void> => {
       amount: 6,
       expenseDate: 20191130,
       note: 'Palmetto Cheese, Mint julep',
-      id: 1707742637007,
+      id: 1707742637009,
     },
     {
       cashflow: 'expense',
@@ -1773,7 +1773,7 @@ const seed = async (): Promise<void> => {
       amount: 20,
       expenseDate: 20191130,
       note: 'Laundry and cleaning supplies',
-      id: 1707742568504,
+      id: 1707742568506,
     },
     {
       cashflow: 'expense',
@@ -1782,7 +1782,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191130,
       note: 'Other vehicle expenses',
-      id: 1707742501285,
+      id: 1707742501287,
     },
     {
       cashflow: 'income',
@@ -1791,7 +1791,7 @@ const seed = async (): Promise<void> => {
       amount: 110,
       expenseDate: 20191130,
       note: 'Income from Sale',
-      id: 1707742409486,
+      id: 1707742409488,
     },
     {
       cashflow: 'expense',
@@ -1800,7 +1800,7 @@ const seed = async (): Promise<void> => {
       amount: 10,
       expenseDate: 20191130,
       note: 'Muffuletta sandwich, Mint julep',
-      id: 1707742294917,
+      id: 1707742294919,
     },
     {
       cashflow: 'expense',
@@ -1809,7 +1809,7 @@ const seed = async (): Promise<void> => {
       amount: 45,
       expenseDate: 20191130,
       note: 'Pair of Running Shoes',
-      id: 1707742238637,
+      id: 1707742238639,
     },
     {
       cashflow: 'expense',
@@ -1818,7 +1818,7 @@ const seed = async (): Promise<void> => {
       amount: 50,
       expenseDate: 20191130,
       note: 'Expense for Education',
-      id: 1707742153872,
+      id: 1707742153874,
     },
     {
       cashflow: 'expense',
@@ -1827,7 +1827,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191130,
       note: 'Cars and trucks, used',
-      id: 1707742070714,
+      id: 1707742070716,
     },
     {
       cashflow: 'expense',
@@ -1836,7 +1836,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191130,
       note: 'Palmetto Cheese, Mint julep',
-      id: 1707732689977,
+      id: 1707732689979,
     },
     {
       cashflow: 'expense',
@@ -1845,7 +1845,7 @@ const seed = async (): Promise<void> => {
       amount: 65,
       expenseDate: 20191129,
       note: 'Beauty care things',
-      id: 1707732497907,
+      id: 1707732497909,
     },
     {
       cashflow: 'expense',
@@ -1854,7 +1854,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191129,
       note: 'Peanuts in Coke',
-      id: 1707732420896,
+      id: 1707732420898,
     },
     {
       cashflow: 'expense',
@@ -1863,7 +1863,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191129,
       note: 'Cinema, International Release',
-      id: 1707732229881,
+      id: 1707732229883,
     },
     {
       cashflow: 'expense',
@@ -1872,7 +1872,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191129,
       note: 'Public and other transportation',
-      id: 1707732155364,
+      id: 1707732155366,
     },
     {
       cashflow: 'expense',
@@ -1881,7 +1881,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191129,
       note: "Steen's cane syrup",
-      id: 1707731944137,
+      id: 1707731944139,
     },
     {
       cashflow: 'expense',
@@ -1890,7 +1890,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191129,
       note: 'Vehicle purchases',
-      id: 1707731207609,
+      id: 1707731207611,
     },
     {
       cashflow: 'expense',
@@ -1899,7 +1899,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191129,
       note: 'Palmetto Cheese, Mint julep',
-      id: 1707731069623,
+      id: 1707731069625,
     },
     ////// 2019 Oct page 21 - 42, 212 items = 206 + 6
     {
@@ -3502,7 +3502,7 @@ const seed = async (): Promise<void> => {
       amount: 12,
       expenseDate: 20191009,
       note: 'Pickled pigs feet',
-      id: 1707785842911,
+      id: 1707785842914,
     },
     {
       cashflow: 'expense',
@@ -3511,7 +3511,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191009,
       note: 'System Roll',
-      id: 1707785744844,
+      id: 1707785744847,
     },
     {
       cashflow: 'expense',
@@ -3520,7 +3520,7 @@ const seed = async (): Promise<void> => {
       amount: 70,
       expenseDate: 20191009,
       note: 'Expense for Health Care',
-      id: 1707785567009,
+      id: 1707785567012,
     },
     {
       cashflow: 'expense',
@@ -3529,7 +3529,7 @@ const seed = async (): Promise<void> => {
       amount: 11,
       expenseDate: 20191009,
       note: 'Peanuts in Coke',
-      id: 1707785465644,
+      id: 1707785465647,
     },
     {
       cashflow: 'expense',
@@ -3538,7 +3538,7 @@ const seed = async (): Promise<void> => {
       amount: 8,
       expenseDate: 20191009,
       note: 'Vehicle purchases',
-      id: 1707785387335,
+      id: 1707785387338,
     },
     {
       cashflow: 'expense',
@@ -3547,7 +3547,7 @@ const seed = async (): Promise<void> => {
       amount: 7,
       expenseDate: 20191009,
       note: "Po' boy sandwich, RC Cola",
-      id: 1707785285948,
+      id: 1707785285951,
     },
     {
       cashflow: 'income',
@@ -4090,4 +4090,50 @@ async function fakeNetwork() {
   return new Promise(resolve => {
     setTimeout(resolve, Math.random() * 8000); // 800
   });
+}
+
+///////////////////////////////////
+
+export async function upIdBy2Transactions(): Promise<number> {
+  await fakeNetwork();
+  const transactions = await localforage.getItem<TransactionDto[]>('transactions');
+
+  for (let idx = 0; idx < 206; idx++) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const element = transactions![idx];
+    element.id = element.id + 2;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  await set(transactions!);
+  return 1;
+}
+
+export async function countUniqueIds(): Promise<void> {
+  await fakeNetwork();
+  const transactions = await localforage.getItem<TransactionDto[]>('transactions');
+
+  const uniqueCnt = new Set(transactions?.map(trx => trx.id)).size;
+
+  console.log('uniqueCntpppppppp', uniqueCnt);
+}
+
+export async function identifyDupIds(): Promise<void> {
+  await fakeNetwork();
+  const transactions = await localforage.getItem<TransactionDto[]>('transactions');
+
+  const sett = new Set(transactions?.map(trx => trx.id));
+  const ary = Array.from(sett);
+
+  const allids = transactions?.map(trx => trx.id);
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  for (let idx = 0; idx < ary.length; idx++) {
+    const id = ary[idx];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const pos = allids?.findIndex(argid => argid === id);
+    const pos2 = allids?.lastIndexOf(id);
+    if (pos !== pos2) {
+      console.log('dupIdiiiiiiiiiii', id);
+    }
+  }
 }

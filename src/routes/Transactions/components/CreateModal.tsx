@@ -61,7 +61,7 @@ export default function CreateModal(props: {
 
   const [transaction, dispatch] = useReducer(reducer, {
     ...props.initial,
-    expenseDate: '20191130',
+    expenseDate: '20191231',
   });
 
   const [cents, setCents] = useState('');
@@ -316,7 +316,7 @@ export default function CreateModal(props: {
               Date
             </Form.Label>
             <DatepickerCustomInput
-              initialDateString={delimitYYYYMMDD('20191130', '-')}
+              initialDateString={delimitYYYYMMDD('20191231', '-')}
               className='btn btn-primary'
               memoOnChange={handleOnChangeExpenseDate}
               id='editexpenseDate'

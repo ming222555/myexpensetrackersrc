@@ -27,7 +27,7 @@ export const initialState = {
     cashflow: '',
     paymentmode: '',
     amountRange: '',
-    dateRange: '',
+    dateRange: '20191001,20191231', // ''
   },
   selection: [],
 } as TransactionsState;

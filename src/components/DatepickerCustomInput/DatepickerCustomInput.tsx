@@ -35,8 +35,10 @@ function DatepickerCustomInput({
       }}
       customInput={<ExampleCustomInput />}
       excludeDateIntervals={[
-        { start: new Date('2001-01-01'), end: new Date('2019-05-31') },
-        { start: new Date('2019-11-30'), end: new Date('2099-12-01') },
+        // { start: new Date('2001-01-01'), end: new Date('2019-05-31') },
+        // { start: new Date('2019-11-30'), end: new Date('2099-12-01') },
+        { start: new Date('2001-01-01'), end: new Date('2019-09-30') },
+        { start: new Date('2019-12-31'), end: new Date('2099-12-01') },
       ]}
     />
   );

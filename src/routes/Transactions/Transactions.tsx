@@ -29,7 +29,7 @@ import { transactionsQueryOptions, TransactionDto, sumTransactionsAmountQueryOpt
 // import SiderDrawer from '../AppLayout/components/SiderDrawer';
 import SiderDrawer2 from '../AppLayout/components/SiderDrawer2';
 import ModalCreate from '../../components/Modals/ModalCreate';
-import { upIdBy2Transactions, countUniqueIds, identifyDupIds } from '../../db/indexdb';
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const loader = async () => {
   const query = transactionsQueryOptions(1, initialState.filter);
@@ -275,27 +275,6 @@ export default function Transactions(): JSX.Element {
         >
           pg3
         </button> */}
-        <button
-          onClick={(): void => {
-            upIdBy2Transactions();
-          }}
-        >
-          upIdBy2Transactions
-        </button>
-        <button
-          onClick={(): void => {
-            countUniqueIds();
-          }}
-        >
-          countUniqueIds
-        </button>
-        <button
-          onClick={(): void => {
-            identifyDupIds();
-          }}
-        >
-          identifyDupIds
-        </button>
       </article>
       {transactionToEdit && (
         <ModalCreate onClose={handleCloseEditModal}>

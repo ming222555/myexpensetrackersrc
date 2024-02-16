@@ -29,6 +29,7 @@ import { transactionsQueryOptions, TransactionDto, sumTransactionsAmountQueryOpt
 // import SiderDrawer from '../AppLayout/components/SiderDrawer';
 import SiderDrawer2 from '../AppLayout/components/SiderDrawer2';
 import ModalCreate from '../../components/Modals/ModalCreate';
+import ModalSpinner from '../../components/Modals/ModalSpinner';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const loader = async () => {
@@ -59,7 +60,7 @@ export default function Transactions(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
-  const { isPending, isError, error, data, fetchStatus } = useQuery(transactionsQueryOptions(pagenumRef.current, filter));
+  const { isPending, isError, error, data, fetchStatus, isFetching } = useQuery(transactionsQueryOptions(pagenumRef.current, filter));
 
   const handleFiltersChange = useMemo(() => {
     return function (argfilters: IFilters) {
@@ -302,6 +303,7 @@ export default function Transactions(): JSX.Element {
           <DeleteModal selection={transactionIDsToDelete} handleClose={handleCloseDeleteModal} handleDeleteSuccess={handleDeleteSuccess} />
         </ModalCreate>
       )}
+      {isFetching && <ModalSpinner />}
     </>
   );
 }

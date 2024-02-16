@@ -340,7 +340,7 @@ export default function CreateModal(props: {
             )}
           </Form.Text>
           <div className='button__actions'>
-            <button type='submit' disabled={mutation.isPending}>
+            <button type='submit' disabled={mutation.isPending || mutation.isError}>
               Create
             </button>
             <button type='button' onClick={props.handleClose} disabled={mutation.isPending}>

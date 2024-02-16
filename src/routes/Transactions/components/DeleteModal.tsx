@@ -32,7 +32,7 @@ export default function DeleteModal(props: { selection: number[]; handleClose: (
         <br />
         <br />
         <div className='button__actions'>
-          <button type='button' onClick={handleDelete} disabled={mutation.isPending}>
+          <button type='button' onClick={handleDelete} disabled={mutation.isPending || mutation.isError}>
             Yes
           </button>
           <button type='button' onClick={props.handleClose} disabled={mutation.isPending}>

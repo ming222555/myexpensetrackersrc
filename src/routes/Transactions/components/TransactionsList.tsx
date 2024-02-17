@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 
 import { TransactionDto } from '../../../reactquery/transactions/transactionsRq';
 import {
@@ -131,6 +131,6 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
   );
 }
 
-const MemoizedTransactionsList = React.memo(TransactionsList);
+const MemoizedTransactionsList = memo(TransactionsList);
 
 export default MemoizedTransactionsList;

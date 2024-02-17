@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useRef, useState } from 'react';
+import { useMemo, useEffect, useRef, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import ReactPaginate from 'react-paginate';

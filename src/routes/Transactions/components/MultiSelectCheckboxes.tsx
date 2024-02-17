@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, ChangeEvent, memo } from 'react';
 
 import Form from 'react-bootstrap/Form';
 
@@ -15,7 +15,7 @@ function MultiSelectCheckboxes(props: {
   // flag 0 not selected, 1 selected
   const [selectedFlags, setSelectedFlags] = useState<number[]>(() => Array(valuesLabels.current.length).fill(0));
 
-  function handleChange(evt: React.ChangeEvent<HTMLInputElement>): void {
+  function handleChange(evt: ChangeEvent<HTMLInputElement>): void {
     const idx = parseInt(evt.target.getAttribute('data-idx')!);
     const dupSelectedFlags = [...selectedFlags];
     const origFlag = dupSelectedFlags[idx];
@@ -61,6 +61,6 @@ function MultiSelectCheckboxes(props: {
   );
 }
 
-const MemoizedMultiSelectCheckboxes = React.memo(MultiSelectCheckboxes);
+const MemoizedMultiSelectCheckboxes = memo(MultiSelectCheckboxes);
 
 export default MemoizedMultiSelectCheckboxes;

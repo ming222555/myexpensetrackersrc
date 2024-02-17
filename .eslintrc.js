@@ -61,5 +61,6 @@ module.exports = {
     "@tanstack/query/exhaustive-deps": "error",
     "@tanstack/query/no-rest-destructuring": "warn",
     "@tanstack/query/stable-query-client": "error",
+    "react/react-in-jsx-scope": "off",
   },
 };

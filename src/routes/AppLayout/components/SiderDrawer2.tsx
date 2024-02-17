@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { createElement, ElementType, useState } from 'react';
 
 import { BootstrapBreakpoints } from '../../../util';
 
@@ -12,7 +12,7 @@ export default function SiderDrawer2({
   children: JSX.Element;
   responsiveBreakPoint: BootstrapBreakpoints;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  as?: React.ElementType<any>;
+  as?: ElementType<any>;
   className?: string;
   placement?: 'start' | 'end';
 }): JSX.Element {
@@ -43,7 +43,7 @@ export default function SiderDrawer2({
         onClick={handleHide}
         onKeyDown={handleHide}
       >
-        {React.createElement(
+        {createElement(
           as,
           {
             className: `SiderDrawer2__body vh-100 overflow-auto${className ? ' ' + className : ''}`,

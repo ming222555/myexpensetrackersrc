@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import { useState, useMemo, useRef, ChangeEvent, memo } from 'react';
 
 function RadioButtonGroup(props: { values: string; labels: string; title: string; handleFormChangeDebounced: () => void }): JSX.Element {
   const { title } = props;
@@ -7,7 +7,7 @@ function RadioButtonGroup(props: { values: string; labels: string; title: string
   const [selectedValue, setSelectedValue] = useState('');
 
   const handleRadioChange = useMemo(() => {
-    return function (evt: React.ChangeEvent<HTMLInputElement>) {
+    return function (evt: ChangeEvent<HTMLInputElement>) {
       setSelectedValue(evt.currentTarget.value);
       props.handleFormChangeDebounced();
     };
@@ -27,6 +27,6 @@ function RadioButtonGroup(props: { values: string; labels: string; title: string
   );
 }
 
-const MemoizedRadioButtonGroup = React.memo(RadioButtonGroup);
+const MemoizedRadioButtonGroup = memo(RadioButtonGroup);
 
 export default MemoizedRadioButtonGroup;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { ElementType, useState } from 'react';
 
 import Offcanvas, { OffcanvasPlacement } from 'react-bootstrap/Offcanvas';
 
@@ -12,7 +12,7 @@ function SiderDrawer({
   children: JSX.Element;
   responsiveBreakPoint?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  as?: React.ElementType<any>;
+  as?: ElementType<any>;
   className?: string;
   placement?: OffcanvasPlacement;
 }): JSX.Element {

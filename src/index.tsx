@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import { StrictMode, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
@@ -80,5 +80,5 @@ root.render(
         )}
       </QueryClientProvider>
     </Provider>
-  </React.StrictMode>,
+  </StrictMode>,
 );

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import { useMemo, useRef, memo } from 'react';
 
 import { useDebounce } from 'rooks';
 
@@ -74,6 +74,6 @@ function Filters(props: { handleFiltersChange: (filters: IFilters) => void }): J
   );
 }
 
-const MemoizedFilters = React.memo(Filters);
+const MemoizedFilters = memo(Filters);
 
 export default MemoizedFilters;

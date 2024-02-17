@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import './AmountRange.scss';
 
@@ -6,12 +6,12 @@ export default function AmountRange(props: { handleAmountRange: (amt: string, am
   const [amt, setAmt] = useState('');
   const [amt2, setAmt2] = useState('');
 
-  function handleOnChangeAmt(evt: React.ChangeEvent<HTMLInputElement>): void {
+  function handleOnChangeAmt(evt: ChangeEvent<HTMLInputElement>): void {
     const amt = evt.target.value.replace(/\D/g, '');
     setAmt(amt);
   }
 
-  function handleOnChangeAmt2(evt: React.ChangeEvent<HTMLInputElement>): void {
+  function handleOnChangeAmt2(evt: ChangeEvent<HTMLInputElement>): void {
     const amt2 = evt.target.value.replace(/\D/g, '');
     setAmt2(amt2);
   }

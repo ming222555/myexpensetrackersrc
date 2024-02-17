@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import { useState, forwardRef, memo } from 'react';
 
 import DatePicker from 'react-datepicker';
 
@@ -49,6 +49,6 @@ function DatepickerCustomInput({
  * @param memoOnChange memoised callback to return picked date to caller
  * @param id e.g. 'idMydateButton'
  */
-const MemoizedDatepickerCustomInput = React.memo(DatepickerCustomInput);
+const MemoizedDatepickerCustomInput = memo(DatepickerCustomInput);
 
 export default MemoizedDatepickerCustomInput;

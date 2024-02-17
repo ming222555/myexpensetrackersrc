@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import { useMemo, useRef, memo } from 'react';
 
 import { useDebounce } from 'rooks';
 import Form from 'react-bootstrap/Form';
@@ -58,6 +58,6 @@ function Search(props: { handleSearchChange: (search: string) => void }): JSX.El
   );
 }
 
-const MemoizedSearch = React.memo(Search);
+const MemoizedSearch = memo(Search);
 
 export default MemoizedSearch;

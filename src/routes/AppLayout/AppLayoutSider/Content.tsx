@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { NavLink } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import { useQuery } from '@tanstack/react-query';

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { ChangeEvent, memo, useState, useRef, useEffect } from 'react';
 
 import Form from 'react-bootstrap/Form';
 
@@ -8,7 +8,7 @@ import './CategoryMultiSelectDropdown.scss';
 function Unselected(props: { selectedCategoryNames: string[]; handleChangeAddSelection: (categoryName: string) => void }): JSX.Element {
   const [val, setVal] = useState('');
 
-  function handleChange(evt: React.ChangeEvent<HTMLSelectElement>): void {
+  function handleChange(evt: ChangeEvent<HTMLSelectElement>): void {
     const categoryName = evt.currentTarget.value;
 
     if (categoryName) {
@@ -49,7 +49,7 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
   const { fieldname, title } = props;
   const [selectedCategoryNames, setSelectedCategoryNames] = useState<string[] | []>([]);
 
-  function handleChangeRemoveSelection(evt: React.ChangeEvent<HTMLInputElement>): void {
+  function handleChangeRemoveSelection(evt: ChangeEvent<HTMLInputElement>): void {
     const categoryName = evt.currentTarget.value;
     const pos = selectedCategoryNames.findIndex(nme => nme === categoryName);
     const dupSelectedCategoryNames = [...selectedCategoryNames];
@@ -116,6 +116,6 @@ function CategoryMultiSelectDropdown(props: { fieldname: string; title: string; 
   );
 }
 
-const MemoizedCategoryMultiSelectDropdown = React.memo(CategoryMultiSelectDropdown);
+const MemoizedCategoryMultiSelectDropdown = memo(CategoryMultiSelectDropdown);
 
 export default MemoizedCategoryMultiSelectDropdown;

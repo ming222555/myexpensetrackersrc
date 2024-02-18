@@ -47,6 +47,10 @@ export default function DateRange(props: { handleDateRange: (dte: string, dte2: 
           endDate={endDate}
           placeholderText='mm/dd/yyyy'
           isClearable
+          excludeDateIntervals={[
+            { start: new Date('2001-01-01'), end: new Date('2019-09-30') },
+            { start: new Date('2019-12-31'), end: new Date('2099-12-01') },
+          ]}
         />
       </div>
       <div className='d-flex'>
@@ -59,6 +63,10 @@ export default function DateRange(props: { handleDateRange: (dte: string, dte2: 
           minDate={startDate}
           placeholderText='mm/dd/yyyy'
           isClearable
+          excludeDateIntervals={[
+            { start: new Date('2001-01-01'), end: new Date('2019-09-30') },
+            { start: new Date('2019-12-31'), end: new Date('2099-12-01') },
+          ]}
         />
         <button type='button' className='ms-2' onClick={handleDateRange}>
           Go

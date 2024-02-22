@@ -241,7 +241,7 @@ export default function Transactions(): JSX.Element {
           <SiderDrawer2 as='nav' responsiveBreakPoint='mg' className='d-inline-flex flex-column px-2' placement='end'>
             <>
               <Filters handleFiltersChange={handleFiltersChange} />
-              <DateRange handleDateRange={handleDateRange} />
+              <DateRange handleDateRange={handleDateRange} initialDateRange={filter.dateRange} />
               <AmountRange handleAmountRange={handleAmountRange} />
             </>
           </SiderDrawer2>

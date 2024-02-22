@@ -2,14 +2,49 @@ import { useState } from 'react';
 
 import DatePicker from 'react-datepicker';
 
-import { toIntYYYYMMDD } from '../../../util';
+import { toIntYYYYMMDD, dateFromYYYYMMDD } from '../../../util';
 import './DateRange.scss';
 
-export default function DateRange(props: { handleDateRange: (dte: string, dte2: string) => void }): JSX.Element {
-  const [startDate, setStartDate] = useState<Date | null>(new Date('2019-10-01'));
-  const [endDate, setEndDate] = useState<Date | null>(new Date('2019-12-31'));
+/**
+ * @param props.initialDateRange e.g. '20191001,20191231', '20191001,' or ',20191231'
+ */
+export default function DateRange(props: { handleDateRange: (dte: string, dte2: string) => void; initialDateRange: string }): JSX.Element {
+  function initDateStates(fromTo: 'from' | 'to'): Date | null {
+    const dates = props.initialDateRange.split(',');
+
+    if (dates.length === 1 && dates[0] === '') {
+      return null;
+    }
+
+    const strDte = dates[0];
+    const strDte2 = dates[1];
+
+    if (fromTo === 'from') {
+      if (isNaN(parseInt(strDte))) {
+        return null;
+      } else {
+        return dateFromYYYYMMDD(strDte);
+      }
+    }
+
+    if (fromTo === 'to') {
+      if (isNaN(parseInt(strDte2))) {
+        return null;
+      } else {
+        return dateFromYYYYMMDD(strDte2);
+      }
+    }
+
+    return null;
+  }
+
+  /* const [startDate, setStartDate] = useState<Date | null>(new Date('2019-10-01'));
+  const [endDate, setEndDate] = useState<Date | null>(new Date('2019-12-31')); */
   // const [startDate, setStartDate] = useState<Date | null>(null);
   // const [endDate, setEndDate] = useState<Date | null>(null);
+
+  const [startDate, setStartDate] = useState<Date | null>(initDateStates('from'));
+  const [endDate, setEndDate] = useState<Date | null>(initDateStates('to'));
 
   function handleDateRange(): void {
     if (startDate && endDate) {

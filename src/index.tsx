@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.scss';
 import store from './store/store';
 import AppLayout from './routes/AppLayout/AppLayout';
-import Transactions, { loader, sumTransactionsAmountLoader } from './routes/Transactions/Transactions';
+import Transactions, { /* loader, */ sumTransactionsAmountLoader } from './routes/Transactions/Transactions';
 import About from './routes/About/About';
 import queryClient from './reactquery';
 import ErrorPage from './ErrorPage';
@@ -30,10 +30,11 @@ const router = createBrowserRouter([
     loader: sumTransactionsAmountLoader,
     // action: rootAction(queryClient),
     children: [
-      // {
-      //   index: true,
-      //   element: <Index />,
-      // },
+      {
+        index: true,
+        element: <About />, // ... for Dashboard
+        // loader: loader,
+      },
       // {
       //   path: 'contacts/:contactId',
       //   element: <Contact />,
@@ -43,11 +44,12 @@ const router = createBrowserRouter([
       {
         path: 'transactions',
         element: <Transactions />,
-        loader: loader,
+        // loader: loader,
       },
       {
         path: 'about',
-        element: <About />,
+        element: <About />, // ... for Dashboard
+        // loader: loader,
       },
       // {
       //   path: 'contacts/:contactId/edit',

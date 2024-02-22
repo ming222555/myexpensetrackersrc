@@ -102,6 +102,20 @@ export function delimitMMDDYYYY(yyyymmdd: number, delimiter: string): string {
 }
 
 /**
+ * @param yyyymmdd e.g. '20230630'
+ * @returns Date object
+ */
+export function dateFromYYYYMMDD(yyyymmdd: string): Date {
+  // args
+  //   yyyymmdd e.g. '20230630'
+  const strDate = yyyymmdd;
+  const yyyy = strDate.substring(0, 4);
+  const mm = strDate.substring(4, 6);
+  const dd = strDate.substring(6);
+  return new Date(yyyy + '-' + mm + '-' + dd);
+}
+
+/**
  * @param amt e.g. '123456.99'
  * @returns empty string if regex is valid else error text
  */

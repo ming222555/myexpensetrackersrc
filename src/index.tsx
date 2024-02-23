@@ -10,7 +10,7 @@ import './index.scss';
 import store from './store/store';
 import AppLayout from './routes/AppLayout/AppLayout';
 import Transactions, { /* loader, */ sumTransactionsAmountLoader } from './routes/Transactions/Transactions';
-import About from './routes/About/About';
+import Dashboard from './routes/Dashboard/Dashboard';
 import queryClient from './reactquery';
 import ErrorPage from './ErrorPage';
 
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <About />, // ... for Dashboard
+        element: <Dashboard />, // ... for Dashboard
         // loader: loader,
       },
       // {
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'about',
-        element: <About />, // ... for Dashboard
+        element: <Dashboard />, // ... for Dashboard
         // loader: loader,
       },
       // {

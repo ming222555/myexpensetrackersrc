@@ -4,7 +4,7 @@ import DateRange from '../Transactions/components/DateRange';
 import { dateRange, selectTransactions } from '../../store/ducks/transactions/transactionsSlice';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 
-export default function About(): JSX.Element {
+export default function Dashboard(): JSX.Element {
   const {
     filter: { dateRange: dateRangeOfFilter },
   } = useAppSelector(selectTransactions);
@@ -19,7 +19,7 @@ export default function About(): JSX.Element {
 
   return (
     <div>
-      <p>About to change to dashboard</p>
+      <p>Dashboard</p>
       <DateRange handleDateRange={handleDateRange} initialDateRange={dateRangeOfFilter} />
     </div>
   );

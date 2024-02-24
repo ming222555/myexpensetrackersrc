@@ -5,6 +5,7 @@ import type { ChartOptions, ChartData } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 // import type { ChartJSOrUndefined } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import './PieExpenses.scss';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -22,7 +23,7 @@ function PieExpenses(
   // https://react-chartjs-2.js.org/faq/typescript
 ): JSX.Element {
   return (
-    <div>
+    <div className='PieExpenses'>
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/* @ts-ignore */}
       <Pie ref={ref} options={options} data={data} plugins={[ChartDataLabels]} />

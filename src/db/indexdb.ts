@@ -304,7 +304,7 @@ export async function retrieveExpensesByCategory(dateRange: string): Promise<Exp
     'Housing',
     'Insurance',
     'Shopping',
-    'Transportation',
+    'Transport', // 'Transportation',
     'Utilities',
   ];
 

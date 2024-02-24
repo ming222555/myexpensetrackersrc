@@ -95,11 +95,11 @@ export default function Dashboard(): JSX.Element {
 
   return (
     <>
-      <div>
+      <article className='Dashboard'>
         <p>Dashboard</p>
         <DateRange handleDateRange={handleDateRange} initialDateRange={dateRange} />
         {initialPieExpensesData.current && <MemoPieExpenses ref={chartRef} options={options} data={initialPieExpensesData.current} />}
-      </div>
+      </article>
       {isFetching && <ModalSpinner />}
     </>
   );

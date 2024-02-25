@@ -23,6 +23,8 @@ $container-max-widths: (
   xxl: 1320px
 );
 
+$enable-negative-margins: true; // e.g. mt-n5
+
 //////////////////////////////////////////////////////
 
 // https://getbootstrap.com/docs/5.3/customize/sass/

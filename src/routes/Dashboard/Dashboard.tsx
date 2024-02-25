@@ -97,12 +97,22 @@ export default function Dashboard(): JSX.Element {
   return (
     <>
       <article className='Dashboard'>
-        <p>Dashboard</p>
-        <DateRange handleDateRange={handleDateRange} initialDateRange={dateRange} inline={true} />
-        {initialChartExpensesData.current && (
-          <MemoDoughnutExpenses ref={chartRef} options={options} data={initialChartExpensesData.current} />
-        )}
-        ppppppppppppppppppppppppppppppp
+        <section className='DashboardSection bg-light px-3'>
+          <h2 className='h6 py-3'>Dashboard</h2>
+          <div className='d-flex justify-content-end mt-n4'>
+            <DateRange handleDateRange={handleDateRange} initialDateRange={dateRange} inline={true} />
+          </div>
+          <h5 className='h5 pt-3 text-info text-center'>
+            Total Expenses{' '}
+            <span className='text-success' style={{ fontSize: '0.8em' }}>
+              Jun 1 - Nov 30
+            </span>
+          </h5>
+          {initialChartExpensesData.current && (
+            <MemoDoughnutExpenses ref={chartRef} options={options} data={initialChartExpensesData.current} />
+          )}
+          ppppppppppppppppppppppppppppppp
+        </section>
       </article>
       {isFetching && <ModalSpinner />}
     </>

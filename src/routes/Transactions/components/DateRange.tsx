@@ -7,6 +7,7 @@ import './DateRange.scss';
 
 /**
  * @param props.initialDateRange e.g. '20191001,20191231', '20191001,' or ',20191231'
+ * @param props.inline form controls are inline if set to true
  */
 export default function DateRange({
   handleDateRange,

@@ -9,6 +9,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks';
 import { expensesByCategoryQueryOptions } from '../../reactquery/transactions/transactionsRq';
 import { ExpensesByCategoryDto } from '../../db/indexdb';
 import { MemoDoughnutExpenses } from './components/DoughnutExpenses';
+import { humaniseDateRange } from '../../util';
 import ModalSpinner from '../../components/Modals/ModalSpinner';
 
 export default function Dashboard(): JSX.Element {
@@ -103,9 +104,9 @@ export default function Dashboard(): JSX.Element {
             <DateRange handleDateRange={handleDateRange} initialDateRange={dateRange} inline={true} />
           </div>
           <h5 className='h5 pt-3 text-info text-center'>
-            Total Expenses{' '}
-            <span className='text-success' style={{ fontSize: '0.8em' }}>
-              Jun 1 - Nov 30
+            Total Expenses
+            <span className='text-success' style={{ fontSize: '0.8em', marginLeft: '1rem' }}>
+              {humaniseDateRange(dateRange)}
             </span>
           </h5>
           {initialChartExpensesData.current && (

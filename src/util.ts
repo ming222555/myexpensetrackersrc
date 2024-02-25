@@ -116,6 +116,56 @@ export function dateFromYYYYMMDD(yyyymmdd: string): Date {
 }
 
 /**
+ * @param dateRange e.g. '20191001,20191231', '20191001,' or ',20191231'
+ * @returns human friendly string e.g. 'Oct 1 - Dec 31', 'Oct 1 or later' or 'Dec 31 or earlier'
+ */
+export function humaniseDateRange(dateRange: string): string {
+  const dates = dateRange.split(',');
+  if (dates.length === 1 && dates[0] === '') {
+    return '';
+  } else {
+    const dte = dates[0];
+    const dte2 = dates[1];
+
+    if (dte || dte2) {
+      const getMonthAbbrev = (mm: string): string => {
+        const abbrevs = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return abbrevs[parseInt(mm) - 1];
+      };
+
+      let mmAbbrev = '';
+      let mmAbbrev2 = '';
+
+      if (dte && dte2) {
+        // returns e.g. 'Oct 1 - Dec 31'
+
+        mmAbbrev = getMonthAbbrev(dte.substring(4, 6));
+        mmAbbrev2 = getMonthAbbrev(dte2.substring(4, 6));
+        if (parseInt(dte) <= parseInt(dte2)) {
+          return mmAbbrev + ' ' + parseInt(dte.substring(6)) + ' - ' + mmAbbrev2 + ' ' + parseInt(dte2.substring(6));
+        }
+        return mmAbbrev2 + ' ' + parseInt(dte2.substring(6)) + ' - ' + mmAbbrev + ' ' + parseInt(dte.substring(6));
+      } else if (dte) {
+        // returns e.g. 'Oct 1 or later'
+
+        mmAbbrev = getMonthAbbrev(dte.substring(4, 6));
+        return mmAbbrev + ' ' + parseInt(dte.substring(6)) + ' or later';
+      } else if (dte2) {
+        // returns e.g. 'Dec 31 or earlier'
+
+        mmAbbrev2 = getMonthAbbrev(dte2.substring(4, 6));
+        return mmAbbrev2 + ' ' + parseInt(dte2.substring(6)) + ' or earlier';
+      } else {
+        // here, dte and dte2 both empty strings
+        // by above logic, we shdn't be here, but typescript not aware so it complains
+        return '';
+      }
+    }
+    return '';
+  }
+}
+
+/**
  * @param amt e.g. '123456.99'
  * @returns empty string if regex is valid else error text
  */

@@ -39,7 +39,7 @@ export const loader = async () => {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const sumTransactionsAmountLoader = async () => {
-  const query = sumTransactionsAmountQueryOptions();
+  const query = sumTransactionsAmountQueryOptions(initialState.filter.dateRange);
   return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
 };
 
@@ -125,7 +125,7 @@ export default function Transactions(): JSX.Element {
     dispatch(clearSelection());
     handleCloseEditModal();
     queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(pagenumRef.current, filter).queryKey });
-    queryClient.invalidateQueries({ queryKey: sumTransactionsAmountQueryOptions().queryKey });
+    queryClient.invalidateQueries({ queryKey: sumTransactionsAmountQueryOptions(filter.dateRange).queryKey });
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -136,14 +136,14 @@ export default function Transactions(): JSX.Element {
     dispatch(clearFilter());
     // todo... redux on filters search */
     queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(pagenumRef.current, filter).queryKey });
-    queryClient.invalidateQueries({ queryKey: sumTransactionsAmountQueryOptions().queryKey });
+    queryClient.invalidateQueries({ queryKey: sumTransactionsAmountQueryOptions(filter.dateRange).queryKey });
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   async function handleDeleteSuccess() {
     dispatch(clearSelection());
     handleCloseDeleteModal();
-    queryClient.invalidateQueries({ queryKey: sumTransactionsAmountQueryOptions().queryKey });
+    queryClient.invalidateQueries({ queryKey: sumTransactionsAmountQueryOptions(filter.dateRange).queryKey });
     const totalPagesB4Delete = data!.totalPages;
     try {
       const dataAfterDelete = await queryClient.fetchQuery(transactionsQueryOptions(pagenumRef.current, filter, 0));

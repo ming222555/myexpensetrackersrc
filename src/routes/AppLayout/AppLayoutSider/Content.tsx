@@ -2,6 +2,8 @@ import { NavLink } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import { useQuery } from '@tanstack/react-query';
 
+import { selectTransactions } from '../../../store/ducks/transactions/transactionsSlice';
+import { useAppSelector } from '../../../hooks';
 import { sumTransactionsAmountQueryOptions } from '../../../reactquery/transactions/transactionsRq';
 
 const navLinkPending = 'btn btn-warning text-white mx-4 mb-4';
@@ -9,7 +11,10 @@ const navLinkActive = 'btn btn-info text-white mx-4 mb-4';
 const navLinkDefault = 'btn btn-light mx-4 mb-4';
 
 export default function Content(): JSX.Element {
-  const { isPending, isError, error, data, fetchStatus } = useQuery(sumTransactionsAmountQueryOptions());
+  const {
+    filter: { dateRange },
+  } = useAppSelector(selectTransactions);
+  const { isPending, isError, error, data, fetchStatus } = useQuery(sumTransactionsAmountQueryOptions(dateRange));
 
   return (
     <>

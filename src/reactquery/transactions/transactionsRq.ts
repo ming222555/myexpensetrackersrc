@@ -47,25 +47,25 @@ export function transactionsQueryOptions(pagenum: number, filter: Filter, staleT
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export async function fetchSumTransactionsAmount() {
-  const response = await retrieveSumTransactionsAmount();
+export async function fetchSumTransactionsAmount(dateRange: string) {
+  const response = await retrieveSumTransactionsAmount(dateRange);
   return response;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function sumTransactionsAmountQueryOptions(staleTime = -1) {
+export function sumTransactionsAmountQueryOptions(dateRange: string, staleTime = -1) {
   if (staleTime < 0) {
     return queryOptions({
-      queryKey: ['sumTransactionsAmount'],
-      queryFn: async () => fetchSumTransactionsAmount(),
+      queryKey: ['sumTransactionsAmount', dateRange],
+      queryFn: async () => fetchSumTransactionsAmount(dateRange),
       placeholderData: keepPreviousData,
       // use global default staleTime
     });
   }
 
   return queryOptions({
-    queryKey: ['sumTransactionsAmount'],
-    queryFn: async () => fetchSumTransactionsAmount(),
+    queryKey: ['sumTransactionsAmount', dateRange],
+    queryFn: async () => fetchSumTransactionsAmount(dateRange),
     placeholderData: keepPreviousData,
     staleTime,
   });

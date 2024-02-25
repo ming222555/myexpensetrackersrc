@@ -81,6 +81,7 @@ export default function Dashboard(): JSX.Element {
         title: {
           display: true,
           text: 'Chart.js Doughnut Chart',
+          color: '#000',
         },
       },
     };

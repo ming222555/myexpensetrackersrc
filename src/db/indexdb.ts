@@ -292,6 +292,44 @@ export async function deleteTransactions(selection: number[]) {
   return true;
 }
 
+function filterTransactionsByDateRange(transactions: TransactionDto[], dateRange: string): TransactionDto[] {
+  // apply dateRange
+  const filteringTerms = dateRange.split(',');
+  if (filteringTerms.length === 1 && filteringTerms[0] === '') {
+    //
+  } else {
+    const dte = filteringTerms[0];
+    const dte2 = filteringTerms[1];
+
+    if (dte || dte2) {
+      const filterByDateRangeFn = (trx: TransactionDto): boolean => {
+        if (dte && dte2) {
+          if (trx.expenseDate >= parseInt(dte) && trx.expenseDate <= parseInt(dte2)) {
+            return true;
+          }
+          return false;
+        } else if (dte) {
+          if (trx.expenseDate >= parseInt(dte)) {
+            return true;
+          }
+          return false;
+        } else if (dte2) {
+          if (trx.expenseDate <= parseInt(dte2)) {
+            return true;
+          }
+          return false;
+        } else {
+          // here, dte and dte2 both empty strings
+          // by above logic, we shdn't be here, but typescript not aware so it complains
+          return true;
+        }
+      };
+      return transactions.filter(filterByDateRangeFn);
+    }
+  }
+  return transactions;
+}
+
 export async function retrieveExpensesByCategory(dateRange: string): Promise<ExpensesByCategoryDto[]> {
   // only on categories that are an expense (as opposed to income)
   // 'Others' refer to category (expense) not listed e.g. tax
@@ -435,7 +473,7 @@ export async function retrieveExpensesByCategory(dateRange: string): Promise<Exp
   return ret;
 }
 
-export async function retrieveSumTransactionsAmount(): Promise<number> {
+export async function retrieveSumTransactionsAmount(dateRange: string): Promise<number> {
   await fakeNetwork();
   const transactions = await localforage.getItem<TransactionDto[]>('transactions');
   if (!transactions) {
@@ -446,12 +484,14 @@ export async function retrieveSumTransactionsAmount(): Promise<number> {
     return 0;
   }
 
+  const transactionsDateRanged = filterTransactionsByDateRange(transactions, dateRange);
+
   const getSum = (sum: number, trx: TransactionDto): number => {
     const delta = trx.cashflow === 'income' ? trx.amount : trx.cashflow === 'expense' ? -1 * trx.amount : 0;
     return sum + delta;
   };
 
-  const sum = transactions.reduce(getSum, 0);
+  const sum = transactionsDateRanged.reduce(getSum, 0);
   return sum;
 }
 

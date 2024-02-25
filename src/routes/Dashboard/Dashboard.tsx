@@ -8,7 +8,7 @@ import { dateRange as dateRangeActionCreator, selectTransactions } from '../../s
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { expensesByCategoryQueryOptions } from '../../reactquery/transactions/transactionsRq';
 import { ExpensesByCategoryDto } from '../../db/indexdb';
-import { MemoPieExpenses } from './components/PieExpenses';
+import { MemoDoughnutExpenses } from './components/DoughnutExpenses';
 import ModalSpinner from '../../components/Modals/ModalSpinner';
 
 export default function Dashboard(): JSX.Element {
@@ -20,7 +20,7 @@ export default function Dashboard(): JSX.Element {
   const { isPending, isError, error, data, status, isFetching } = useQuery(expensesByCategoryQueryOptions(dateRange));
 
   const initialLoadedData = useRef<ExpensesByCategoryDto[] | undefined>(undefined);
-  const initialPieExpensesData = useRef<ChartData<'pie'> | undefined>(undefined);
+  const initialChartExpensesData = useRef<ChartData<'doughnut'> | undefined>(undefined);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chartRef = useRef<any | null>(null);
@@ -32,7 +32,7 @@ export default function Dashboard(): JSX.Element {
     if (status == 'success') {
       initialLoadedData.current = data;
 
-      initialPieExpensesData.current = {
+      initialChartExpensesData.current = {
         labels: initialLoadedData.current.map(x => x.legend),
         datasets: [
           {
@@ -71,7 +71,7 @@ export default function Dashboard(): JSX.Element {
 
   console.log(data);
 
-  const options = useMemo((): ChartOptions<'pie'> => {
+  const options = useMemo((): ChartOptions<'doughnut'> => {
     return {
       responsive: true,
       plugins: {
@@ -80,7 +80,7 @@ export default function Dashboard(): JSX.Element {
         },
         title: {
           display: true,
-          text: 'Chart.js Pie Chart',
+          text: 'Chart.js Doughnut Chart',
         },
       },
     };
@@ -98,7 +98,10 @@ export default function Dashboard(): JSX.Element {
       <article className='Dashboard'>
         <p>Dashboard</p>
         <DateRange handleDateRange={handleDateRange} initialDateRange={dateRange} />
-        {initialPieExpensesData.current && <MemoPieExpenses ref={chartRef} options={options} data={initialPieExpensesData.current} />}
+        {initialChartExpensesData.current && (
+          <MemoDoughnutExpenses ref={chartRef} options={options} data={initialChartExpensesData.current} />
+        )}
+        ppppppppppppppppppppppppppppppp
       </article>
       {isFetching && <ModalSpinner />}
     </>

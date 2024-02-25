@@ -98,7 +98,7 @@ export default function Dashboard(): JSX.Element {
     <>
       <article className='Dashboard'>
         <p>Dashboard</p>
-        <DateRange handleDateRange={handleDateRange} initialDateRange={dateRange} />
+        <DateRange handleDateRange={handleDateRange} initialDateRange={dateRange} inline={true} />
         {initialChartExpensesData.current && (
           <MemoDoughnutExpenses ref={chartRef} options={options} data={initialChartExpensesData.current} />
         )}

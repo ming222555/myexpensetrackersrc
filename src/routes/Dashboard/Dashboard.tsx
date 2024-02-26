@@ -103,6 +103,40 @@ export default function Dashboard(): JSX.Element {
           <div className='d-flex justify-content-end mt-n4'>
             <DateRange handleDateRange={handleDateRange} initialDateRange={dateRange} inline={true} />
           </div>
+          <div className='row Dashboard__sums'>
+            <div className='col-6 col-mg-3 Dashboard__sum'>
+              <p className='Dashboard__sum-details text-center bg-white m-2'>
+                <span className='Dashboard__sum-amount text-primary d-block py-2'>
+                  {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(666666.88)}
+                </span>
+                <span className='Dashboard__sum-label d-block pb-2'>Income</span>
+              </p>
+            </div>
+            <div className='col-6 col-mg-3 Dashboard__sum'>
+              <p className='Dashboard__sum-details text-center bg-white m-2'>
+                <span className='Dashboard__sum-amount text-danger d-block py-2'>
+                  {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(333333.88)}
+                </span>
+                <span className='Dashboard__sum-label d-block pb-2'>Expenses</span>
+              </p>
+            </div>
+            <div className='col-6 col-mg-3 Dashboard__sum'>
+              <p className='Dashboard__sum-details text-center bg-white m-2'>
+                <span className='Dashboard__sum-amount text-dark d-block py-2'>
+                  {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(-777777.88)}
+                </span>
+                <span className='Dashboard__sum-label d-block pb-2'>Balance</span>
+              </p>
+            </div>
+            <div className='col-6 col-mg-3 Dashboard__sum'>
+              <p className='Dashboard__sum-details text-center bg-white m-2'>
+                <span className='Dashboard__sum-amount text-info d-block py-2'>
+                  {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(0)}
+                </span>
+                <span className='Dashboard__sum-label d-block pb-2'>Transactions</span>
+              </p>
+            </div>
+          </div>
           <h5 className='h5 pt-3 text-info text-center'>
             Total Expenses
             <span className='text-success' style={{ fontSize: '0.8em', marginLeft: '1rem' }}>

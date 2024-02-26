@@ -1,2 +1,18 @@
 .Dashboard {
 }
+.Dashboard__sums {
+  @include media-breakpoint-up(mg) {
+    justify-content: center;
+  }
+}
+.Dashboard__sum {
+  @include media-breakpoint-up(mg) {
+    max-width: 14rem;
+  }
+}
+.Dashboard__sum-amount {
+  font-size: 1.2rem;
+}
+.Dashboard__sum-label {
+  font-size: .96rem;
+}

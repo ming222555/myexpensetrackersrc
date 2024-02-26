@@ -14,7 +14,7 @@ export default function Content(): JSX.Element {
   const {
     filter: { dateRange },
   } = useAppSelector(selectTransactions);
-  const { isPending, isError, error, data, fetchStatus } = useQuery(sumTransactionsAmountQueryOptions(dateRange));
+  const { isPending, isError, error, data, fetchStatus, status, isFetching } = useQuery(sumTransactionsAmountQueryOptions(dateRange));
 
   return (
     <>
@@ -24,16 +24,13 @@ export default function Content(): JSX.Element {
       <Image src='face.png' rounded width='64%' className='align-self-center' />
       <br />
       <div className='mx-4'>
-        <svg className='p-1' width='140px' height='80px' viewBox='0 0 140 80' xmlns='http://www.w3.org/2000/svg'>
-          <style>
-            {
-              '.wallet-balance { \
-                fill: #828282; \
-                font-size: 1.2rem; \
-                }'
-            }
-          </style>
-
+        <svg
+          className={`p-1${isFetching ? ' wallet-fetching' : ''}`}
+          width='140px'
+          height='80px'
+          viewBox='0 0 140 80'
+          xmlns='http://www.w3.org/2000/svg'
+        >
           <style>
             {
               '.wallet-balance { \
@@ -43,6 +40,14 @@ export default function Content(): JSX.Element {
                 .wallet-balance.deficit { \
                   fill: #ff0000; \
                   font-weight: 500; \
+                } \
+                .wallet-fetching { \
+                  outline: 1px solid #0000ff; \
+                  outline-style: dotted; \
+                } \
+                .wallet-balance.wallet-fetching { \
+                  outline-style: none; \
+                  fill: #0000ff; \
                 }'
             }
           </style>
@@ -57,9 +62,9 @@ a5 5 0 0 0 5 5 h125 a5 5 0 0 0 5 -5 v-25 a5 5 0 0 1 -10 0 a5 5 0 0 1 10 0 v-35'
               x='68'
               y='50'
               style={{ textAnchor: 'middle', letterSpacing: '0.5pt' }}
-              className={`wallet-balance${data && data < 0 ? ' deficit' : ''}`}
+              className={`wallet-balance${isFetching ? ' wallet-fetching' : ''}${data && data < 0 ? ' deficit' : ''}`}
             >
-              {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data ?? 0)}
+              {isFetching ? 'Fetching...' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data ?? 0)}
             </text>
           </g>
         </svg>

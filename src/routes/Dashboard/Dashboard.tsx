@@ -123,6 +123,7 @@ export default function Dashboard(): JSX.Element {
             <div className='col-6 col-mg-3 Dashboard__sum'>
               <p className='Dashboard__sum-details text-center bg-white m-2'>
                 <span className='Dashboard__sum-amount text-dark d-block py-2'>
+                  {/* text-red if balance negative */}
                   {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(-777777.88)}
                 </span>
                 <span className='Dashboard__sum-label d-block pb-2'>Balance</span>

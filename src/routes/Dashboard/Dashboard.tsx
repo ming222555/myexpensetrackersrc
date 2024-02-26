@@ -20,7 +20,7 @@ export default function Dashboard(): JSX.Element {
 
   const { isPending, isError, error, data, status, isFetching } = useQuery(expensesByCategoryQueryOptions(dateRange));
 
-  const initialLoadedData = useRef<ExpensesByCategoryDto[] | undefined>(undefined);
+  const initialLoadedData = useRef<ExpensesByCategoryDto | undefined>(undefined);
   const initialChartExpensesData = useRef<ChartData<'doughnut'> | undefined>(undefined);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,10 +34,10 @@ export default function Dashboard(): JSX.Element {
       initialLoadedData.current = data;
 
       initialChartExpensesData.current = {
-        labels: initialLoadedData.current.map(x => x.legend),
+        labels: initialLoadedData.current.expenses.map(x => x.legend),
         datasets: [
           {
-            data: initialLoadedData.current.map(x => x.expense),
+            data: initialLoadedData.current.expenses.map(x => x.expense),
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -64,8 +64,8 @@ export default function Dashboard(): JSX.Element {
   useMemo(() => {
     if (data && chartRef.current) {
       const chart = chartRef.current;
-      chart.data.datasets[0].data = data.map(x => x.expense);
-      chart.data.labels = data.map(x => x.legend);
+      chart.data.datasets[0].data = data.expenses.map(x => x.expense);
+      chart.data.labels = data.expenses.map(x => x.legend);
       chart.update();
     }
   }, [data]);
@@ -115,7 +115,7 @@ export default function Dashboard(): JSX.Element {
             <div className='col-6 col-mg-3 Dashboard__sum'>
               <p className='Dashboard__sum-details text-center bg-white m-2'>
                 <span className='Dashboard__sum-amount text-danger d-block py-2'>
-                  {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(333333.88)}
+                  {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data ? data.sumExpenses : 0)}
                 </span>
                 <span className='Dashboard__sum-label d-block pb-2'>Expenses</span>
               </p>

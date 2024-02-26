@@ -7,8 +7,11 @@ import type { Filter } from '../store/ducks/transactions/transactionsSlice';
 import { TransactionDto, TransactionsPaginatedDataDto } from '../reactquery/transactions/transactionsRq';
 
 export interface ExpensesByCategoryDto {
-  expense: number;
-  legend: string;
+  expenses: {
+    expense: number;
+    legend: string;
+  }[];
+  sumExpenses: number;
 }
 
 export const tblCashflows = [
@@ -330,7 +333,7 @@ function filterTransactionsByDateRange(transactions: TransactionDto[], dateRange
   return transactions;
 }
 
-export async function retrieveExpensesByCategory(dateRange: string): Promise<ExpensesByCategoryDto[]> {
+export async function retrieveExpensesByCategory(dateRange: string): Promise<ExpensesByCategoryDto> {
   // only on categories that are an expense (as opposed to income)
   // 'Others' refer to category (expense) not listed e.g. tax
   const _CATEGORIES = ['bills', 'clothing', 'food', 'healthcare', 'housing', 'insurance', 'shopping', 'transportation', 'utilities'];
@@ -346,12 +349,17 @@ export async function retrieveExpensesByCategory(dateRange: string): Promise<Exp
     'Utilities',
   ];
 
-  const EMPTY_DTO: Readonly<ExpensesByCategoryDto>[] = [..._CATEGORIES_DESCRIBE, 'Others'].map(describe => {
+  const EMPTY_EXPENSES = [..._CATEGORIES_DESCRIBE, 'Others'].map(describe => {
     return {
       expense: 0,
       legend: describe + '  $0',
     };
   });
+
+  const EMPTY_DTO = {
+    expenses: EMPTY_EXPENSES,
+    sumExpenses: 0,
+  };
 
   await fakeNetwork();
   let transactions = await localforage.getItem<TransactionDto[]>('transactions');
@@ -406,10 +414,10 @@ export async function retrieveExpensesByCategory(dateRange: string): Promise<Exp
   }
 
   if (transactions.length === 0) {
-    return [];
+    return EMPTY_DTO;
   }
 
-  // now lets determine the ExpensesByCategoryDto[] to return...
+  // now lets determine the ExpensesByCategoryDto to return...
   let sumExpenses = 0;
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -455,7 +463,7 @@ export async function retrieveExpensesByCategory(dateRange: string): Promise<Exp
     },
   });
 
-  const ret: ExpensesByCategoryDto[] = Object.values(expensesByCategory)
+  const expenses = Object.values(expensesByCategory)
     .map(x => {
       const expense = parseFloat(x.totalAmount.toFixed(2));
       const strExpense = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(expense);
@@ -470,7 +478,10 @@ export async function retrieveExpensesByCategory(dateRange: string): Promise<Exp
       return a.expense - b.expense;
     });
 
-  return ret;
+  return {
+    expenses,
+    sumExpenses,
+  };
 }
 
 export async function retrieveSumTransactionsAmount(dateRange: string): Promise<number> {

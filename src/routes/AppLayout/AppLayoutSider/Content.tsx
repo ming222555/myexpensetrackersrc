@@ -16,6 +16,8 @@ export default function Content(): JSX.Element {
   } = useAppSelector(selectTransactions);
   const { isPending, isError, error, data, fetchStatus, status, isFetching } = useQuery(sumTransactionsAmountQueryOptions(dateRange));
 
+  const sumTransactionsAmount = data ? parseFloat(data.split(',')[0]) : 0;
+
   return (
     <>
       <h1 className='position-sticky top-0 bg-dark h5 p-3 text-info'>EXPENSE TRACKER</h1>
@@ -62,9 +64,11 @@ a5 5 0 0 0 5 5 h125 a5 5 0 0 0 5 -5 v-25 a5 5 0 0 1 -10 0 a5 5 0 0 1 10 0 v-35'
               x='68'
               y='50'
               style={{ textAnchor: 'middle', letterSpacing: '0.5pt' }}
-              className={`wallet-balance${isFetching ? ' wallet-fetching' : ''}${data && data < 0 ? ' deficit' : ''}`}
+              className={`wallet-balance${isFetching ? ' wallet-fetching' : ''}${sumTransactionsAmount < 0 ? ' deficit' : ''}`}
             >
-              {isFetching ? 'Fetching...' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data ?? 0)}
+              {isFetching
+                ? 'Fetching...'
+                : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(sumTransactionsAmount)}
             </text>
           </g>
         </svg>

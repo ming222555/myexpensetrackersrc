@@ -85,7 +85,7 @@ $enable-negative-margins: true; // e.g. mt-n5
 //////////////////////////////////////////////////////
 
 // https://dev.to/shhdharmen/responsive-size-classes-in-bootstrap-3ojl
-// generate responsive sizing ... w-sm-100 w-sm-auto etc...
+// generate responsive widths ... w-sm-100 w-sm-auto etc...
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-up($breakpoint) {
     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
@@ -125,7 +125,7 @@ $enable-negative-margins: true; // e.g. mt-n5
 
 //////////////////////////////////////////////////////
 
-// Application's own styles that needs sass functionality e.g. include mixins, etc
+// Application's own styles that needs sass functionality e.g. @include media-breakpoint-up(md), etc
 // or simply styles that are shared
 @import './scss/shared.scss';
 @import './routes/AppLayout/components/SiderDrawer2.scss';

@@ -1,14 +1,14 @@
 import { queryOptions, keepPreviousData } from '@tanstack/react-query';
 
 import type { Filter } from '../../store/ducks/transactions/transactionsSlice';
-import { retrieveTransactions, retrieveSumTransactionsAmount, retrieveExpensesByCategory } from '../../db/indexdb';
+import { retrieveTransactions, retrieveSumTransactionsAmount, retrieveSumIncomes, retrieveExpensesByCategory } from '../../db/indexdb';
 
 export interface TransactionDto {
   cashflow: string;
   category: string;
   paymentmode: string;
   amount: number;
-  expenseDate: number; // yyyymmdd for simplicity
+  expenseDate: number; // yyyymmdd for simplicity, should be using epoch seconds / milliseconds
   note: string;
   // createdAt: number; // epoch
   id: number; // epoch
@@ -41,6 +41,31 @@ export function transactionsQueryOptions(pagenum: number, filter: Filter, staleT
   return queryOptions({
     queryKey: ['transactions', pagenum, filter],
     queryFn: async () => fetchTransactions(pagenum, filter),
+    placeholderData: keepPreviousData,
+    staleTime,
+  });
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export async function fetchSumIncomes(dateRange: string) {
+  const response = await retrieveSumIncomes(dateRange);
+  return response;
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export function sumIncomesQueryOptions(dateRange: string, staleTime = -1) {
+  if (staleTime < 0) {
+    return queryOptions({
+      queryKey: ['sumIncomes', dateRange],
+      queryFn: async () => fetchSumIncomes(dateRange),
+      placeholderData: keepPreviousData,
+      // use global default staleTime
+    });
+  }
+
+  return queryOptions({
+    queryKey: ['sumIncomes', dateRange],
+    queryFn: async () => fetchSumIncomes(dateRange),
     placeholderData: keepPreviousData,
     staleTime,
   });

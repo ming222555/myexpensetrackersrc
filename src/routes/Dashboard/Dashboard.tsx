@@ -6,10 +6,15 @@ import type { ChartOptions, ChartData } from 'chart.js';
 import DateRange from '../Transactions/components/DateRange';
 import { dateRange as dateRangeActionCreator, selectTransactions } from '../../store/ducks/transactions/transactionsSlice';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { expensesByCategoryQueryOptions } from '../../reactquery/transactions/transactionsRq';
+import {
+  expensesByCategoryQueryOptions,
+  sumTransactionsAmountQueryOptions,
+  sumIncomesQueryOptions,
+} from '../../reactquery/transactions/transactionsRq';
 import { ExpensesByCategoryDto } from '../../db/indexdb';
-import { MemoDoughnutExpenses } from './components/DoughnutExpenses';
 import { humaniseDateRange } from '../../util';
+import { MemoDoughnutExpenses } from './components/DoughnutExpenses';
+import SumsIncomeExpensesBalanceTransactions from './components/SumsIncomeExpensesBalanceTransactions';
 import ModalSpinner from '../../components/Modals/ModalSpinner';
 
 export default function Dashboard(): JSX.Element {
@@ -18,7 +23,25 @@ export default function Dashboard(): JSX.Element {
   } = useAppSelector(selectTransactions);
   const dispatch = useAppDispatch();
 
-  const { isPending, isError, error, data, status, isFetching } = useQuery(expensesByCategoryQueryOptions(dateRange));
+  const isFetching = useRef(false);
+
+  const {
+    /* isPending, isError, error, */ status,
+    data,
+    isFetching: isFetchingSumExpenses,
+  } = useQuery(expensesByCategoryQueryOptions(dateRange));
+
+  const { /* isPending, isError, error, status, */ data: dataSumBalance, isFetching: isFetchingSumBalance } = useQuery(
+    sumTransactionsAmountQueryOptions(dateRange),
+  );
+  const sumTransactionsAmount = dataSumBalance ? parseFloat(dataSumBalance.split(',')[0]) : undefined;
+  const totalTransactions = dataSumBalance ? parseFloat(dataSumBalance.split(',')[1]) : undefined;
+
+  const { /* isPending, isError, error, status, */ data: dataSumIncomes, isFetching: isFetchingSumIncomes } = useQuery(
+    sumIncomesQueryOptions(dateRange),
+  );
+
+  isFetching.current = isFetchingSumExpenses || isFetchingSumBalance || isFetchingSumIncomes;
 
   const initialLoadedData = useRef<ExpensesByCategoryDto | undefined>(undefined);
   const initialChartExpensesData = useRef<ChartData<'doughnut'> | undefined>(undefined);
@@ -103,41 +126,12 @@ export default function Dashboard(): JSX.Element {
           <div className='d-flex justify-content-end mt-n4'>
             <DateRange handleDateRange={handleDateRange} initialDateRange={dateRange} inline={true} />
           </div>
-          <div className='row Dashboard__sums'>
-            <div className='col-6 col-mg-3 Dashboard__sum'>
-              <p className='Dashboard__sum-details text-center bg-white m-2'>
-                <span className='Dashboard__sum-amount text-primary d-block py-2'>
-                  {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(666666.88)}
-                </span>
-                <span className='Dashboard__sum-label d-block pb-2'>Income</span>
-              </p>
-            </div>
-            <div className='col-6 col-mg-3 Dashboard__sum'>
-              <p className='Dashboard__sum-details text-center bg-white m-2'>
-                <span className='Dashboard__sum-amount text-danger d-block py-2'>
-                  {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data ? data.sumExpenses : 0)}
-                </span>
-                <span className='Dashboard__sum-label d-block pb-2'>Expenses</span>
-              </p>
-            </div>
-            <div className='col-6 col-mg-3 Dashboard__sum'>
-              <p className='Dashboard__sum-details text-center bg-white m-2'>
-                <span className='Dashboard__sum-amount text-dark d-block py-2'>
-                  {/* text-red if balance negative */}
-                  {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(-777777.88)}
-                </span>
-                <span className='Dashboard__sum-label d-block pb-2'>Balance</span>
-              </p>
-            </div>
-            <div className='col-6 col-mg-3 Dashboard__sum'>
-              <p className='Dashboard__sum-details text-center bg-white m-2'>
-                <span className='Dashboard__sum-amount text-info d-block py-2'>
-                  {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(0)}
-                </span>
-                <span className='Dashboard__sum-label d-block pb-2'>Transactions</span>
-              </p>
-            </div>
-          </div>
+          <SumsIncomeExpensesBalanceTransactions
+            sumIncomes={dataSumIncomes}
+            sumExpenses={data?.sumExpenses}
+            sumBalance={sumTransactionsAmount}
+            sumTransactions={totalTransactions}
+          />
           <h5 className='h5 pt-3 text-info text-center'>
             Total Expenses
             <span className='text-success' style={{ fontSize: '0.8em', marginLeft: '1rem' }}>
@@ -150,7 +144,7 @@ export default function Dashboard(): JSX.Element {
           ppppppppppppppppppppppppppppppp
         </section>
       </article>
-      {isFetching && <ModalSpinner />}
+      {isFetching.current && <ModalSpinner />}
     </>
   );
 }

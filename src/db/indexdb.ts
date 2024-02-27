@@ -484,15 +484,86 @@ export async function retrieveExpensesByCategory(dateRange: string): Promise<Exp
   };
 }
 
-export async function retrieveSumTransactionsAmount(dateRange: string): Promise<number> {
+/**
+ * @param dateRange e.g. '20191001,20191231', '20191001,' or ',20191231'
+ * @returns sum of incomes within dateRange
+ */
+export async function retrieveSumIncomes(dateRange: string): Promise<number> {
   await fakeNetwork();
-  const transactions = await localforage.getItem<TransactionDto[]>('transactions');
+  let transactions = await localforage.getItem<TransactionDto[]>('transactions');
   if (!transactions) {
     return 0;
   }
 
   if (transactions.length === 0) {
     return 0;
+  }
+
+  // we only want transactions that are incomes
+  if (transactions.findIndex(trx => trx.cashflow === 'income') < 0) {
+    return 0;
+  }
+
+  transactions = transactions.filter(trx => trx.cashflow === 'income');
+
+  // apply dateRange
+  const filteringTerms = dateRange.split(',');
+  if (filteringTerms.length === 1 && filteringTerms[0] === '') {
+    //
+  } else {
+    const dte = filteringTerms[0];
+    const dte2 = filteringTerms[1];
+
+    if (dte || dte2) {
+      const filterByDateRangeFn = (trx: TransactionDto): boolean => {
+        if (dte && dte2) {
+          if (trx.expenseDate >= parseInt(dte) && trx.expenseDate <= parseInt(dte2)) {
+            return true;
+          }
+          return false;
+        } else if (dte) {
+          if (trx.expenseDate >= parseInt(dte)) {
+            return true;
+          }
+          return false;
+        } else if (dte2) {
+          if (trx.expenseDate <= parseInt(dte2)) {
+            return true;
+          }
+          return false;
+        } else {
+          // here, dte and dte2 both empty strings
+          // by above logic, we shdn't be here, but typescript not aware so it complains
+          return true;
+        }
+      };
+      transactions = transactions.filter(filterByDateRangeFn);
+    }
+  }
+
+  if (transactions.length === 0) {
+    return 0;
+  }
+
+  // now lets determine the sum to return...
+  const getSum = (sum: number, trx: TransactionDto): number => sum + trx.amount;
+  const sumIncomes = transactions.reduce(getSum, 0);
+  return sumIncomes;
+}
+
+/**
+ * @param dateRange e.g. '20191001,20191231', '20191001,' or ',20191231'
+ * @returns comma delimited string e.g. '666.99,123' where 666.99 denotes sumTransactionsAmount and 123 totalTransactions within dateRange
+ */
+export async function retrieveSumTransactionsAmount(dateRange: string): Promise<string> {
+  await fakeNetwork();
+  const transactions = await localforage.getItem<TransactionDto[]>('transactions');
+  if (!transactions) {
+    return '0,0';
+  }
+
+  if (transactions.length === 0) {
+    return '0,0';
   }
 
   const transactionsDateRanged = filterTransactionsByDateRange(transactions, dateRange);
@@ -503,7 +574,7 @@ export async function retrieveSumTransactionsAmount(dateRange: string): Promise<
   };
 
   const sum = transactionsDateRanged.reduce(getSum, 0);
-  return sum;
+  return sum + ',' + transactionsDateRanged.length;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

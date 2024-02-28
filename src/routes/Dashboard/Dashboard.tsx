@@ -174,28 +174,28 @@ export default function Dashboard(): JSX.Element {
     }
   }, [statusMonthlyBalance, dataMonthlyIncomeExpenseBalance]);
 
-  useMemo(() => {
-    let chart;
-
-    if (dataMonthlyIncomeExpenseBalance) {
-      if (chartRefMonthlyBalance.current) {
-        chart = chartRefMonthlyBalance.current;
-        chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.balances;
-        chart.update();
-      }
-      // if (chartRefMonthlyIncome.current) {
-      //   chart = chartRefMonthlyIncome.current;
-      //   chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance[1];
-      //   chart.update();
-      // }
-      // if (chartRefMonthlyExpense.current) {
-      //   chart = chartRefMonthlyExpense.current;
-      //   chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance[2];
-      //   chart.update();
-      // }
-    }
-  }, [dataMonthlyIncomeExpenseBalance]);
-  // console.log(data);
+  /*   useMemo(() => {
+  //   let chart;
+  //
+  //   if (dataMonthlyIncomeExpenseBalance) {
+  //     if (chartRefMonthlyBalance.current) {
+  //       chart = chartRefMonthlyBalance.current;
+  //       chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.balances;
+  //       chart.update();
+  //     }
+  //     // if (chartRefMonthlyIncome.current) {
+  //     //   chart = chartRefMonthlyIncome.current;
+  //     //   chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance[1];
+  //     //   chart.update();
+  //     // }
+  //     // if (chartRefMonthlyExpense.current) {
+  //     //   chart = chartRefMonthlyExpense.current;
+  //     //   chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance[2];
+  //     //   chart.update();
+  //     // }
+  //   }
+  // }, [dataMonthlyIncomeExpenseBalance]);
+  // console.log(data); */
 
   const options = useMemo((): ChartOptions<'doughnut'> => {
     return {

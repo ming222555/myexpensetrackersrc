@@ -1,8 +1,7 @@
 import { memo } from 'react';
 
-import { TransactionDto } from '../../../reactquery/transactions/transactionsRq';
 import { delimitMMDDYYYY, zeroPaddMoney } from '../../../util';
-import { dbLookupCategories } from '../../../db/indexdb';
+import { TransactionDto, dbLookupCategories } from '../../../db/indexdb';
 
 function TransactionsListNoSelects(props: { transactions: TransactionDto[] }): JSX.Element {
   const transactions = props.transactions;

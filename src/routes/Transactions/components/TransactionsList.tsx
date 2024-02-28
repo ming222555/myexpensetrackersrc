@@ -1,6 +1,5 @@
 import { memo } from 'react';
 
-import { TransactionDto } from '../../../reactquery/transactions/transactionsRq';
 import {
   selectSelection,
   addToSelection,
@@ -10,7 +9,7 @@ import {
 } from '../../../store/ducks/transactions/transactionsSlice';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import { delimitMMDDYYYY, zeroPaddMoney } from '../../../util';
-import { dbLookupCategories } from '../../../db/indexdb';
+import { TransactionDto, dbLookupCategories } from '../../../db/indexdb';
 
 function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Element {
   const transactions = props.transactions;

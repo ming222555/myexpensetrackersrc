@@ -1,6 +1,6 @@
 import localforage from 'localforage';
 
-import { TransactionDto } from '../reactquery/transactions/transactionsRq';
+import { TransactionDto } from './indexdb';
 
 const seed = async (): Promise<void> => {
   const initialData: TransactionDto[] = [

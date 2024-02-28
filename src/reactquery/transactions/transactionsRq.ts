@@ -6,26 +6,9 @@ import {
   retrieveTransactionsRecent,
   retrieveSumTransactionsAmount,
   retrieveSumIncomes,
+  retrieveMonthlyIncomeExpenseBalance,
   retrieveExpensesByCategory,
 } from '../../db/indexdb';
-
-export interface TransactionDto {
-  cashflow: string;
-  category: string;
-  paymentmode: string;
-  amount: number;
-  expenseDate: number; // a.k.a transactionDate. yyyymmdd for simplicity, should be using epoch seconds / milliseconds
-  note: string;
-  // createdAt: number; // epoch
-  id: number; // epoch
-}
-
-export interface TransactionsPaginatedDataDto {
-  transactions: TransactionDto[];
-  pagenum: number;
-  totalPages: number;
-  totalItems: number;
-}
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function fetchTransactions(pagenum: number, filter: Filter) {
@@ -97,6 +80,31 @@ export function sumIncomesQueryOptions(dateRange: string, staleTime = -1) {
   return queryOptions({
     queryKey: ['sumIncomes', dateRange],
     queryFn: async () => fetchSumIncomes(dateRange),
+    placeholderData: keepPreviousData,
+    staleTime,
+  });
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export async function fetchMonthlyIncomeExpenseBalance(months: number[]) {
+  const response = await retrieveMonthlyIncomeExpenseBalance(months);
+  return response;
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export function monthlyIncomeExpenseBalanceQueryOptions(months: number[], staleTime = -1) {
+  if (staleTime < 0) {
+    return queryOptions({
+      queryKey: ['monthlyIncomeExpenseBalance', months],
+      queryFn: async () => fetchMonthlyIncomeExpenseBalance(months),
+      placeholderData: keepPreviousData,
+      // use global default staleTime
+    });
+  }
+
+  return queryOptions({
+    queryKey: ['monthlyIncomeExpenseBalance', months],
+    queryFn: async () => fetchMonthlyIncomeExpenseBalance(months),
     placeholderData: keepPreviousData,
     staleTime,
   });

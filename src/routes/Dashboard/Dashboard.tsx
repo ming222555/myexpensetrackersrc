@@ -2,6 +2,7 @@ import { useMemo, useRef } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import type { ChartOptions, ChartData } from 'chart.js';
+import { Ticks } from 'chart.js';
 
 import DateRange from '../Transactions/components/DateRange';
 import { dateRange as dateRangeActionCreator, selectTransactions } from '../../store/ducks/transactions/transactionsSlice';
@@ -10,11 +11,13 @@ import {
   expensesByCategoryQueryOptions,
   sumTransactionsAmountQueryOptions,
   sumIncomesQueryOptions,
+  monthlyIncomeExpenseBalanceQueryOptions,
   transactionsRecentQueryOptions,
 } from '../../reactquery/transactions/transactionsRq';
-import { ExpensesByCategoryDto } from '../../db/indexdb';
+import { ExpensesByCategoryDto, MonthlyIncomeExpenseBalanceDto } from '../../db/indexdb';
 import { humaniseDateRange } from '../../util';
 import { MemoDoughnutExpenses } from './components/DoughnutExpenses';
+import { MemoChartMonthlyBalance } from './components/ChartMonthlyBalance';
 import SumsIncomeExpensesBalanceTransactions from './components/SumsIncomeExpensesBalanceTransactions';
 import TransactionsListNoSelects from '../Transactions/components/TransactionsListNoSelects';
 import ModalSpinner from '../../components/Modals/ModalSpinner';
@@ -43,18 +46,36 @@ export default function Dashboard(): JSX.Element {
     sumIncomesQueryOptions(dateRange),
   );
 
+  const {
+    /* isPending, isError, error, */ status: statusMonthlyBalance,
+    data: dataMonthlyIncomeExpenseBalance,
+    isFetching: isFetchingMonthlyBalance,
+  } = useQuery(monthlyIncomeExpenseBalanceQueryOptions([10, 11, 12])); // Oct, Nov, Dec
+
   const { /* isPending, isError, error, status, */ data: dataTransactionsRecent, isFetching: isFetchingTransactionsRecent } = useQuery(
     transactionsRecentQueryOptions(dateRange),
   );
 
-  isFetching.current = isFetchingSumExpenses || isFetchingSumBalance || isFetchingSumIncomes || isFetchingTransactionsRecent;
+  isFetching.current =
+    isFetchingSumExpenses || isFetchingSumBalance || isFetchingSumIncomes || isFetchingTransactionsRecent || isFetchingMonthlyBalance;
 
   const initialLoadedData = useRef<ExpensesByCategoryDto | undefined>(undefined);
   const initialChartExpensesData = useRef<ChartData<'doughnut'> | undefined>(undefined);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const chartRef = useRef<any | null>(null);
+  const initialLoadedDataMonthlyIncomeExpenseBalance = useRef<MonthlyIncomeExpenseBalanceDto | undefined>(undefined);
 
+  const initialDataChartMonthlyBalance = useRef<ChartData<'line'> | undefined>(undefined);
+  const initialDataChartMonthlyIncome = useRef<ChartData<'line'> | undefined>(undefined);
+  const initialDataChartMonthlyExpense = useRef<ChartData<'line'> | undefined>(undefined);
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const chartRef = useRef<any | null>(null);
+  const chartRefMonthlyBalance = useRef<any | null>(null);
+  const chartRefMonthlyIncome = useRef<any | null>(null);
+  const chartRefMonthlyExpense = useRef<any | null>(null);
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+
+  ////// Chart for ExpensesByCategory
   useMemo(() => {
     if (initialLoadedData.current) {
       return;
@@ -99,7 +120,82 @@ export default function Dashboard(): JSX.Element {
     }
   }, [data]);
 
-  console.log(data);
+  ////// Charts for MonthlyBalance, MonthlyIncome, MonthlyExpense
+  useMemo(() => {
+    if (initialLoadedDataMonthlyIncomeExpenseBalance.current) {
+      return;
+    }
+    if (statusMonthlyBalance == 'success') {
+      const labels = ['Oct', 'Nov', 'Dec'];
+      const fill = false;
+      const borderColor = 'rgb(75, 192, 192)';
+      const tension = 0.1;
+
+      initialLoadedDataMonthlyIncomeExpenseBalance.current = dataMonthlyIncomeExpenseBalance;
+
+      initialDataChartMonthlyBalance.current = {
+        labels,
+        datasets: [
+          {
+            label: 'Monthly Account Balance',
+            data: initialLoadedDataMonthlyIncomeExpenseBalance.current.balances,
+            fill,
+            borderColor,
+            tension,
+          },
+        ],
+      };
+
+      // initialDataChartMonthlyIncome.current = {
+      //   labels,
+      //   datasets: [
+      //     {
+      //       label: 'Monthly Income',
+      //       data: initialLoadedDataMonthlyIncomeExpenseBalance.current[1],
+      //       fill,
+      //       borderColor,
+      //       tension,
+      //     },
+      //   ],
+      // };
+      //
+      // initialDataChartMonthlyExpense.current = {
+      //   labels,
+      //   datasets: [
+      //     {
+      //       label: 'Monthly Account Expense',
+      //       data: initialLoadedDataMonthlyIncomeExpenseBalance.current[2],
+      //       fill,
+      //       borderColor,
+      //       tension,
+      //     },
+      //   ],
+      // };
+    }
+  }, [statusMonthlyBalance, dataMonthlyIncomeExpenseBalance]);
+
+  useMemo(() => {
+    let chart;
+
+    if (dataMonthlyIncomeExpenseBalance) {
+      if (chartRefMonthlyBalance.current) {
+        chart = chartRefMonthlyBalance.current;
+        chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.balances;
+        chart.update();
+      }
+      // if (chartRefMonthlyIncome.current) {
+      //   chart = chartRefMonthlyIncome.current;
+      //   chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance[1];
+      //   chart.update();
+      // }
+      // if (chartRefMonthlyExpense.current) {
+      //   chart = chartRefMonthlyExpense.current;
+      //   chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance[2];
+      //   chart.update();
+      // }
+    }
+  }, [dataMonthlyIncomeExpenseBalance]);
+  // console.log(data);
 
   const options = useMemo((): ChartOptions<'doughnut'> => {
     return {
@@ -112,6 +208,30 @@ export default function Dashboard(): JSX.Element {
           display: true,
           text: 'Chart.js Doughnut Chart',
           color: '#000',
+        },
+      },
+    };
+  }, []);
+
+  const optionsChartMonthlyBalance = useMemo((): ChartOptions<'line'> => {
+    return {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Chart.js Line Chart',
+          color: '#000',
+        },
+      },
+      scales: {
+        y: {
+          ticks: {
+            // https://www.chartjs.org/docs/latest/axes/labelling.html
+            // Include a dollar sign in the ticks
+            callback: function (value, index, ticks): string {
+              return '$' + Ticks.formatters.numeric.apply(this, [value as number, index, ticks]);
+            },
+          },
         },
       },
     };
@@ -145,6 +265,11 @@ export default function Dashboard(): JSX.Element {
             </span>
           </h5>
           <MemoDoughnutExpenses ref={chartRef} options={options} data={initialChartExpensesData.current} />
+          <MemoChartMonthlyBalance
+            ref={chartRefMonthlyBalance}
+            options={optionsChartMonthlyBalance}
+            data={initialDataChartMonthlyBalance.current}
+          />
           ppppppppppppppppppppppppppppppp
           <h5 className='h5 pt-3 text-info'>Recent Transactions</h5>
           {dataTransactionsRecent && <TransactionsListNoSelects transactions={dataTransactionsRecent} />}

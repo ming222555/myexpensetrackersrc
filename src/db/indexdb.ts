@@ -4,7 +4,24 @@ import sortBy from 'sort-by';
 
 import './seed';
 import type { Filter } from '../store/ducks/transactions/transactionsSlice';
-import { TransactionDto, TransactionsPaginatedDataDto } from '../reactquery/transactions/transactionsRq';
+
+export interface TransactionDto {
+  cashflow: string;
+  category: string;
+  paymentmode: string;
+  amount: number;
+  expenseDate: number; // the transaction date. yyyymmdd for simplicity, should be using epoch seconds or milliseconds
+  note: string;
+  // createdAt: number; // epoch
+  id: number; // epoch
+}
+
+export interface TransactionsPaginatedDataDto {
+  transactions: TransactionDto[];
+  pagenum: number;
+  totalPages: number;
+  totalItems: number;
+}
 
 export interface ExpensesByCategoryDto {
   expenses: {
@@ -12,6 +29,19 @@ export interface ExpensesByCategoryDto {
     legend: string;
   }[];
   sumExpenses: number;
+}
+
+/**
+ * @key months: number[] e.g. [10,11,12] meaning Oct,Nov,Dec. Assume same year
+ * @key incomes: number[] Array of monthly income for months listed in months
+ * @key expenses: number[] Array of monthly expense for months listed in months
+ * @key balances: number[] Array of monthly balance for months listed in months
+ */
+export interface MonthlyIncomeExpenseBalanceDto {
+  months: number[];
+  incomes: number[];
+  expenses: number[];
+  balances: number[];
 }
 
 export const tblCashflows = [
@@ -445,7 +475,7 @@ export async function retrieveExpensesByCategory(dateRange: string): Promise<Exp
     return EMPTY_DTO;
   }
 
-  // now lets determine the ExpensesByCategoryDto to return...
+  // now lets determine the ExpensesByCategory to return...
   let sumExpenses = 0;
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -577,6 +607,70 @@ export async function retrieveSumIncomes(dateRange: string): Promise<number> {
   const getSum = (sum: number, trx: TransactionDto): number => sum + trx.amount;
   const sumIncomes = transactions.reduce(getSum, 0);
   return sumIncomes;
+}
+
+/**
+ * @param months: number[] e.g. [10,11,12] meaning Oct,Nov,Dec. Assume same year
+ * @returns MonthlyIncomeExpenseBalanceDto object
+ */
+export async function retrieveMonthlyIncomeExpenseBalance(months: number[]): Promise<MonthlyIncomeExpenseBalanceDto> {
+  const zeros = new Array(months.length);
+  zeros.fill(0);
+
+  const EMPTY_DTO: Readonly<MonthlyIncomeExpenseBalanceDto> = {
+    months,
+    incomes: zeros,
+    expenses: [...zeros],
+    balances: [...zeros],
+  };
+
+  await fakeNetwork();
+  let transactions = await localforage.getItem<TransactionDto[]>('transactions');
+
+  if (!transactions || transactions.length === 0) {
+    return EMPTY_DTO;
+  }
+
+  // we only want transactions whose transaction date has month found in months
+  transactions = transactions.filter(trx => {
+    const trxDate = trx.expenseDate + ''; // 'yyyymmdd'
+    const mm = parseInt(trxDate.substring(4, 6));
+    return months.includes(mm);
+  });
+
+  if (transactions.length === 0) {
+    return EMPTY_DTO;
+  }
+
+  // now lets determine the monthly sums to return...
+  const retObj: MonthlyIncomeExpenseBalanceDto = {
+    months,
+    incomes: zeros,
+    expenses: [...zeros],
+    balances: [...zeros],
+  };
+
+  for (let idx = 0; idx < transactions.length; idx++) {
+    const trx = transactions[idx];
+    const mm = parseInt((trx.expenseDate + '').substring(4, 6));
+    const cashflow = trx.cashflow;
+
+    const pos = months.findIndex(mth => mth === mm);
+
+    if (pos > -1) {
+      if (cashflow === 'income') {
+        retObj.incomes[pos] += trx.amount;
+      } else if (cashflow === 'expense') {
+        retObj.expenses[pos] += trx.amount;
+      }
+    }
+  }
+
+  for (let idx = 0; idx < retObj.months.length; idx++) {
+    retObj.balances[idx] = retObj.incomes[idx] - retObj.expenses[idx];
+  }
+
+  return retObj;
 }
 
 /**

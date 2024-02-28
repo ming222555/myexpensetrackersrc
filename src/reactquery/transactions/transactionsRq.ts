@@ -95,7 +95,7 @@ export async function fetchMonthlyIncomeExpenseBalance(months: number[]) {
 export function monthlyIncomeExpenseBalanceQueryOptions(months: number[], staleTime = -1) {
   if (staleTime < 0) {
     return queryOptions({
-      queryKey: ['monthlyIncomeExpenseBalance', months],
+      queryKey: ['monthlyIncomeExpenseBalance', [months]],
       queryFn: async () => fetchMonthlyIncomeExpenseBalance(months),
       placeholderData: keepPreviousData,
       // use global default staleTime
@@ -103,7 +103,7 @@ export function monthlyIncomeExpenseBalanceQueryOptions(months: number[], staleT
   }
 
   return queryOptions({
-    queryKey: ['monthlyIncomeExpenseBalance', months],
+    queryKey: ['monthlyIncomeExpenseBalance', [months]],
     queryFn: async () => fetchMonthlyIncomeExpenseBalance(months),
     placeholderData: keepPreviousData,
     staleTime,

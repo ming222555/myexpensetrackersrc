@@ -13,7 +13,7 @@ function DoughnutExpenses(
     data,
     options,
   }: {
-    data: ChartData<'doughnut'>;
+    data: ChartData<'doughnut'> | undefined;
     options: ChartOptions<'doughnut'>;
   },
   /* ref: ForwardedRef<ChartJSOrUndefined<'doughnut', number[], unknown>> | undefined, */
@@ -25,8 +25,7 @@ function DoughnutExpenses(
     <div className='DoughnutExpenses'>
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/* @ts-ignore */}
-      <Doughnut ref={ref} options={options} data={data} plugins={[ChartDataLabels]} />
-      {/* Doughnut */}
+      {data && <Doughnut ref={ref} options={options} data={data} plugins={[ChartDataLabels]} />}
       {/* note that above plugins={[ChartDataLabels]} will cause compile time ts error */}
     </div>
   );

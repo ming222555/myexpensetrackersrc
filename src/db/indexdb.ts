@@ -243,6 +243,34 @@ export async function retrieveTransactions(pagenum: number, filter: Filter): Pro
   }
 }
 
+export async function retrieveTransactionsRecent(dateRange: string): Promise<TransactionDto[]> {
+  await fakeNetwork();
+  let transactions = await localforage.getItem<TransactionDto[]>('transactions');
+  if (!transactions) {
+    return [];
+  }
+
+  if (transactions.length === 0) {
+    return [];
+  }
+
+  // apply dateRange
+  transactions = filterTransactionsByDateRange(transactions, dateRange);
+
+  if (transactions.length === 0) {
+    return [];
+  }
+
+  // sort transactions
+  transactions.sort(sortBy<TransactionDto>('-expenseDate', '-id'));
+
+  // we want only top 5...
+  if (transactions.length < 6) {
+    return transactions;
+  }
+  return [transactions[0], transactions[1], transactions[2], transactions[3], transactions[4]];
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function updateTransaction(updates: TransactionDto) {
   await fakeNetwork();

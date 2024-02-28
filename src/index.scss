@@ -132,5 +132,6 @@ $enable-negative-margins: true; // e.g. mt-n5
 @import './routes/AppLayout/AppLayout.scss';
 @import './routes/Transactions/Transactions.scss';
 @import './routes/Transactions/components/TransactionsList.scss';
+@import './routes/Transactions/components/TransactionsListNoSelects.scss';
 @import './routes/Dashboard/Dashboard.scss';
 @import './routes/Dashboard/components/DoughnutExpenses.scss';

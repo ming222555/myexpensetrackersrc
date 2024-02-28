@@ -1,0 +1,99 @@
+.TransactionsListNoSelects {
+  border: 1px solid blue;
+  margin: 1rem 0;
+  font-size: .84rem;
+  @include media-breakpoint-up(sd) {
+    font-size: .96rem;
+  }
+}
+.TransactionsListNoSelects__row {
+  // background: lightgreen;
+  // background: transparent;
+  flex-wrap: wrap;
+  @include media-breakpoint-up(mg) {
+    flex-wrap: nowrap;
+  }
+  &:first-child {
+    font-weight: 700;
+    // background: lightblue;
+    .TransactionsListNoSelects__col--note {
+      display: none;
+      @include media-breakpoint-up(mg) {
+        display: block;
+      }
+    }
+    .TransactionsListNoSelects__col--amount,
+    .TransactionsListNoSelects__col--amount-desktop {
+      color: inherit;
+    }
+  }
+  &:not(:first-child) {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    margin-bottom: .5rem;
+    @include media-breakpoint-up(mg) {
+      margin-bottom: 0;
+    }
+  }
+}
+.TransactionsListNoSelects__col {
+  // background: lightgray;
+  background: transparent;
+  // outline: 1px solid blue;
+}
+.TransactionsListNoSelects__col--category,
+.TransactionsListNoSelects__col--expensedate,
+.TransactionsListNoSelects__col--paymentmode {
+  flex: 1 0 0;
+}
+.TransactionsListNoSelects__col--category {
+  @include media-breakpoint-up(mg) {
+    flex: 0 0 8rem;
+  }
+}
+.TransactionsListNoSelects__col--expensedate {
+  @include media-breakpoint-up(mg) {
+    flex: 0 0 7rem;
+  }
+}
+.TransactionsListNoSelects__col--paymentmode {
+  @include media-breakpoint-up(mg) {
+    flex: 0 0 8rem;
+  }
+}
+.TransactionsListNoSelects__col--amount,
+.TransactionsListNoSelects__col--amount-desktop {
+  outline: 1px solid blue;
+  color: #ed1a3d;
+  font-weight: 500;
+  text-align: right;
+  flex: 0 0 6.4rem;
+}
+.TransactionsListNoSelects__col--amount {
+  @include media-breakpoint-up(mg) {
+    display: none;
+  }
+}
+.TransactionsListNoSelects__col--amount-desktop {
+  margin-left: auto;
+  display: none;
+  @include media-breakpoint-up(mg) {
+    display: block;
+  }
+}
+.TransactionsListNoSelects__col--note {
+  flex: 0 1 100%;
+  overflow: hidden;
+  margin-top: -8px;
+  @include media-breakpoint-up(mg) {
+    flex: 0 1 auto;
+    margin-top: 0;
+  }
+}
+.TransactionsListNoSelects__field {}
+.TransactionsListNoSelects__field--note {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

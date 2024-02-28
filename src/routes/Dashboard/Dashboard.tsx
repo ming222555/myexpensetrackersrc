@@ -10,11 +10,13 @@ import {
   expensesByCategoryQueryOptions,
   sumTransactionsAmountQueryOptions,
   sumIncomesQueryOptions,
+  transactionsRecentQueryOptions,
 } from '../../reactquery/transactions/transactionsRq';
 import { ExpensesByCategoryDto } from '../../db/indexdb';
 import { humaniseDateRange } from '../../util';
 import { MemoDoughnutExpenses } from './components/DoughnutExpenses';
 import SumsIncomeExpensesBalanceTransactions from './components/SumsIncomeExpensesBalanceTransactions';
+import TransactionsListNoSelects from '../Transactions/components/TransactionsListNoSelects';
 import ModalSpinner from '../../components/Modals/ModalSpinner';
 
 export default function Dashboard(): JSX.Element {
@@ -41,7 +43,11 @@ export default function Dashboard(): JSX.Element {
     sumIncomesQueryOptions(dateRange),
   );
 
-  isFetching.current = isFetchingSumExpenses || isFetchingSumBalance || isFetchingSumIncomes;
+  const { /* isPending, isError, error, status, */ data: dataTransactionsRecent, isFetching: isFetchingTransactionsRecent } = useQuery(
+    transactionsRecentQueryOptions(dateRange),
+  );
+
+  isFetching.current = isFetchingSumExpenses || isFetchingSumBalance || isFetchingSumIncomes || isFetchingTransactionsRecent;
 
   const initialLoadedData = useRef<ExpensesByCategoryDto | undefined>(undefined);
   const initialChartExpensesData = useRef<ChartData<'doughnut'> | undefined>(undefined);
@@ -138,10 +144,10 @@ export default function Dashboard(): JSX.Element {
               {humaniseDateRange(dateRange)}
             </span>
           </h5>
-          {initialChartExpensesData.current && (
-            <MemoDoughnutExpenses ref={chartRef} options={options} data={initialChartExpensesData.current} />
-          )}
+          <MemoDoughnutExpenses ref={chartRef} options={options} data={initialChartExpensesData.current} />
           ppppppppppppppppppppppppppppppp
+          <h5 className='h5 pt-3 text-info'>Recent Transactions</h5>
+          {dataTransactionsRecent && <TransactionsListNoSelects transactions={dataTransactionsRecent} />}
         </section>
       </article>
       {isFetching.current && <ModalSpinner />}

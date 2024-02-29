@@ -18,6 +18,7 @@ import {
 import { ExpensesByCategoryDto, MonthlyIncomeExpenseBalanceDto } from '../../db/indexdb';
 import { humaniseDateRange } from '../../util';
 import { MemoDoughnutExpenses } from './components/DoughnutExpenses';
+import { MemoChartMonthlyIncome } from './components/ChartMonthlyIncome';
 import { MemoChartMonthlyBalance } from './components/ChartMonthlyBalance';
 import SumsIncomeExpensesBalanceTransactions from './components/SumsIncomeExpensesBalanceTransactions';
 import TransactionsListNoSelects from '../Transactions/components/TransactionsListNoSelects';
@@ -66,7 +67,7 @@ export default function Dashboard(): JSX.Element {
   const initialLoadedDataMonthlyIncomeExpenseBalance = useRef<MonthlyIncomeExpenseBalanceDto | undefined>(undefined);
 
   const initialDataChartMonthlyBalance = useRef<ChartData<'line'> | undefined>(undefined);
-  const initialDataChartMonthlyIncome = useRef<ChartData<'line'> | undefined>(undefined);
+  const initialDataChartMonthlyIncome = useRef<ChartData<'bar'> | undefined>(undefined);
   const initialDataChartMonthlyExpense = useRef<ChartData<'line'> | undefined>(undefined);
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -147,18 +148,18 @@ export default function Dashboard(): JSX.Element {
         ],
       };
 
-      // initialDataChartMonthlyIncome.current = {
-      //   labels,
-      //   datasets: [
-      //     {
-      //       label: 'Monthly Income',
-      //       data: initialLoadedDataMonthlyIncomeExpenseBalance.current[1],
-      //       fill,
-      //       borderColor,
-      //       tension,
-      //     },
-      //   ],
-      // };
+      initialDataChartMonthlyIncome.current = {
+        labels,
+        datasets: [
+          {
+            label: 'Monthly Income',
+            data: initialLoadedDataMonthlyIncomeExpenseBalance.current.incomes,
+            borderColor,
+            backgroundColor: ['rgba(153, 102, 255, 0.2)'],
+          },
+        ],
+      };
+
       //
       // initialDataChartMonthlyExpense.current = {
       //   labels,
@@ -184,11 +185,11 @@ export default function Dashboard(): JSX.Element {
         chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.balances;
         chart.update();
       }
-      // if (chartRefMonthlyIncome.current) {
-      //   chart = chartRefMonthlyIncome.current;
-      //   chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance[1];
-      //   chart.update();
-      // }
+      if (chartRefMonthlyIncome.current) {
+        chart = chartRefMonthlyIncome.current;
+        chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.incomes;
+        chart.update();
+      }
       // if (chartRefMonthlyExpense.current) {
       //   chart = chartRefMonthlyExpense.current;
       //   chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance[2];
@@ -209,6 +210,30 @@ export default function Dashboard(): JSX.Element {
           display: true,
           text: 'Chart.js Doughnut Chart',
           color: '#000',
+        },
+      },
+    };
+  }, []);
+
+  const optionsChartMonthlyIncome = useMemo((): ChartOptions<'bar'> => {
+    return {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Chart.js Bar Chart',
+          color: '#000',
+        },
+      },
+      scales: {
+        y: {
+          ticks: {
+            // https://www.chartjs.org/docs/latest/axes/labelling.html
+            // Include a dollar sign in the ticks
+            callback: function (value, index, ticks): string {
+              return '$' + Ticks.formatters.numeric.apply(this, [value as number, index, ticks]);
+            },
+          },
         },
       },
     };
@@ -266,6 +291,11 @@ export default function Dashboard(): JSX.Element {
             </span>
           </h5>
           <MemoDoughnutExpenses ref={chartRef} options={options} data={initialChartExpensesData.current} />
+          <MemoChartMonthlyIncome
+            ref={chartRefMonthlyIncome}
+            options={optionsChartMonthlyIncome}
+            data={initialDataChartMonthlyIncome.current}
+          />
           <MemoChartMonthlyBalance
             ref={chartRefMonthlyBalance}
             options={optionsChartMonthlyBalance}

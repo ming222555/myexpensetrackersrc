@@ -7,7 +7,6 @@ import { Ticks } from 'chart.js';
 import DateRange from '../Transactions/components/DateRange';
 import { dateRange as dateRangeActionCreator, selectTransactions } from '../../store/ducks/transactions/transactionsSlice';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import queryClient from '../../reactquery';
 import {
   expensesByCategoryQueryOptions,
   sumTransactionsAmountQueryOptions,
@@ -35,7 +34,7 @@ export default function Dashboard(): JSX.Element {
   const {
     /* isPending, isError, error, */ status,
     data,
-    isFetching: isFetchingSumExpenses,
+    isFetching: isFetchingExpensesByCategory,
   } = useQuery(expensesByCategoryQueryOptions(dateRange));
 
   const { /* isPending, isError, error, status, */ data: dataSumBalance, isFetching: isFetchingSumBalance } = useQuery(
@@ -59,7 +58,11 @@ export default function Dashboard(): JSX.Element {
   );
 
   isFetching.current =
-    isFetchingSumExpenses || isFetchingSumBalance || isFetchingSumIncomes || isFetchingTransactionsRecent || isFetchingMonthlyBalance;
+    isFetchingExpensesByCategory ||
+    isFetchingSumBalance ||
+    isFetchingSumIncomes ||
+    isFetchingTransactionsRecent ||
+    isFetchingMonthlyBalance;
 
   const initialLoadedData = useRef<ExpensesByCategoryDto | undefined>(undefined);
   const initialChartExpensesData = useRef<ChartData<'doughnut'> | undefined>(undefined);
@@ -68,13 +71,11 @@ export default function Dashboard(): JSX.Element {
 
   const initialDataChartMonthlyBalance = useRef<ChartData<'line'> | undefined>(undefined);
   const initialDataChartMonthlyIncome = useRef<ChartData<'bar'> | undefined>(undefined);
-  const initialDataChartMonthlyExpense = useRef<ChartData<'line'> | undefined>(undefined);
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const chartRef = useRef<any | null>(null);
   const chartRefMonthlyBalance = useRef<any | null>(null);
   const chartRefMonthlyIncome = useRef<any | null>(null);
-  const chartRefMonthlyExpense = useRef<any | null>(null);
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
   ////// Chart for ExpensesByCategory
@@ -157,22 +158,14 @@ export default function Dashboard(): JSX.Element {
             borderColor,
             backgroundColor: ['rgba(153, 102, 255, 0.2)'],
           },
+          {
+            label: 'Monthly Expense',
+            data: initialLoadedDataMonthlyIncomeExpenseBalance.current.expenses,
+            borderColor,
+            backgroundColor: ['rgba(201, 203, 207, 0.2)'],
+          },
         ],
       };
-
-      //
-      // initialDataChartMonthlyExpense.current = {
-      //   labels,
-      //   datasets: [
-      //     {
-      //       label: 'Monthly Account Expense',
-      //       data: initialLoadedDataMonthlyIncomeExpenseBalance.current[2],
-      //       fill,
-      //       borderColor,
-      //       tension,
-      //     },
-      //   ],
-      // };
     }
   }, [statusMonthlyBalance, dataMonthlyIncomeExpenseBalance]);
 
@@ -188,13 +181,9 @@ export default function Dashboard(): JSX.Element {
       if (chartRefMonthlyIncome.current) {
         chart = chartRefMonthlyIncome.current;
         chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.incomes;
+        chart.data.datasets[1].data = dataMonthlyIncomeExpenseBalance.expenses;
         chart.update();
       }
-      // if (chartRefMonthlyExpense.current) {
-      //   chart = chartRefMonthlyExpense.current;
-      //   chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance[2];
-      //   chart.update();
-      // }
     }
   }, [dataMonthlyIncomeExpenseBalance]);
   // console.log(data);

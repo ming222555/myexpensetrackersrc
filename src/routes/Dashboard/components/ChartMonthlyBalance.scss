@@ -1,8 +1,7 @@
 .ChartMonthlyBalance {
+  outline: solid 1px rgba(54, 162, 235, 1);
   // https://stackoverflow.com/questions/5445491/height-equal-to-dynamic-width-css-fluid-layout
-  position: relative;
   width: 98%;
-
-  margin: auto;
-  outline: solid 3px rgba(54, 162, 235, 1);
+  height: 0;
+  padding-bottom: 49%;
 }

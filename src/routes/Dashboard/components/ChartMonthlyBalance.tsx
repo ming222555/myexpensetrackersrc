@@ -5,6 +5,8 @@ import type { ChartOptions, ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 // import type { ChartJSOrUndefined } from 'react-chartjs-2';
 
+import './ChartMonthlyBalance.scss';
+
 ChartJS.register(LineElement, PointElement, Tooltip, Legend, CategoryScale, LinearScale);
 
 function ChartMonthlyBalance(

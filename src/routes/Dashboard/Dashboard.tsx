@@ -190,7 +190,6 @@ export default function Dashboard(): JSX.Element {
 
   const options = useMemo((): ChartOptions<'doughnut'> => {
     return {
-      responsive: true,
       plugins: {
         legend: {
           position: 'right',
@@ -206,7 +205,6 @@ export default function Dashboard(): JSX.Element {
 
   const optionsChartMonthlyIncome = useMemo((): ChartOptions<'bar'> => {
     return {
-      responsive: true,
       plugins: {
         title: {
           display: true,
@@ -230,7 +228,6 @@ export default function Dashboard(): JSX.Element {
 
   const optionsChartMonthlyBalance = useMemo((): ChartOptions<'line'> => {
     return {
-      responsive: true,
       plugins: {
         title: {
           display: true,
@@ -273,25 +270,30 @@ export default function Dashboard(): JSX.Element {
             sumBalance={sumTransactionsAmount}
             sumTransactions={totalTransactions}
           />
-          <h5 className='h5 pt-3 text-info text-center'>
+          <h5 className='h5 pt-5 text-info text-center'>
             Total Expenses
             <span className='text-success' style={{ fontSize: '0.8em', marginLeft: '1rem' }}>
               {humaniseDateRange(dateRange)}
             </span>
           </h5>
           <MemoDoughnutExpenses ref={chartRef} options={options} data={initialChartExpensesData.current} />
-          <MemoChartMonthlyIncome
-            ref={chartRefMonthlyIncome}
-            options={optionsChartMonthlyIncome}
-            data={initialDataChartMonthlyIncome.current}
-          />
-          <MemoChartMonthlyBalance
-            ref={chartRefMonthlyBalance}
-            options={optionsChartMonthlyBalance}
-            data={initialDataChartMonthlyBalance.current}
-          />
-          ppppppppppppppppppppppppppppppp
-          <h5 className='h5 pt-3 text-info'>Recent Transactions</h5>
+          <div className='row'>
+            <div className='col-12 col-mg-6'>
+              <MemoChartMonthlyIncome
+                ref={chartRefMonthlyIncome}
+                options={optionsChartMonthlyIncome}
+                data={initialDataChartMonthlyIncome.current}
+              />
+            </div>
+            <div className='col-12 col-mg-6'>
+              <MemoChartMonthlyBalance
+                ref={chartRefMonthlyBalance}
+                options={optionsChartMonthlyBalance}
+                data={initialDataChartMonthlyBalance.current}
+              />
+            </div>
+          </div>
+          <h5 className='h5 pt-5 text-info'>Recent Transactions</h5>
           {dataTransactionsRecent && <TransactionsListNoSelects transactions={dataTransactionsRecent} />}
         </section>
       </article>

@@ -5,6 +5,8 @@ import type { ChartOptions, ChartData } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 // import type { ChartJSOrUndefined } from 'react-chartjs-2';
 
+import './ChartMonthlyIncome.scss';
+
 ChartJS.register(BarElement, Tooltip, Legend);
 
 function ChartMonthlyIncome(

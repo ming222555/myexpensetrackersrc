@@ -279,17 +279,19 @@ export default function Dashboard(): JSX.Element {
           <MemoDoughnutExpenses ref={chartRef} options={options} data={initialChartExpensesData.current} />
           <div className='row'>
             <div className='col-12 col-mg-6'>
-              <MemoChartMonthlyIncome
-                ref={chartRefMonthlyIncome}
-                options={optionsChartMonthlyIncome}
-                data={initialDataChartMonthlyIncome.current}
-              />
-            </div>
-            <div className='col-12 col-mg-6'>
+              <h5 className='h5 pt-5 text-info'>Account - Balance</h5>
               <MemoChartMonthlyBalance
                 ref={chartRefMonthlyBalance}
                 options={optionsChartMonthlyBalance}
                 data={initialDataChartMonthlyBalance.current}
+              />
+            </div>
+            <div className='col-12 col-mg-6'>
+              <h5 className='h5 pt-5 text-info'>Income - Expense</h5>
+              <MemoChartMonthlyIncome
+                ref={chartRefMonthlyIncome}
+                options={optionsChartMonthlyIncome}
+                data={initialDataChartMonthlyIncome.current}
               />
             </div>
           </div>

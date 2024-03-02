@@ -3,8 +3,6 @@ import { useMemo, useRef, memo } from 'react';
 import { useDebounce } from 'rooks';
 import Form from 'react-bootstrap/Form';
 
-import './Search.scss';
-
 function Search(props: { handleSearchChange: (search: string) => void }): JSX.Element {
   const qPrevTrimmedVal = useRef('');
 
@@ -19,25 +17,6 @@ function Search(props: { handleSearchChange: (search: string) => void }): JSX.El
   const handleSearchChangeDebounced = useDebounce<(search: string) => void>(handleSearchChange, 500);
 
   return (
-    // <div className='Search'>
-    //   {Math.random()}
-    //   <input
-    //     aria-label='Search'
-    //     placeholder='Search'
-    //     type='search'
-    //     name='search'
-    //     defaultValue=''
-    // onChange={(e): void => {
-    //   const val = e.currentTarget.value;
-    //   const valTrimmed = val.trim();
-    //   console.log('val', val);
-    //   if (valTrimmed !== qPrevTrimmedVal.current) {
-    //     qPrevTrimmedVal.current = valTrimmed;
-    //     handleSearchChangeDebounced(valTrimmed);
-    //   }
-    // }}
-    //   />
-    // </div>
     <Form.Control
       aria-label='Search'
       placeholder='Search'

@@ -28,41 +28,20 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     errorElement: <ErrorPage />,
     loader: sumTransactionsAmountLoader,
-    // action: rootAction(queryClient),
     children: [
       {
         index: true,
-        element: <Dashboard />, // ... for Dashboard
-        // loader: loader,
+        element: <Dashboard />,
       },
-      // {
-      //   path: 'contacts/:contactId',
-      //   element: <Contact />,
-      //   loader: contactLoader(queryClient),
-      //   action: contactAction(queryClient),
-      // },
       {
         path: 'transactions',
         element: <Transactions />,
-        // loader: loader,
+        // loader,
       },
       {
-        path: 'about',
-        element: <Dashboard />, // ... for Dashboard
-        // loader: loader,
+        path: 'dashboard',
+        element: <Dashboard />,
       },
-      // {
-      //   path: 'contacts/:contactId/edit',
-      //   element: <EditContact />,
-      //   loader: contactLoader(queryClient),
-      //   action: editAction(queryClient),
-      // },
-      // {
-      //   path: 'contacts/:contactId/destroy',
-      //   element: <EditContact />,
-      //   action: destroyAction(queryClient),
-      //   errorElement: <div>Oops! There was an error.</div>,
-      // },
     ],
   },
 ]);

@@ -36,7 +36,7 @@ function MultiSelectCheckboxes(props: {
   }, [selectedFlags]);
 
   return (
-    <div className='MultiSelectCheckboxes my-3'>
+    <div className='MultiSelectCheckboxes my-4'>
       <h6 className='h6 MultiSelectCheckboxes__title text-info'>{title}</h6> {/* {Math.random()} */}
       <div className='MultiSelectCheckboxes__cbxs'>
         {valuesLabels.current.map((valueDescriptionString, i) => {

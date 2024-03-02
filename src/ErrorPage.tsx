@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
 
 import './ErrorPage.scss';

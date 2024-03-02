@@ -13,7 +13,6 @@ import {
   filters as filtersActionCreator,
   amountRange,
   dateRange,
-  /* clearFilter, */
   selectTransactions,
   clearSelection,
   initialState,
@@ -132,10 +131,6 @@ export default function Transactions(): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   /* async */ function handleCreateSuccess() {
     handleCloseCreateModal();
-    /* await queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(1, initialState.filter).queryKey });
-    pagenumRef.current = 1;
-    dispatch(clearFilter());
-    // todo... redux on filters search */
     queryClient.invalidateQueries({ queryKey: transactionsQueryOptions(pagenumRef.current, filter).queryKey });
     queryClient.invalidateQueries({ queryKey: sumTransactionsAmountQueryOptions(filter.dateRange).queryKey });
   }
@@ -247,36 +242,6 @@ export default function Transactions(): JSX.Element {
             </>
           </SiderDrawer2>
         </aside>
-        {/* <div style={{ border: '2px solid blue', margin: '1rem 0' }}>
-          <strong>{JSON.stringify(filter)}</strong>
-          <br />
-          <strong>{Math.random()}</strong>
-        </div>
-        <div style={{ border: '2px solid blue', margin: '1rem 0' }}>api response dataa {JSON.stringify(data)}</div> */}
-        {/* <button
-          onClick={(): void => {
-            pagenumRef.current = 1;
-            setRender({});
-          }}
-        >
-          pg1
-        </button>
-        <button
-          onClick={(): void => {
-            pagenumRef.current = 2;
-            setRender({});
-          }}
-        >
-          pg2
-        </button>
-        <button
-          onClick={(): void => {
-            pagenumRef.current = 3;
-            setRender({});
-          }}
-        >
-          pg3
-        </button> */}
       </article>
       {transactionToEdit && (
         <ModalCreate onClose={handleCloseEditModal}>

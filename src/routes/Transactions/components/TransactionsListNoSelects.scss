@@ -1,14 +1,24 @@
 .TransactionsListNoSelects {
-  border: 1px solid blue;
   margin: 1rem 0;
   font-size: .84rem;
   @include media-breakpoint-up(sd) {
     font-size: .96rem;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 .TransactionsListNoSelects__row {
-  // background: lightgreen;
-  // background: transparent;
   flex-wrap: wrap;
   @include media-breakpoint-up(mg) {
     flex-wrap: nowrap;
@@ -38,7 +48,6 @@
 .TransactionsListNoSelects__col {
   // background: lightgray;
   background: transparent;
-  // outline: 1px solid blue;
 }
 .TransactionsListNoSelects__col--category,
 .TransactionsListNoSelects__col--expensedate,
@@ -62,7 +71,6 @@
 }
 .TransactionsListNoSelects__col--amount,
 .TransactionsListNoSelects__col--amount-desktop {
-  outline: 1px solid blue;
   color: #ed1a3d;
   font-weight: 500;
   text-align: right;

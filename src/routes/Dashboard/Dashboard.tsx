@@ -68,7 +68,6 @@ export default function Dashboard(): JSX.Element {
   const initialChartExpensesData = useRef<ChartData<'doughnut'> | undefined>(undefined);
 
   const initialLoadedDataMonthlyIncomeExpenseBalance = useRef<MonthlyIncomeExpenseBalanceDto | undefined>(undefined);
-
   const initialDataChartMonthlyBalance = useRef<ChartData<'line'> | undefined>(undefined);
   const initialDataChartMonthlyIncome = useRef<ChartData<'bar'> | undefined>(undefined);
 
@@ -78,7 +77,7 @@ export default function Dashboard(): JSX.Element {
   const chartRefMonthlyIncome = useRef<any | null>(null);
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
-  ////// Chart for ExpensesByCategory
+  ////// doughnut Chart for ExpensesByCategory
   useMemo(() => {
     if (initialLoadedData.current) {
       return;
@@ -123,7 +122,7 @@ export default function Dashboard(): JSX.Element {
     }
   }, [data]);
 
-  ////// Charts for MonthlyBalance, MonthlyIncome, MonthlyExpense
+  ////// line Chart for MonthlyBalance, bar Charts MonthlyIncome, MonthlyExpense
   useMemo(() => {
     if (initialLoadedDataMonthlyIncomeExpenseBalance.current) {
       return;

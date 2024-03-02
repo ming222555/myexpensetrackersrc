@@ -1,9 +1,9 @@
 .Transactions {
   display: flex;
-  // border: 2px solid blue; // causes bad vscrollbar appear
+  // border: 2px solid blue; // causes vscrollbar appear
 }
 .Transactions__filters { // aside
-  // border: 2px solid green; // causes bad vscrollbar appear
+  // border: 2px solid green; // causes vscrollbar appear
   flex: 0 0 auto;
   height: 100vh;
   overflow-y: auto;
@@ -14,7 +14,6 @@
   }
 }
 .TransactionsSection { // section
-  border: 2px solid black;
   flex: 1 1 auto;
 }
 .Transactions__paginate {

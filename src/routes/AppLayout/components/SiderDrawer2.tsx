@@ -24,7 +24,7 @@ export default function SiderDrawer2({
   return (
     <div className={`bg-success SiderDrawer2 h-100 position-relative${isShowBackdrop ? ' z-3' : ' z-0'}`}>
       <div
-        className={`SiderDrawer2__reveal h-100 d-${responsiveBreakPoint}-none bg-info`}
+        className={`SiderDrawer2__reveal ${placement === 'end' ? 'end ' : ''}h-100 d-${responsiveBreakPoint}-none bg-info`}
         role='button'
         tabIndex={0}
         onClick={handleShow}
@@ -36,7 +36,7 @@ export default function SiderDrawer2({
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div
         className={`SiderDrawer2__backdrop ${
-          placement === 'end' ? 'SiderDrawer2__backdrop--end d-flex justify-content-end ' : ''
+          placement === 'end' ? 'end d-flex justify-content-end ' : ''
         }position-fixed position-${responsiveBreakPoint}-static w-100 w-${responsiveBreakPoint}-auto${isShowBackdrop ? ' show' : ''}`}
         // role='button'
         // tabIndex={0}

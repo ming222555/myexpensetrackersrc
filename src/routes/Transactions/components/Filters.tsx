@@ -27,7 +27,6 @@ function Filters(props: { handleFiltersChange: (filters: IFilters) => void }): J
   const handleFormChange = useMemo(() => {
     return function () {
       const data = new FormData(formRef.current!);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const _formFields = Object.fromEntries(data) as unknown;
       const formFields = _formFields as IFilters;
 

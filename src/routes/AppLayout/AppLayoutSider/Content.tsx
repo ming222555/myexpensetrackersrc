@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import { useQuery } from '@tanstack/react-query';
 
@@ -17,6 +17,9 @@ export default function Content(): JSX.Element {
   const { isPending, isError, error, data, fetchStatus, status, isFetching } = useQuery(sumTransactionsAmountQueryOptions(dateRange));
 
   const sumTransactionsAmount = data ? parseFloat(data.split(',')[0]) : 0;
+
+  const location = useLocation();
+  const { pathname } = location;
 
   return (
     <>
@@ -83,7 +86,9 @@ a5 5 0 0 0 5 5 h125 a5 5 0 0 0 5 -5 v-25 a5 5 0 0 1 -10 0 a5 5 0 0 1 10 0 v-35'
       </NavLink>
       <NavLink
         to='dashboard'
-        className={({ isActive, isPending }): string => (isPending ? navLinkPending : isActive ? navLinkActive : navLinkDefault)}
+        className={({ isActive, isPending }): string =>
+          isPending ? navLinkPending : isActive || pathname === '/' ? navLinkActive : navLinkDefault
+        }
         role='button'
       >
         Dashboard

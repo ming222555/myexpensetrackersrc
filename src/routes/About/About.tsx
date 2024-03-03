@@ -24,7 +24,11 @@ export default function About(): JSX.Element {
           <span className='d-block text-info'>react-redux v9</span>
           <span className='d-block text-info'>@tanstack/react-query v5</span>
           <span className='d-block text-info'>react-router-dom v6</span>
-          <span className='d-block text-info my-3'>typescript v4</span>
+
+          <span className='d-block text-info mt-3'>es6</span>
+          <span className='d-block text-info'>async code e.g. async/await, promise</span>
+          <span className='d-block text-info mb-3'>typescript v4</span>
+
           <span className='d-block text-info'>useDebounce hook from npm rooks</span>
           <span className='d-block text-info'>sortBy from npm sort-by</span>
           <span className='d-block text-info'>matchSorter from npm match-sorter</span>

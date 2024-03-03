@@ -707,6 +707,6 @@ function set(transactions: TransactionDto[]) {
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function fakeNetwork() {
   return new Promise(resolve => {
-    setTimeout(resolve, Math.random() * 8000); // 800
+    setTimeout(resolve, Math.random() * 800); // 8000
   });
 }

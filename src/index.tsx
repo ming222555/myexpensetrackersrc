@@ -11,6 +11,7 @@ import store from './store/store';
 import AppLayout from './routes/AppLayout/AppLayout';
 import Transactions, { /* loader, */ sumTransactionsAmountLoader } from './routes/Transactions/Transactions';
 import Dashboard from './routes/Dashboard/Dashboard';
+import About from './routes/About/About';
 import queryClient from './reactquery';
 import ErrorPage from './ErrorPage';
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: 'dashboard',
         element: <Dashboard />,
+      },
+      {
+        path: 'about',
+        element: <About />,
       },
     ],
   },

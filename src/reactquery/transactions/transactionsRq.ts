@@ -9,6 +9,10 @@ import {
   retrieveMonthlyIncomeExpenseBalance,
   retrieveExpensesByCategory,
 } from '../../db/indexdb';
+import queryClient from '../../reactquery';
+
+const defaultOptions = queryClient.getDefaultOptions();
+const defaultStaleTime = defaultOptions.queries ? defaultOptions.queries.staleTime : 0;
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function fetchTransactions(pagenum: number, filter: Filter) {
@@ -18,20 +22,11 @@ export async function fetchTransactions(pagenum: number, filter: Filter) {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function transactionsQueryOptions(pagenum: number, filter: Filter, staleTime = -1) {
-  if (staleTime < 0) {
-    return queryOptions({
-      queryKey: ['transactions', pagenum, filter],
-      queryFn: async () => fetchTransactions(pagenum, filter),
-      placeholderData: keepPreviousData,
-      // use global default staleTime
-    });
-  }
-
   return queryOptions({
     queryKey: ['transactions', pagenum, filter],
     queryFn: async () => fetchTransactions(pagenum, filter),
     placeholderData: keepPreviousData,
-    staleTime,
+    staleTime: staleTime < 0 ? defaultStaleTime : staleTime,
   });
 }
 
@@ -43,20 +38,11 @@ export async function fetchTransactionsRecent(dateRange: string) {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function transactionsRecentQueryOptions(dateRange: string, staleTime = -1) {
-  if (staleTime < 0) {
-    return queryOptions({
-      queryKey: ['transactionsrecent', dateRange],
-      queryFn: async () => fetchTransactionsRecent(dateRange),
-      placeholderData: keepPreviousData,
-      // use global default staleTime
-    });
-  }
-
   return queryOptions({
     queryKey: ['transactionsrecent', dateRange],
     queryFn: async () => fetchTransactionsRecent(dateRange),
     placeholderData: keepPreviousData,
-    staleTime,
+    staleTime: staleTime < 0 ? defaultStaleTime : staleTime,
   });
 }
 
@@ -68,20 +54,11 @@ export async function fetchSumIncomes(dateRange: string) {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function sumIncomesQueryOptions(dateRange: string, staleTime = -1) {
-  if (staleTime < 0) {
-    return queryOptions({
-      queryKey: ['sumIncomes', dateRange],
-      queryFn: async () => fetchSumIncomes(dateRange),
-      placeholderData: keepPreviousData,
-      // use global default staleTime
-    });
-  }
-
   return queryOptions({
     queryKey: ['sumIncomes', dateRange],
     queryFn: async () => fetchSumIncomes(dateRange),
     placeholderData: keepPreviousData,
-    staleTime,
+    staleTime: staleTime < 0 ? defaultStaleTime : staleTime,
   });
 }
 
@@ -93,20 +70,11 @@ export async function fetchMonthlyIncomeExpenseBalance(months: number[]) {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function monthlyIncomeExpenseBalanceQueryOptions(months: number[], staleTime = -1) {
-  if (staleTime < 0) {
-    return queryOptions({
-      queryKey: ['monthlyIncomeExpenseBalance', [months]],
-      queryFn: async () => fetchMonthlyIncomeExpenseBalance(months),
-      placeholderData: keepPreviousData,
-      // use global default staleTime
-    });
-  }
-
   return queryOptions({
     queryKey: ['monthlyIncomeExpenseBalance', [months]],
     queryFn: async () => fetchMonthlyIncomeExpenseBalance(months),
     placeholderData: keepPreviousData,
-    staleTime,
+    staleTime: staleTime < 0 ? defaultStaleTime : staleTime,
   });
 }
 
@@ -118,20 +86,11 @@ export async function fetchSumTransactionsAmount(dateRange: string) {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function sumTransactionsAmountQueryOptions(dateRange: string, staleTime = -1) {
-  if (staleTime < 0) {
-    return queryOptions({
-      queryKey: ['sumTransactionsAmount', dateRange],
-      queryFn: async () => fetchSumTransactionsAmount(dateRange),
-      placeholderData: keepPreviousData,
-      // use global default staleTime
-    });
-  }
-
   return queryOptions({
     queryKey: ['sumTransactionsAmount', dateRange],
     queryFn: async () => fetchSumTransactionsAmount(dateRange),
     placeholderData: keepPreviousData,
-    staleTime,
+    staleTime: staleTime < 0 ? defaultStaleTime : staleTime,
   });
 }
 
@@ -143,19 +102,10 @@ export async function fetchExpensesByCategory(dateRange: string) {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function expensesByCategoryQueryOptions(dateRange: string, staleTime = -1) {
-  if (staleTime < 0) {
-    return queryOptions({
-      queryKey: ['expensesByCategory', dateRange],
-      queryFn: async () => fetchExpensesByCategory(dateRange),
-      placeholderData: keepPreviousData,
-      // use global default staleTime
-    });
-  }
-
   return queryOptions({
     queryKey: ['expensesByCategory', dateRange],
     queryFn: async () => fetchExpensesByCategory(dateRange),
     placeholderData: keepPreviousData,
-    staleTime,
+    staleTime: staleTime < 0 ? defaultStaleTime : staleTime,
   });
 }

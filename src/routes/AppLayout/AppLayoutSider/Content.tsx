@@ -18,8 +18,7 @@ export default function Content(): JSX.Element {
 
   const sumTransactionsAmount = data ? parseFloat(data.split(',')[0]) : 0;
 
-  const location = useLocation();
-  const { pathname } = location;
+  const { pathname } = useLocation();
 
   return (
     <>

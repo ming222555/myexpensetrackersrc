@@ -9,7 +9,8 @@ import {
 } from '../../../store/ducks/transactions/transactionsSlice';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import { delimitMMDDYYYY, zeroPaddMoney } from '../../../util';
-import { TransactionDto, dbLookupCategories } from '../../../db/indexdb';
+import { dbLookupCategories } from '../../../db/indexdb';
+import { TransactionDto } from '../../../db/dto';
 
 function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Element {
   const transactions = props.transactions;

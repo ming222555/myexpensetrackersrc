@@ -4,45 +4,7 @@ import sortBy from 'sort-by';
 
 import './seed';
 import type { Filter } from '../store/ducks/transactions/transactionsSlice';
-
-export interface TransactionDto {
-  cashflow: string;
-  category: string;
-  paymentmode: string;
-  amount: number;
-  expenseDate: number; // the transaction date. yyyymmdd for simplicity, should be using epoch seconds or milliseconds
-  note: string;
-  // createdAt: number; // epoch
-  id: number; // epoch
-}
-
-export interface TransactionsPaginatedDataDto {
-  transactions: TransactionDto[];
-  pagenum: number;
-  totalPages: number;
-  totalItems: number;
-}
-
-export interface ExpensesByCategoryDto {
-  expenses: {
-    expense: number;
-    legend: string;
-  }[];
-  sumExpenses: number;
-}
-
-/**
- * @key months: number[] e.g. [10,11,12] meaning Oct,Nov,Dec. Assume same year
- * @key incomes: number[] Array of monthly income for months listed in months
- * @key expenses: number[] Array of monthly expense for months listed in months
- * @key balances: number[] Array of monthly balance for months listed in months
- */
-export interface MonthlyIncomeExpenseBalanceDto {
-  months: number[];
-  incomes: number[];
-  expenses: number[];
-  balances: number[];
-}
+import { TransactionDto, TransactionsPaginatedDataDto, ExpensesByCategoryDto, MonthlyIncomeExpenseBalanceDto } from './dto';
 
 export const tblCashflows = [
   { name: 'income', label: 'Income' },
@@ -393,7 +355,7 @@ function filterTransactionsByDateRange(transactions: TransactionDto[], dateRange
 
 export async function retrieveExpensesByCategory(dateRange: string): Promise<ExpensesByCategoryDto> {
   // only on categories that are an expense (as opposed to income)
-  // 'Others' refer to category (expense) not listed e.g. tax
+  // 'Others' refer to category (expense) not listed below e.g. tax
   const _CATEGORIES = ['bills', 'clothing', 'food', 'healthcare', 'housing', 'insurance', 'shopping', 'transportation', 'utilities'];
   const _CATEGORIES_DESCRIBE = [
     'Bills',

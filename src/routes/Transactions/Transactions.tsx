@@ -24,7 +24,7 @@ import CreateModal from './components/CreateModal';
 import DeleteModal from './components/DeleteModal';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import queryClient from '../../reactquery';
-import { TransactionDto } from '../../db/indexdb';
+import { TransactionDto } from '../../db/dto';
 import { transactionsQueryOptions, sumTransactionsAmountQueryOptions } from '../../reactquery/transactions/transactionsRq';
 // import SiderDrawer from '../AppLayout/components/SiderDrawer';
 import SiderDrawer2 from '../AppLayout/components/SiderDrawer2';

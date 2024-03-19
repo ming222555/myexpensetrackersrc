@@ -14,7 +14,7 @@ import {
   monthlyIncomeExpenseBalanceQueryOptions,
   transactionsRecentQueryOptions,
 } from '../../reactquery/transactions/transactionsRq';
-import { ExpensesByCategoryDto, MonthlyIncomeExpenseBalanceDto } from '../../db/indexdb';
+import { ExpensesByCategoryDto, MonthlyIncomeExpenseBalanceDto } from '../../db/dto';
 import { humaniseDateRange } from '../../util';
 import { MemoDoughnutExpenses } from './components/DoughnutExpenses';
 import { MemoChartMonthlyIncome } from './components/ChartMonthlyIncome';

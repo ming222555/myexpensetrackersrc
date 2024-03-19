@@ -1,6 +1,6 @@
 import localforage from 'localforage';
 
-import { TransactionDto } from './indexdb';
+import { TransactionDto } from './dto';
 
 const seed = async (): Promise<void> => {
   const initialData: TransactionDto[] = [

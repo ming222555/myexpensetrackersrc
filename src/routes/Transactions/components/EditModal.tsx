@@ -5,7 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import { TransactionDto, updateTransaction, tblCashflows, tblCategories, tblPaymentmodes } from '../../../db/indexdb';
+import { updateTransaction, tblCashflows, tblCategories, tblPaymentmodes } from '../../../db/indexdb';
+import { TransactionDto } from '../../../db/dto';
 import ModalSpinner from '../../../components/Modals/ModalSpinner';
 import ModalAlert from '../../../components/Modals/ModalAlert';
 import './EditModal.scss';

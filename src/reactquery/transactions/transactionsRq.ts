@@ -16,8 +16,13 @@ const defaultStaleTime = defaultOptions.queries ? defaultOptions.queries.staleTi
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function fetchTransactions(pagenum: number, filter: Filter) {
-  const response = await retrieveTransactions(pagenum, { ...filter });
-  return response;
+  try {
+    const response = await retrieveTransactions(pagenum, { ...filter });
+    return response;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    throw err;
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

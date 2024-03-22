@@ -205,6 +205,7 @@ export default function Transactions(): JSX.Element {
               Delete
             </button>
           </div>
+          {isError ? <p className='text-red'>{error.message} while fetching</p> : null}
           {data && <TransactionsList transactions={data.transactions} />}
           {data && data.totalPages > 1 && (
             <div className='Transactions__paginate d-flex align-items-baseline'>

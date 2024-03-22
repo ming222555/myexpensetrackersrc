@@ -31,13 +31,16 @@ export function axiosGet<T>(url: string, payload?: any): Promise<T> {
             error.message = 'Internal server error';
             break;
           default:
-            // eslint-disable-next-line no-case-declarations
-            const resErrmsg = error.response.data.message;
-            error.message = resErrmsg && resErrmsg !== 'undefined' ? resErrmsg : error.message;
+            error.message =
+              error.response.data.error || error.response.data.message || error.message || JSON.stringify(error.response.data);
             if (error.status === 400) {
-              error.message = 'Client error. ' + error.message;
+              error.message = 'Application error. ' + error.message;
             }
         }
+        console.log(
+          'error',
+          error.response.data.error || error.response.data.message || error.message || JSON.stringify(error.response.data),
+        );
       } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -50,7 +53,7 @@ export function axiosGet<T>(url: string, payload?: any): Promise<T> {
         console.log('Error', error.message);
         error.status = null;
       }
-      console.log(error.config);
+      // console.log(error.config);
       throw error;
     });
 }

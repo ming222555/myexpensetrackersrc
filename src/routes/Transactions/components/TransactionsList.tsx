@@ -93,7 +93,7 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
             onChange={handleChange}
           />
           <div className='app__col TransactionsList__col TransactionsList__col--category'>
-            <span>{dbLookupCategories(trx.category)}</span>
+            {/* <span>{dbLookupCategories(trx.category)}</span> */} {trx.category}
           </div>
           <div className='app__col TransactionsList__col TransactionsList__col--expensedate'>
             <span>{delimitMMDDYYYY(trx.expenseDate, '-')}</span>

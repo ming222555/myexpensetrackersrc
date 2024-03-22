@@ -1,7 +1,6 @@
 import { memo } from 'react';
 
 import { delimitMMDDYYYY, zeroPaddMoney } from '../../../util';
-import { dbLookupCategories } from '../../../db/indexdb';
 import { TransactionDto } from '../../../db/dto';
 
 function TransactionsListNoSelects(props: { transactions: TransactionDto[] }): JSX.Element {
@@ -32,7 +31,7 @@ function TransactionsListNoSelects(props: { transactions: TransactionDto[] }): J
       {transactions.map(trx => (
         <div key={trx.id} className='app__row TransactionsListNoSelects__row'>
           <div className='app__col TransactionsListNoSelects__col TransactionsListNoSelects__col--category'>
-            <span>{dbLookupCategories(trx.category)}</span>
+            <span>{trx.category}</span>
           </div>
           <div className='app__col TransactionsListNoSelects__col TransactionsListNoSelects__col--expensedate'>
             <span>{delimitMMDDYYYY(trx.expenseDate, '-')}</span>

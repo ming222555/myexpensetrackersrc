@@ -237,9 +237,9 @@ export async function retrieveTransactions(pagenum: number, filter: Filter): Pro
 }
 
 export async function retrieveTransactionsRecent(dateRange: string): Promise<TransactionDto[]> {
+  const querystring = dateRange ? `?dateRange=${encodeURIComponent(dateRange)}` : '';
   try {
-    const res = await axiosGet<TransactionDto[]>('/api/v1/transactions/recent'); // dataRange to querystring too!!!
-    console.log('oooooooooooooo', res);
+    const res = await axiosGet<TransactionDto[]>('/api/v1/transactions/recent' + querystring);
     return res;
   } catch (err) {
     throw err;

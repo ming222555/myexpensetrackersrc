@@ -53,9 +53,13 @@ export default function Dashboard(): JSX.Element {
     isFetching: isFetchingMonthlyBalance,
   } = useQuery(monthlyIncomeExpenseBalanceQueryOptions([10, 11, 12])); // Oct, Nov, Dec
 
-  const { /* isPending, isError, error, status, */ data: dataTransactionsRecent, isFetching: isFetchingTransactionsRecent } = useQuery(
-    transactionsRecentQueryOptions(dateRange),
-  );
+  const {
+    /* isPending, status, */
+    isError: isErrorTransactionsRecent,
+    error: errorTransactionsRecent,
+    data: dataTransactionsRecent,
+    isFetching: isFetchingTransactionsRecent,
+  } = useQuery(transactionsRecentQueryOptions(dateRange));
 
   isFetching.current =
     isFetchingExpensesByCategory ||
@@ -296,6 +300,7 @@ export default function Dashboard(): JSX.Element {
           </div>
           <h5 className='h5 pt-5 text-info'>Recent Transactions</h5>
           {dataTransactionsRecent && <TransactionsListNoSelects transactions={dataTransactionsRecent} />}
+          {isErrorTransactionsRecent ? <p className='text-red'>{errorTransactionsRecent.message} while fetching</p> : null}
         </section>
       </article>
       {isFetching.current && <ModalSpinner />}

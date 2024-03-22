@@ -32,8 +32,6 @@ export function transactionsQueryOptions(pagenum: number, filter: Filter, staleT
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function fetchTransactionsRecent(dateRange: string) {
-  // const response = await retrieveTransactionsRecent(dateRange);
-  // return response;
   try {
     const response = await retrieveTransactionsRecent(dateRange);
     return response;

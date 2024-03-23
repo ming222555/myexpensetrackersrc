@@ -48,6 +48,7 @@ export default function Content(): JSX.Element {
                 .wallet-fetching { \
                   outline: 1px solid #0000ff; \
                   outline-style: dotted; \
+                  font-style: italic; \
                 } \
                 .wallet-balance.wallet-fetching { \
                   outline-style: none; \
@@ -68,7 +69,7 @@ a5 5 0 0 0 5 5 h125 a5 5 0 0 0 5 -5 v-25 a5 5 0 0 1 -10 0 a5 5 0 0 1 10 0 v-35'
               className={`wallet-balance${isFetching ? ' wallet-fetching' : ''}${sumTransactionsAmount < 0 ? ' deficit' : ''}`}
             >
               {isFetching
-                ? 'Fetching...'
+                ? 'fetching...'
                 : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(sumTransactionsAmount)}
             </text>
           </g>

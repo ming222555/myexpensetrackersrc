@@ -26,7 +26,7 @@ export default function SumsIncomeExpensesBalanceTransactions({
               errorSumIncomes ? (
                 <i className='text-red'>{errorSumIncomes.message}</i>
               ) : (
-                <i className='text-info'>fetching...</i>
+                <i className='text-info'>loading...</i>
               )
             ) : (
               new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(sumIncomes)
@@ -50,7 +50,7 @@ export default function SumsIncomeExpensesBalanceTransactions({
               errorSumBalance ? (
                 <i className='text-red'>{errorSumBalance.message}</i>
               ) : (
-                <i className='text-info'>fetching...</i>
+                <i className='text-info'>loading...</i>
               )
             ) : (
               new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(sumBalance)
@@ -66,7 +66,7 @@ export default function SumsIncomeExpensesBalanceTransactions({
               errorSumTransactions ? (
                 <i className='text-red'>{errorSumTransactions.message}</i>
               ) : (
-                <i className='text-info'>fetching...</i>
+                <i className='text-info'>loading...</i>
               )
             ) : (
               sumTransactions

@@ -38,14 +38,6 @@ export const tblPaymentmodes = [
   { name: 'creditcard', label: 'Credit Card' },
 ];
 
-export function dbLookupCategories(key: string): string {
-  const category = tblCategories.find(catgy => catgy.name === key);
-  if (category) {
-    return category.label;
-  }
-  return '';
-}
-
 export async function retrieveTransactions(pagenum: number, filter: Filter): Promise<TransactionsPaginatedDataDto> {
   const qs = new URLSearchParams({ ...filter, pagenum: pagenum + '' }).toString();
   try {

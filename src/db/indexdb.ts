@@ -382,25 +382,13 @@ export async function retrieveMonthlyIncomeExpenseBalance(months: number[]): Pro
  * @returns comma delimited string e.g. '666.99,123' where 666.99 denotes sumTransactionsAmount and 123 totalTransactions within dateRange
  */
 export async function retrieveSumTransactionsAmount(dateRange: string): Promise<string> {
-  await fakeNetwork();
-  const transactions = await localforage.getItem<TransactionDto[]>('transactions');
-  if (!transactions) {
-    return '0,0';
+  const querystring = dateRange ? `?dateRange=${encodeURIComponent(dateRange)}` : '';
+  try {
+    const res = await axiosGet<string>('/api/v1/accounts/sumtransactionsamount' + querystring);
+    return res;
+  } catch (err) {
+    throw err;
   }
-
-  if (transactions.length === 0) {
-    return '0,0';
-  }
-
-  const transactionsDateRanged = filterTransactionsByDateRange(transactions, dateRange);
-
-  const getSum = (sum: number, trx: TransactionDto): number => {
-    const delta = trx.cashflow === 'income' ? trx.amount : trx.cashflow === 'expense' ? -1 * trx.amount : 0;
-    return sum + delta;
-  };
-
-  const sum = transactionsDateRanged.reduce(getSum, 0);
-  return sum + ',' + transactionsDateRanged.length;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

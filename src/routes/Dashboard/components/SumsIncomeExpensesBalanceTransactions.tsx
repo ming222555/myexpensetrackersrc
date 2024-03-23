@@ -6,12 +6,16 @@ export default function SumsIncomeExpensesBalanceTransactions({
   sumBalance,
   sumTransactions,
   errorSumIncomes,
+  errorSumBalance,
+  errorSumTransactions,
 }: {
   sumIncomes: number | undefined;
   sumExpenses: number | undefined;
   sumBalance: number | undefined;
   sumTransactions: number | undefined;
   errorSumIncomes: Error | null;
+  errorSumBalance: Error | null;
+  errorSumTransactions: Error | null;
 }): JSX.Element {
   return (
     <div className='row Sums__sums'>
@@ -41,15 +45,33 @@ export default function SumsIncomeExpensesBalanceTransactions({
       </div>
       <div className='col-6 col-mg-3 Sums__sum'>
         <p className='Sums__sum-details text-center bg-white m-2'>
-          <span className={`Sums__sum-amount ${sumBalance !== undefined && sumBalance < 0 ? 'text-red' : 'text-dark'} d-block py-2`}>
-            {sumBalance === undefined ? '?' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(sumBalance)}
+          <span className='Sums__sum-amount text-danger d-block py-2'>
+            {sumBalance === undefined ? (
+              errorSumBalance ? (
+                <i className='text-red'>{errorSumBalance.message}</i>
+              ) : (
+                <i className='text-info'>fetching...</i>
+              )
+            ) : (
+              new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(sumBalance)
+            )}
           </span>
           <span className='Sums__sum-label d-block pb-2'>Balance</span>
         </p>
       </div>
       <div className='col-6 col-mg-3 Sums__sum'>
         <p className='Sums__sum-details text-center bg-white m-2'>
-          <span className='Sums__sum-amount text-info d-block py-2'>{sumTransactions === undefined ? '?' : sumTransactions}</span>
+          <span className='Sums__sum-amount text-info d-block py-2'>
+            {sumTransactions === undefined ? (
+              errorSumTransactions ? (
+                <i className='text-red'>{errorSumTransactions.message}</i>
+              ) : (
+                <i className='text-info'>fetching...</i>
+              )
+            ) : (
+              sumTransactions
+            )}
+          </span>
           <span className='Sums__sum-label d-block pb-2'>Transactions</span>
         </p>
       </div>

@@ -95,8 +95,13 @@ export function monthlyIncomeExpenseBalanceQueryOptions(months: number[], staleT
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function fetchSumTransactionsAmount(dateRange: string) {
-  const response = await retrieveSumTransactionsAmount(dateRange);
-  return response;
+  try {
+    const response = await retrieveSumTransactionsAmount(dateRange);
+    return response;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    throw err;
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

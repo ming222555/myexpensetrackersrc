@@ -37,9 +37,12 @@ export default function Dashboard(): JSX.Element {
     isFetching: isFetchingExpensesByCategory,
   } = useQuery(expensesByCategoryQueryOptions(dateRange));
 
-  const { /* isPending, isError, error, status, */ data: dataSumBalance, isFetching: isFetchingSumBalance } = useQuery(
-    sumTransactionsAmountQueryOptions(dateRange),
-  );
+  const {
+    /* isPending, isError, status, */
+    error: errorSumBalance,
+    data: dataSumBalance,
+    isFetching: isFetchingSumBalance,
+  } = useQuery(sumTransactionsAmountQueryOptions(dateRange));
   const sumTransactionsAmount = dataSumBalance ? parseFloat(dataSumBalance.split(',')[0]) : undefined;
   const totalTransactions = dataSumBalance ? parseFloat(dataSumBalance.split(',')[1]) : undefined;
 
@@ -276,6 +279,8 @@ export default function Dashboard(): JSX.Element {
             sumBalance={sumTransactionsAmount}
             sumTransactions={totalTransactions}
             errorSumIncomes={errorSumIncomes}
+            errorSumBalance={errorSumBalance}
+            errorSumTransactions={errorSumBalance}
           />
           <h5 className='h5 pt-5 text-info text-center'>
             Total Expenses

@@ -5,18 +5,28 @@ export default function SumsIncomeExpensesBalanceTransactions({
   sumExpenses,
   sumBalance,
   sumTransactions,
+  errorSumIncomes,
 }: {
   sumIncomes: number | undefined;
   sumExpenses: number | undefined;
   sumBalance: number | undefined;
   sumTransactions: number | undefined;
+  errorSumIncomes: Error | null;
 }): JSX.Element {
   return (
     <div className='row Sums__sums'>
       <div className='col-6 col-mg-3 Sums__sum'>
         <p className='Sums__sum-details text-center bg-white m-2'>
-          <span className='Sums__sum-amount text-primary d-block py-2'>
-            {sumIncomes === undefined ? '?' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(sumIncomes)}
+          <span className='Sums__sum-amount text-danger d-block py-2'>
+            {sumIncomes === undefined ? (
+              errorSumIncomes ? (
+                <i className='text-red'>{errorSumIncomes.message}</i>
+              ) : (
+                <i className='text-info'>fetching...</i>
+              )
+            ) : (
+              new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(sumIncomes)
+            )}
           </span>
           <span className='Sums__sum-label d-block pb-2'>Income</span>
         </p>

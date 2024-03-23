@@ -58,8 +58,13 @@ export function transactionsRecentQueryOptions(dateRange: string, staleTime = -1
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function fetchSumIncomes(dateRange: string) {
-  const response = await retrieveSumIncomes(dateRange);
-  return response;
+  try {
+    const response = await retrieveSumIncomes(dateRange);
+    return response;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    throw err;
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

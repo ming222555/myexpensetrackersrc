@@ -32,7 +32,19 @@ export interface ExpensesByCategoryDto {
  */
 export interface MonthlyIncomeExpenseBalanceDto {
   months: number[];
-  incomes: number[];
-  expenses: number[];
-  balances: number[];
+  // incomes: number[];
+  // expenses: number[];
+  // balances: number[];
+  incomes: {
+    month: number;
+    amount: number;
+  }[];
+  expenses: {
+    month: number;
+    amount: number;
+  }[];
+  balances: {
+    month: number;
+    amount: number;
+  }[];
 }

@@ -150,7 +150,11 @@ export default function Dashboard(): JSX.Element {
         datasets: [
           {
             label: 'Monthly Account Balance',
-            data: initialLoadedDataMonthlyIncomeExpenseBalance.current.balances,
+            data: initialLoadedDataMonthlyIncomeExpenseBalance.current.months.map(mth => {
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              const bal = initialLoadedDataMonthlyIncomeExpenseBalance.current!.balances.find(bal => bal.month === mth);
+              return bal ? bal.amount : null;
+            }),
             fill,
             borderColor,
             tension,
@@ -163,13 +167,21 @@ export default function Dashboard(): JSX.Element {
         datasets: [
           {
             label: 'Monthly Income',
-            data: initialLoadedDataMonthlyIncomeExpenseBalance.current.incomes,
+            data: initialLoadedDataMonthlyIncomeExpenseBalance.current.months.map(mth => {
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              const income = initialLoadedDataMonthlyIncomeExpenseBalance.current!.incomes.find(income => income.month === mth);
+              return income ? income.amount : null;
+            }),
             borderColor,
             backgroundColor: ['rgba(153, 102, 255, 0.2)'],
           },
           {
             label: 'Monthly Expense',
-            data: initialLoadedDataMonthlyIncomeExpenseBalance.current.expenses,
+            data: initialLoadedDataMonthlyIncomeExpenseBalance.current.months.map(mth => {
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              const expense = initialLoadedDataMonthlyIncomeExpenseBalance.current!.expenses.find(expense => expense.month === mth);
+              return expense ? expense.amount : null;
+            }),
             borderColor,
             backgroundColor: ['rgba(201, 203, 207, 0.2)'],
           },
@@ -184,13 +196,28 @@ export default function Dashboard(): JSX.Element {
     if (dataMonthlyIncomeExpenseBalance) {
       if (chartRefMonthlyBalance.current) {
         chart = chartRefMonthlyBalance.current;
-        chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.balances;
+        chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.months.map(mth => {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const bal = dataMonthlyIncomeExpenseBalance.balances.find(bal => bal.month === mth);
+          return bal ? bal.amount : null;
+        });
         chart.update();
       }
       if (chartRefMonthlyIncome.current) {
         chart = chartRefMonthlyIncome.current;
-        chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.incomes;
-        chart.data.datasets[1].data = dataMonthlyIncomeExpenseBalance.expenses;
+        // chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.incomes;
+        chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.months.map(mth => {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const income = dataMonthlyIncomeExpenseBalance.incomes.find(income => income.month === mth);
+          return income ? income.amount : null;
+        });
+
+        chart.data.datasets[1].data = dataMonthlyIncomeExpenseBalance.months.map(mth => {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const expense = dataMonthlyIncomeExpenseBalance.expenses.find(expense => expense.month === mth);
+          return expense ? expense.amount : null;
+        });
+
         chart.update();
       }
     }

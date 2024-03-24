@@ -193,7 +193,7 @@ export default function Dashboard(): JSX.Element {
   useMemo(() => {
     let chart;
 
-    if (dataMonthlyIncomeExpenseBalance) {
+    if (dataMonthlyIncomeExpenseBalance && statusMonthlyBalance === 'success') {
       if (chartRefMonthlyBalance.current) {
         chart = chartRefMonthlyBalance.current;
         chart.data.datasets[0].data = dataMonthlyIncomeExpenseBalance.months.map(mth => {
@@ -221,7 +221,8 @@ export default function Dashboard(): JSX.Element {
         chart.update();
       }
     }
-  }, [dataMonthlyIncomeExpenseBalance]);
+  }, [statusMonthlyBalance, dataMonthlyIncomeExpenseBalance]);
+
   // console.log(data);
 
   const options = useMemo((): ChartOptions<'doughnut'> => {

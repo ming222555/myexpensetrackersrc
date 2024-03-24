@@ -22,7 +22,16 @@ function ChartMonthlyBalance(
   // https://react-chartjs-2.js.org/faq/chartjs-instance
   // https://react-chartjs-2.js.org/faq/typescript
 ): JSX.Element {
-  return <div className='ChartMonthlyBalance'>{data && <Line ref={ref} options={options} data={data} />}</div>;
+  return (
+    <div className='ChartMonthlyBalance'>
+      {data && <Line ref={ref} options={options} data={data} />}
+      {!data && (
+        <p className='pt-4 ps-4'>
+          <i className='text-info'>loading...</i>
+        </p>
+      )}
+    </div>
+  );
 }
 
 export const MemoChartMonthlyBalance = memo(forwardRef(ChartMonthlyBalance));

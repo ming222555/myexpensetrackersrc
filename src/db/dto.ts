@@ -26,15 +26,12 @@ export interface ExpensesByCategoryDto {
 
 /**
  * @key months: number[] e.g. [10,11,12] meaning Oct,Nov,Dec. Assume same year
- * @key incomes: number[] Array of monthly income for months listed in months
- * @key expenses: number[] Array of monthly expense for months listed in months
- * @key balances: number[] Array of monthly balance for months listed in months
+ * @key incomes: { month: number; amount: number }[] Array of monthly income for months listed in months
+ * @key expenses: { month: number; amount: number }[] Array of monthly expense for months listed in months
+ * @key balances: { month: number; amount: number }[] Array of monthly balance for months listed in months
  */
 export interface MonthlyIncomeExpenseBalanceDto {
   months: number[];
-  // incomes: number[];
-  // expenses: number[];
-  // balances: number[];
   incomes: {
     month: number;
     amount: number;

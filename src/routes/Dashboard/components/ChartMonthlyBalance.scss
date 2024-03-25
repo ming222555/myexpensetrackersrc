@@ -5,3 +5,12 @@
   height: 0;
   padding-bottom: 49%;
 }
+.ChartMonthlyBalance__Wrapper {
+  position: relative;
+}
+.ChartMonthlyBalance__status {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}

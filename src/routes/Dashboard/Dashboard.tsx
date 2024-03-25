@@ -324,6 +324,7 @@ export default function Dashboard(): JSX.Element {
                 ref={chartRefMonthlyBalance}
                 options={optionsChartMonthlyBalance}
                 data={initialDataChartMonthlyBalance.current}
+                status={isFetchingMonthlyBalance ? 'fetching' : statusMonthlyBalance}
               />
             </div>
             <div className='col-12 col-mg-6'>
@@ -332,6 +333,7 @@ export default function Dashboard(): JSX.Element {
                 ref={chartRefMonthlyIncome}
                 options={optionsChartMonthlyIncome}
                 data={initialDataChartMonthlyIncome.current}
+                status={isFetchingMonthlyBalance ? 'fetching' : statusMonthlyBalance}
               />
             </div>
           </div>

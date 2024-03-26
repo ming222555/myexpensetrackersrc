@@ -1,20 +1,18 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function axiosGet<T>(url: string, payload?: any): Promise<T> {
-  return axios
-    .get<T>(url, payload)
+function axiosVerb<T>(verb: Promise<AxiosResponse<T>>): Promise<T> {
+  return verb
     .then(response => response.data)
     .catch(function (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
         /* console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-        console.log("has error.response", error.message); */
+      console.log(error.response.status);
+      console.log(error.response.headers);
+      console.log("has error.response", error.message); */
         error.status = error.response.status;
 
         switch (error.status) {
@@ -56,4 +54,13 @@ export function axiosGet<T>(url: string, payload?: any): Promise<T> {
       // console.log(error.config);
       throw error;
     });
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function axiosGet<T>(url: string, payload?: any): Promise<T> {
+  return axiosVerb<T>(axios.get(url, payload));
+}
+
+export function axiosPost<T>(url: string, payload?: any): Promise<T> {
+  return axiosVerb<T>(axios.post(url, payload));
 }

@@ -1,11 +1,9 @@
 import localforage from 'localforage';
-import { matchSorter } from 'match-sorter';
-import sortBy from 'sort-by';
 
 import './seed';
 import type { Filter } from '../store/ducks/transactions/transactionsSlice';
 import { TransactionDto, TransactionsPaginatedDataDto, ExpensesByCategoryDto, MonthlyIncomeExpenseBalanceDto } from './dto';
-import { axiosGet } from '../util_axios';
+import { axiosGet, axiosPost } from '../util_axios';
 
 export const tblCashflows = [
   { name: 'income', label: 'Income' },
@@ -77,16 +75,12 @@ export async function updateTransaction(updates: TransactionDto) {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function createTransaction(creationDetails: Omit<TransactionDto, 'id'>) {
-  await fakeNetwork();
-  let transactions = await localforage.getItem<TransactionDto[]>('transactions');
-  if (!transactions) {
-    transactions = [];
+  try {
+    const res = await axiosPost<number>('api/v1/transactions', creationDetails);
+    return res;
+  } catch (err) {
+    throw err;
   }
-  const newId = Date.now();
-  transactions.unshift({ ...creationDetails, id: newId });
-  await set(transactions);
-  console.log('newId', newId);
-  return newId;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

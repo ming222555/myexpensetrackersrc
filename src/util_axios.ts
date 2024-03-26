@@ -29,16 +29,9 @@ function axiosVerb<T>(verb: Promise<AxiosResponse<T>>): Promise<T> {
             error.message = 'Internal server error';
             break;
           default:
-            error.message =
-              error.response.data.error || error.response.data.message || error.message || JSON.stringify(error.response.data);
-            if (error.status === 400) {
-              error.message = 'Application error. ' + error.message;
-            }
+            error.message = error.response.data.error || error.message;
         }
-        console.log(
-          'error',
-          error.response.data.error || error.response.data.message || error.message || JSON.stringify(error.response.data),
-        );
+        console.log('error.response.data.error', error.response.data.error);
       } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -51,7 +44,6 @@ function axiosVerb<T>(verb: Promise<AxiosResponse<T>>): Promise<T> {
         console.log('Error', error.message);
         error.status = null;
       }
-      // console.log(error.config);
       throw error;
     });
 }

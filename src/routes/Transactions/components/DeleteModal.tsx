@@ -25,7 +25,7 @@ export default function DeleteModal(props: { selection: number[]; handleClose: (
         {mutation.isPending ? (
           <span>Deleting transaction(s)...</span>
         ) : (
-          <>{mutation.isError ? <span className='text-danger'>An error occurred: {mutation.error.message}</span> : null}</>
+          <>{mutation.isError ? <span className='text-danger'>{mutation.error.message}</span> : null}</>
         )}
         <br />
         <br />

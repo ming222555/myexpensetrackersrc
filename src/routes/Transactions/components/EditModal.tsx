@@ -169,7 +169,7 @@ export default function EditModal(props: {
         {mutation.isPending ? (
           <span>Updating transaction...</span>
         ) : (
-          <>{mutation.isError ? <span className='text-danger'>An error occurred: {mutation.error.message}</span> : null}</>
+          <>{mutation.isError ? <span className='text-danger'>{mutation.error.message}</span> : null}</>
         )}
         <hr />
         <Form onSubmit={handleUpdate}>

@@ -168,7 +168,7 @@ export default function CreateModal(props: {
         {mutation.isPending ? (
           <span>Creating transaction...</span>
         ) : (
-          <>{mutation.isError ? <span className='text-danger'>An error occurred: {mutation.error.message}</span> : null}</>
+          <>{mutation.isError ? <span className='text-danger'>{mutation.error.message}</span> : null}</>
         )}
         <hr />
         <Form onSubmit={handleCreate}>

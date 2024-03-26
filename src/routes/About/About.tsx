@@ -30,8 +30,6 @@ export default function About(): JSX.Element {
           <span className='d-block text-info mb-3'>typescript v4</span>
 
           <span className='d-block text-info'>useDebounce hook from npm rooks</span>
-          <span className='d-block text-info'>sortBy from npm sort-by</span>
-          <span className='d-block text-info'>matchSorter from npm match-sorter</span>
           <span className='d-block text-info mb-3'>indexdb wrapper from npm localforage</span>
           <span className='d-block text-info'>bootstrap v5</span>
           <span className='d-block text-info'>chart.js v4</span>

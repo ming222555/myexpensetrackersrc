@@ -124,13 +124,13 @@ export default function Dashboard(): JSX.Element {
   }, [status, data]);
 
   useMemo(() => {
-    if (data && chartRef.current) {
+    if (data && status == 'success' && chartRef.current) {
       const chart = chartRef.current;
       chart.data.datasets[0].data = data.expenses.map(x => x.expense);
       chart.data.labels = data.expenses.map(x => x.legend);
       chart.update();
     }
-  }, [data]);
+  }, [status, data]);
 
   ////// line Chart for MonthlyBalance, bar Charts MonthlyIncome, MonthlyExpense
   useMemo(() => {
@@ -316,7 +316,12 @@ export default function Dashboard(): JSX.Element {
               {humaniseDateRange(dateRange)}
             </span>
           </h5>
-          <MemoDoughnutExpenses ref={chartRef} options={options} data={initialChartExpensesData.current} />
+          <MemoDoughnutExpenses
+            ref={chartRef}
+            options={options}
+            data={initialChartExpensesData.current}
+            status={isFetchingExpensesByCategory ? 'fetching' : status}
+          />
           <div className='row'>
             <div className='col-12 col-mg-6'>
               <h5 className='h5 pt-5 text-info'>Account - Balance</h5>

@@ -10,3 +10,12 @@
     padding-bottom: 25rem; // square 32rem
   }
 }
+.DoughnutExpenses__Wrapper {
+  position: relative;
+}
+.DoughnutExpenses__status {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+}

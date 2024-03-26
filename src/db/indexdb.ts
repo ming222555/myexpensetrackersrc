@@ -148,155 +148,20 @@ function filterTransactionsByDateRange(transactions: TransactionDto[], dateRange
   return transactions;
 }
 
+/**
+ * @param dateRange e.g. '20191001,20191231', '20191001,' or ',20191231'
+ * @returns ExpensesByCategoryDto object
+ */
 export async function retrieveExpensesByCategory(dateRange: string): Promise<ExpensesByCategoryDto> {
-  // only on categories that are an expense (as opposed to income)
-  // 'Others' refer to category (expense) not listed below e.g. tax
-  const _CATEGORIES = ['bills', 'clothing', 'food', 'healthcare', 'housing', 'insurance', 'shopping', 'transportation', 'utilities'];
-  const _CATEGORIES_DESCRIBE = [
-    'Bills',
-    'Clothing',
-    'Food',
-    'Healthcare',
-    'Housing',
-    'Insurance',
-    'Shopping',
-    'Transport', // 'Transportation',
-    'Utilities',
-  ];
-
-  const EMPTY_EXPENSES = [..._CATEGORIES_DESCRIBE, 'Others'].map(describe => {
-    return {
-      expense: 0,
-      legend: describe + '  $0',
-    };
-  });
-
-  const EMPTY_DTO = {
-    expenses: EMPTY_EXPENSES,
-    sumExpenses: 0,
-  };
-
-  await fakeNetwork();
-  let transactions = await localforage.getItem<TransactionDto[]>('transactions');
-  if (!transactions) {
-    return EMPTY_DTO;
+  // dateRange e.g... '20191001,20191231', '20191001,' or ',20191231'
+  // meaning... 'Oct 1 - Dec 31', 'Oct 1 or later' or 'Dec 31 or earlier'
+  const querystring = dateRange ? `?dateRange=${encodeURIComponent(dateRange)}` : '';
+  try {
+    const res = await axiosGet<ExpensesByCategoryDto>('/api/v1/accounts/expensesbycategory' + querystring);
+    return res;
+  } catch (err) {
+    throw err;
   }
-
-  if (transactions.length === 0) {
-    return EMPTY_DTO;
-  }
-
-  // we only want transactions that are expenses
-  if (transactions.findIndex(trx => trx.cashflow === 'expense') < 0) {
-    return EMPTY_DTO;
-  }
-
-  transactions = transactions.filter(trx => trx.cashflow === 'expense');
-
-  // apply dateRange
-  const filteringTerms = dateRange.split(',');
-  if (filteringTerms.length === 1 && filteringTerms[0] === '') {
-    //
-  } else {
-    const dte = filteringTerms[0];
-    const dte2 = filteringTerms[1];
-
-    if (dte || dte2) {
-      const filterByDateRangeFn = (trx: TransactionDto): boolean => {
-        if (dte && dte2) {
-          if (trx.expenseDate >= parseInt(dte) && trx.expenseDate <= parseInt(dte2)) {
-            return true;
-          }
-          return false;
-        } else if (dte) {
-          if (trx.expenseDate >= parseInt(dte)) {
-            return true;
-          }
-          return false;
-        } else if (dte2) {
-          if (trx.expenseDate <= parseInt(dte2)) {
-            return true;
-          }
-          return false;
-        } else {
-          // here, dte and dte2 both empty strings
-          // by above logic, we shdn't be here, but typescript not aware so it complains
-          return true;
-        }
-      };
-      transactions = transactions.filter(filterByDateRangeFn);
-    }
-  }
-
-  if (transactions.length === 0) {
-    return EMPTY_DTO;
-  }
-
-  // now lets determine the ExpensesByCategory to return...
-  let sumExpenses = 0;
-
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const getExpensesByCategoryObj = (
-    expensesByCategoryObj: {
-      [category: string]: {
-        describe: string;
-        totalAmount: number;
-      };
-    },
-    trx: TransactionDto,
-  ) => {
-    // for each trx
-    //   is trx.category already a key of expensesByCategoryObj?
-    //   if no, then add trx.category as key to expensesByCategoryObj, with initialised value
-    //   else update its totalAmount
-    const category = trx.category;
-    const pos = _CATEGORIES.findIndex(catgy => catgy === category);
-
-    if (pos < 0) {
-      expensesByCategoryObj.others.totalAmount += trx.amount;
-    } else {
-      // is category already a key of expensesByCategoryObj ?
-      if (expensesByCategoryObj[category]) {
-        expensesByCategoryObj[category].totalAmount += trx.amount;
-      } else {
-        expensesByCategoryObj[category] = {
-          describe: _CATEGORIES_DESCRIBE[pos],
-          totalAmount: trx.amount,
-        };
-      }
-    }
-
-    sumExpenses += trx.amount;
-
-    return expensesByCategoryObj;
-  };
-
-  const expensesByCategory = transactions.reduce(getExpensesByCategoryObj, {
-    others: {
-      describe: 'Others',
-      totalAmount: 0,
-    },
-  });
-
-  const expenses = Object.values(expensesByCategory)
-    .map(x => {
-      const expense = parseFloat(x.totalAmount.toFixed(2));
-      const strExpense = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(expense);
-      const strPct = ((x.totalAmount / sumExpenses) * 100).toFixed(2);
-
-      return {
-        expense,
-        legend: x.describe + '  ' + strExpense + '  ' + strPct + '%',
-      };
-    })
-    .sort(function (a, b) {
-      return a.expense - b.expense;
-    });
-
-  return {
-    expenses,
-    sumExpenses,
-  };
 }
 
 /**

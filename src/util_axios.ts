@@ -62,3 +62,8 @@ export function axiosPost<T>(url: string, payload?: any): Promise<T> {
 export function axiosPut<T>(url: string, payload?: any): Promise<T> {
   return axiosVerb<T>(axios.put(url, payload));
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function axiosDelete<T>(url: string, payload?: any): Promise<T> {
+  return axiosVerb<T>(axios.delete(url, payload));
+}

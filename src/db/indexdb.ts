@@ -3,7 +3,7 @@ import localforage from 'localforage';
 import './seed';
 import type { Filter } from '../store/ducks/transactions/transactionsSlice';
 import { TransactionDto, TransactionsPaginatedDataDto, ExpensesByCategoryDto, MonthlyIncomeExpenseBalanceDto } from './dto';
-import { axiosGet, axiosPost, axiosPut } from '../util_axios';
+import { axiosGet, axiosPost, axiosPut, axiosDelete } from '../util_axios';
 
 export const tblCashflows = [
   { name: 'income', label: 'Income' },
@@ -78,62 +78,51 @@ export async function createTransaction(creationDetails: Omit<TransactionDto, 'i
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function deleteTransactions(selection: number[]) {
-  await fakeNetwork();
-  const transactions = await localforage.getItem<TransactionDto[]>('transactions');
-  if (!transactions) {
-    return true;
+  try {
+    const res = await axiosDelete<string>('api/v1/transactions/delete', { data: selection });
+    return res;
+  } catch (err) {
+    throw err;
   }
-  if (transactions.length === 0) {
-    return true;
-  }
-  for (let i = 0; i < selection.length; i++) {
-    const id = selection[i];
-    const pos = transactions.findIndex(trx => trx.id === id);
-    if (pos > -1) {
-      transactions.splice(pos, 1);
-    }
-  }
-  await set(transactions);
-  return true;
 }
 
-function filterTransactionsByDateRange(transactions: TransactionDto[], dateRange: string): TransactionDto[] {
-  // apply dateRange
-  const filteringTerms = dateRange.split(',');
-  if (filteringTerms.length === 1 && filteringTerms[0] === '') {
-    //
-  } else {
-    const dte = filteringTerms[0];
-    const dte2 = filteringTerms[1];
-
-    if (dte || dte2) {
-      const filterByDateRangeFn = (trx: TransactionDto): boolean => {
-        if (dte && dte2) {
-          if (trx.expenseDate >= parseInt(dte) && trx.expenseDate <= parseInt(dte2)) {
-            return true;
-          }
-          return false;
-        } else if (dte) {
-          if (trx.expenseDate >= parseInt(dte)) {
-            return true;
-          }
-          return false;
-        } else if (dte2) {
-          if (trx.expenseDate <= parseInt(dte2)) {
-            return true;
-          }
-          return false;
-        } else {
-          // here, dte and dte2 both empty strings
-          // by above logic, we shdn't be here, but typescript not aware so it complains
-          return true;
-        }
-      };
-      return transactions.filter(filterByDateRangeFn);
-    }
-  }
-  return transactions;
-}
+// function filterTransactionsByDateRange(transactions: TransactionDto[], dateRange: string): TransactionDto[] {
+//   // apply dateRange
+//   const filteringTerms = dateRange.split(',');
+//   if (filteringTerms.length === 1 && filteringTerms[0] === '') {
+//     //
+//   } else {
+//     const dte = filteringTerms[0];
+//     const dte2 = filteringTerms[1];
+//
+//     if (dte || dte2) {
+//       const filterByDateRangeFn = (trx: TransactionDto): boolean => {
+//         if (dte && dte2) {
+//           if (trx.expenseDate >= parseInt(dte) && trx.expenseDate <= parseInt(dte2)) {
+//             return true;
+//           }
+//           return false;
+//         } else if (dte) {
+//           if (trx.expenseDate >= parseInt(dte)) {
+//             return true;
+//           }
+//           return false;
+//         } else if (dte2) {
+//           if (trx.expenseDate <= parseInt(dte2)) {
+//             return true;
+//           }
+//           return false;
+//         } else {
+//           // here, dte and dte2 both empty strings
+//           // by above logic, we shdn't be here, but typescript not aware so it complains
+//           return true;
+//         }
+//       };
+//       return transactions.filter(filterByDateRangeFn);
+//     }
+//   }
+//   return transactions;
+// }
 
 /**
  * @param dateRange e.g. '20191001,20191231', '20191001,' or ',20191231'

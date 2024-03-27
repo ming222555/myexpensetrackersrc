@@ -53,6 +53,12 @@ export function axiosGet<T>(url: string, payload?: any): Promise<T> {
   return axiosVerb<T>(axios.get(url, payload));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function axiosPost<T>(url: string, payload?: any): Promise<T> {
   return axiosVerb<T>(axios.post(url, payload));
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function axiosPut<T>(url: string, payload?: any): Promise<T> {
+  return axiosVerb<T>(axios.put(url, payload));
 }

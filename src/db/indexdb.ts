@@ -3,7 +3,7 @@ import localforage from 'localforage';
 import './seed';
 import type { Filter } from '../store/ducks/transactions/transactionsSlice';
 import { TransactionDto, TransactionsPaginatedDataDto, ExpensesByCategoryDto, MonthlyIncomeExpenseBalanceDto } from './dto';
-import { axiosGet, axiosPost } from '../util_axios';
+import { axiosGet, axiosPost, axiosPut } from '../util_axios';
 
 export const tblCashflows = [
   { name: 'income', label: 'Income' },
@@ -58,19 +58,12 @@ export async function retrieveTransactionsRecent(dateRange: string): Promise<Tra
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function updateTransaction(updates: TransactionDto) {
-  await fakeNetwork();
-  let transactions = await localforage.getItem<TransactionDto[]>('transactions');
-  if (!transactions) {
-    transactions = [];
+  try {
+    const res = await axiosPut<string>('api/v1/transactions/' + updates.id, updates);
+    return res;
+  } catch (err) {
+    throw err;
   }
-  const pos = transactions.findIndex(trx => trx.id === updates.id);
-  if (pos < 0) throw new Error('Transaction id ' + updates.id + ' not found');
-
-  const origTransaction = transactions[pos];
-  const newTransaction = { ...origTransaction, ...updates };
-  transactions[pos] = newTransaction;
-  await set(transactions);
-  return newTransaction;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

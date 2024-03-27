@@ -9,8 +9,12 @@ export interface TransactionDto {
   id: number; // epoch
 }
 
+export interface TransactionWithCodeLabelsDto extends TransactionDto {
+  categorylabel: string;
+}
+
 export interface TransactionsPaginatedDataDto {
-  transactions: TransactionDto[];
+  transactions: TransactionWithCodeLabelsDto[];
   pagenum: number;
   totalPages: number;
   totalItems: number;

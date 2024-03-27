@@ -9,9 +9,9 @@ import {
 } from '../../../store/ducks/transactions/transactionsSlice';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import { delimitMMDDYYYY, zeroPaddMoney } from '../../../util';
-import { TransactionDto } from '../../../db/dto';
+import { TransactionWithCodeLabelsDto } from '../../../db/dto';
 
-function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Element {
+function TransactionsList(props: { transactions: TransactionWithCodeLabelsDto[] }): JSX.Element {
   const transactions = props.transactions;
   const selection = useAppSelector(selectSelection);
   const dispatch = useAppDispatch();
@@ -92,7 +92,7 @@ function TransactionsList(props: { transactions: TransactionDto[] }): JSX.Elemen
             onChange={handleChange}
           />
           <div className='app__col TransactionsList__col TransactionsList__col--category'>
-            <span>{trx.category}</span>
+            <span>{trx.categorylabel}</span>
           </div>
           <div className='app__col TransactionsList__col TransactionsList__col--expensedate'>
             <span>{delimitMMDDYYYY(trx.expenseDate, '-')}</span>

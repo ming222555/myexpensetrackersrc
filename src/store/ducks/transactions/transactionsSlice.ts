@@ -58,6 +58,9 @@ const transactionsSlice = createSlice({
       // state.filter.search = '';
       return { ...state, filter: { ...initialState.filter } };
     },
+    clearFilterExceptDateRange(state) {
+      return { ...state, filter: { ...initialState.filter, dateRange: state.filter.dateRange } };
+    },
     addToSelection(state, action: PayloadAction<number>) {
       const id = action.payload;
       state.selection.push(id);
@@ -84,6 +87,7 @@ export const {
   amountRange,
   dateRange,
   clearFilter,
+  clearFilterExceptDateRange,
   addToSelection,
   removeFromSelection,
   clearSelection,

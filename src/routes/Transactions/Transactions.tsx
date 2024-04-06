@@ -15,6 +15,7 @@ import {
   dateRange,
   selectTransactions,
   clearSelection,
+  clearFilterExceptDateRange,
   initialState,
 } from '../../store/ducks/transactions/transactionsSlice';
 import Search from './components/Search';
@@ -177,6 +178,14 @@ export default function Transactions(): JSX.Element {
   }, []);
 
   const handlePagenumClickDebounced = useDebounce<(selectedItem: { selected: number }) => void>(handlePagenumClick, 500);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearSelection());
+      dispatch(clearFilterExceptDateRange());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     console.log('transactions useeffect filter', Math.random());
